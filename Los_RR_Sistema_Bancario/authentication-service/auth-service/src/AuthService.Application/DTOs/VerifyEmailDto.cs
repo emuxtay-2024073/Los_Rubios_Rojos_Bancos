@@ -1,0 +1,1 @@
+public record VerifyEmailDto(string Token);

@@ -1,0 +1,157 @@
+[2026-02-06 08:45:02 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 08:45:03 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 08:45:03 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 08:45:03 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:04:31 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5I441RG7O:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5I441RG7O"}
+[2026-02-06 09:04:31 INF] HTTP GET /api/v1/health responded 404 in 38.3082 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I441RG7O:00000001","ConnectionId":"0HNJ5I441RG7O"}
+[2026-02-06 09:04:45 INF] HTTP GET /api/v1/health responded 404 in 0.4808 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I441RG7O:00000002","ConnectionId":"0HNJ5I441RG7O"}
+[2026-02-06 09:05:09 INF] HTTP GET /api/v1/health responded 404 in 1.5752 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I441RG7O:00000003","ConnectionId":"0HNJ5I441RG7O"}
+[2026-02-06 09:05:12 INF] HTTP GET /api/v1/health responded 404 in 0.1642 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I441RG7O:00000004","ConnectionId":"0HNJ5I441RG7O"}
+[2026-02-06 09:05:50 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 09:05:51 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 09:05:51 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 09:05:51 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:06:05 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 09:06:05 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 09:06:06 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 09:06:06 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:06:27 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5I56JLUF7:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5I56JLUF7"}
+[2026-02-06 09:06:27 INF] HTTP GET /api/v1/health responded 404 in 23.4118 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I56JLUF7:00000001","ConnectionId":"0HNJ5I56JLUF7"}
+[2026-02-06 09:06:43 INF] HTTP GET /api/v1/health responded 404 in 1.6846 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I56JLUF7:00000002","ConnectionId":"0HNJ5I56JLUF7"}
+[2026-02-06 09:06:52 INF] HTTP GET /api/v1/health responded 404 in 0.9261 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I56JLUF7:00000003","ConnectionId":"0HNJ5I56JLUF7"}
+[2026-02-06 09:07:55 INF] HTTP GET /api/v1/health responded 404 in 0.1211 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I56JLUF7:00000004","ConnectionId":"0HNJ5I56JLUF7"}
+[2026-02-06 09:09:54 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 09:09:54 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 09:09:54 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 09:09:54 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:10:02 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5I76KCM8E:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:10:02 INF] HTTP GET /api/v1/health responded 404 in 23.7048 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000001","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:10:32 INF] HTTP GET /api/v1/health responded 404 in 1.8576 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000002","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:12:05 INF] HTTP GET /api/v1/health responded 404 in 0.9447 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000003","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:12:13 INF] HTTP GET /api/v1/health responded 404 in 0.4678 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000004","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:13:18 INF] HTTP GET /api/v1/health responded 404 in 0.1003 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000005","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:13:19 INF] HTTP GET /api/v1/health responded 404 in 0.1531 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000006","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:13:19 INF] HTTP GET /api/v1/health responded 404 in 0.0806 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000007","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:13:20 INF] HTTP GET /api/v1/health responded 404 in 0.1025 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I76KCM8E:00000008","ConnectionId":"0HNJ5I76KCM8E"}
+[2026-02-06 09:14:15 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 09:14:15 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 09:14:15 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 09:14:15 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:14:40 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5I9PDI2PJ:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5I9PDI2PJ"}
+[2026-02-06 09:14:40 INF] HTTP GET /api/v1/health responded 404 in 21.1561 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PJ:00000001","ConnectionId":"0HNJ5I9PDI2PJ"}
+[2026-02-06 09:14:46 INF] HTTP GET /api/v1/health responded 404 in 1.1225 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PJ:00000002","ConnectionId":"0HNJ5I9PDI2PJ"}
+[2026-02-06 09:14:49 INF] HTTP GET /api/v1/health responded 404 in 1.4493 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PJ:00000003","ConnectionId":"0HNJ5I9PDI2PJ"}
+[2026-02-06 09:16:09 INF] HTTP GET /api/v1/health responded 404 in 0.1058 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PL:00000001","ConnectionId":"0HNJ5I9PDI2PL"}
+[2026-02-06 09:16:22 INF] HTTP GET /api/v1/health responded 404 in 0.0839 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PL:00000002","ConnectionId":"0HNJ5I9PDI2PL"}
+[2026-02-06 09:16:42 INF] HTTP GET /api/v1/health responded 404 in 0.2907 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PL:00000003","ConnectionId":"0HNJ5I9PDI2PL"}
+[2026-02-06 09:16:43 INF] HTTP GET /api/v1/health responded 404 in 0.1141 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5I9PDI2PL:00000004","ConnectionId":"0HNJ5I9PDI2PL"}
+[2026-02-06 09:17:12 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 09:17:12 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 09:17:12 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 09:17:12 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:17:22 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5IB9TTHTD:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5IB9TTHTD"}
+[2026-02-06 09:17:22 INF] HTTP GET /api/v1/health responded 404 in 21.9275 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IB9TTHTD:00000001","ConnectionId":"0HNJ5IB9TTHTD"}
+[2026-02-06 09:17:27 INF] HTTP GET /api/v1/health responded 404 in 0.6623 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IB9TTHTD:00000002","ConnectionId":"0HNJ5IB9TTHTD"}
+[2026-02-06 09:17:35 INF] HTTP GET /api/v1/health responded 404 in 1.4957 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IB9TTHTD:00000003","ConnectionId":"0HNJ5IB9TTHTD"}
+[2026-02-06 09:17:40 INF] HTTP GET /api/v1/health responded 404 in 0.0848 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IB9TTHTD:00000004","ConnectionId":"0HNJ5IB9TTHTD"}
+[2026-02-06 09:21:17 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 09:21:18 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 09:21:18 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 09:21:18 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 09:21:30 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5IDJLMOQD:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5IDJLMOQD"}
+[2026-02-06 09:21:30 INF] HTTP GET /api/v1/health responded 200 in 74.3670 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQD:00000001","ConnectionId":"0HNJ5IDJLMOQD"}
+[2026-02-06 10:18:34 INF] HTTP POST /api/v1login responded 404 in 0.9560 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQF:00000001","ConnectionId":"0HNJ5IDJLMOQF"}
+[2026-02-06 10:22:52 INF] HTTP POST /api/v1login responded 404 in 1.1598 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQH:00000001","ConnectionId":"0HNJ5IDJLMOQH"}
+[2026-02-06 10:25:14 INF] HTTP POST /api/v1login responded 404 in 0.1201 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQJ:00000001","ConnectionId":"0HNJ5IDJLMOQJ"}
+[2026-02-06 10:26:39 INF] HTTP POST /api/v1login responded 404 in 0.1028 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQJ:00000002","ConnectionId":"0HNJ5IDJLMOQJ"}
+[2026-02-06 10:26:57 INF] HTTP POST /api/v1/login responded 404 in 0.0938 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQJ:00000003","ConnectionId":"0HNJ5IDJLMOQJ"}
+[2026-02-06 10:30:50 INF] HTTP POST /api/v1/login responded 404 in 0.1044 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5IDJLMOQL:00000001","ConnectionId":"0HNJ5IDJLMOQL"}
+[2026-02-06 10:31:39 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 10:31:39 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 10:31:40 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 10:31:40 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 10:32:08 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5JL2OKLN4:00000001","RequestPath":"/api/v1/login","ConnectionId":"0HNJ5JL2OKLN4"}
+[2026-02-06 10:32:08 INF] HTTP POST /api/v1/login responded 404 in 17.0459 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JL2OKLN4:00000001","ConnectionId":"0HNJ5JL2OKLN4"}
+[2026-02-06 10:32:16 INF] HTTP GET /api/v1/health responded 200 in 60.1686 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JL2OKLN4:00000002","ConnectionId":"0HNJ5JL2OKLN4"}
+[2026-02-06 10:32:20 INF] HTTP POST /api/v1/login responded 404 in 1.5058 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JL2OKLN4:00000003","ConnectionId":"0HNJ5JL2OKLN4"}
+[2026-02-06 10:34:00 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 10:34:00 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 10:34:01 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 10:34:01 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 10:42:09 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5JQLPQ8MH:00000001","RequestPath":"/api/v1/login","ConnectionId":"0HNJ5JQLPQ8MH"}
+[2026-02-06 10:42:09 INF] HTTP POST /api/v1/login responded 404 in 22.3906 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JQLPQ8MH:00000001","ConnectionId":"0HNJ5JQLPQ8MH"}
+[2026-02-06 10:43:18 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 10:43:19 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 10:43:19 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 10:43:19 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 10:43:41 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5JRH5GIO9:00000001","RequestPath":"/api/v1/login","ConnectionId":"0HNJ5JRH5GIO9"}
+[2026-02-06 10:43:41 INF] HTTP POST /api/v1/login responded 404 in 22.2748 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JRH5GIO9:00000001","ConnectionId":"0HNJ5JRH5GIO9"}
+[2026-02-06 10:43:46 INF] HTTP GET /api/v1/health responded 200 in 51.2825 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JRH5GIO9:00000002","ConnectionId":"0HNJ5JRH5GIO9"}
+[2026-02-06 10:43:48 INF] HTTP POST /api/v1/login responded 404 in 1.5065 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JRH5GIO9:00000003","ConnectionId":"0HNJ5JRH5GIO9"}
+[2026-02-06 10:45:07 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 10:45:07 ERR] Ocurrió un error al inicializar la base de datos {"SourceContext":"Program"}
+Npgsql.PostgresException (0x80004005): 28P01: password authentication failed for user "IN6AM"
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.Internal.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|214_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Exists(Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseCreator.EnsureCreatedAsync(CancellationToken cancellationToken)
+   at Program.<Main>$(String[] args) in C:\Users\Informatica\Documents\2021276\KinalSports\authentication-service\auth-service\src\AuthService.Api\Program.cs:line 131
+  Exception data:
+    Severity: FATAL
+    SqlState: 28P01
+    MessageText: password authentication failed for user "IN6AM"
+    File: auth.c
+    Line: 339
+    Routine: auth_failed
+[2026-02-06 10:45:23 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 10:45:23 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 10:45:24 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 10:45:24 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 10:45:32 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5JSIGS4H8:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5JSIGS4H8"}
+[2026-02-06 10:45:33 INF] HTTP GET /api/v1/health responded 200 in 81.1597 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JSIGS4H8:00000001","ConnectionId":"0HNJ5JSIGS4H8"}
+[2026-02-06 10:46:14 INF] HTTP POST /api/v1/login responded 404 in 1.7235 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JSIGS4H8:00000002","ConnectionId":"0HNJ5JSIGS4H8"}
+[2026-02-06 10:48:19 WRN] Failed login attempt {"EventId":{"Id":1003,"Name":"LogFailedLoginAttempt"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"383ef56a-596e-4a1e-9f0b-40eb49eb5311","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNJ5JSIGS4H8:00000003","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNJ5JSIGS4H8"}
+[2026-02-06 10:48:19 ERR] An unhandled exception occurred {"SourceContext":"AuthService.Api.Middlewares.GlobalExceptionMiddleware","RequestId":"0HNJ5JSIGS4H8:00000003","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNJ5JSIGS4H8"}
+System.UnauthorizedAccessException: Credenciales inválidas
+   at AuthService.Application.Services.AuthService.LoginAsync(LoginDto loginDto) in C:\Users\Informatica\Documents\2021276\KinalSports\authentication-service\auth-service\src\AuthService.Application\Services\AuthService.cs:line 193
+   at AuthService.Api.Controllers.AuthController.Login(LoginDto loginDto) in C:\Users\Informatica\Documents\2021276\KinalSports\authentication-service\auth-service\src\AuthService.Api\Controllers\AuthController.cs:line 17
+   at lambda_method22(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at AuthService.Api.Middlewares.GlobalExceptionMiddleware.InvokeAsync(HttpContext context) in C:\Users\Informatica\Documents\2021276\KinalSports\authentication-service\auth-service\src\AuthService.Api\Middlewares\GlobalExceptionMiddleware.cs:line 18
+[2026-02-06 10:48:19 INF] HTTP POST /api/v1/auth/login responded 401 in 633.3643 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JSIGS4H8:00000003","ConnectionId":"0HNJ5JSIGS4H8"}
+[2026-02-06 10:50:52 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 10:50:53 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 10:50:53 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 10:50:53 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 10:50:58 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5JVJI2309:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5JVJI2309"}
+[2026-02-06 10:50:58 INF] HTTP GET /api/v1/health responded 200 in 82.1301 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JVJI2309:00000001","ConnectionId":"0HNJ5JVJI2309"}
+[2026-02-06 10:51:04 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"b685fca6-392c-4b05-aec8-522698454ea7","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNJ5JVJI2309:00000002","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNJ5JVJI2309"}
+[2026-02-06 10:51:04 INF] HTTP POST /api/v1/auth/login responded 200 in 456.3631 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5JVJI2309:00000002","ConnectionId":"0HNJ5JVJI2309"}
+[2026-02-06 11:32:24 INF] Verificando conexión a la base de datos... {"SourceContext":"Program"}
+[2026-02-06 11:32:24 INF] Base de datos lista. Ejecutando datos semilla... {"SourceContext":"Program"}
+[2026-02-06 11:32:24 INF] Inicialización de base de datos completada exitosamente {"SourceContext":"Program"}
+[2026-02-06 11:32:24 INF] API de AuthService está ejecutándose en http://localhost:5022. Endpoint de salud: http://localhost:5022/api/v1/health {"SourceContext":"Program"}
+[2026-02-06 11:32:30 WRN] Failed to determine the https port for redirect. {"EventId":{"Id":3,"Name":"FailedToDeterminePort"},"SourceContext":"Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware","RequestId":"0HNJ5KMQ6DOGD:00000001","RequestPath":"/api/v1/health","ConnectionId":"0HNJ5KMQ6DOGD"}
+[2026-02-06 11:32:30 INF] HTTP GET /api/v1/health responded 200 in 82.1272 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5KMQ6DOGD:00000001","ConnectionId":"0HNJ5KMQ6DOGD"}
+[2026-02-06 11:32:34 INF] User login succeeded {"EventId":{"Id":1002,"Name":"LogUserLoggedIn"},"SourceContext":"AuthService.Application.Services.AuthService","ActionId":"1464e499-2420-4693-a462-8fe99250ee68","ActionName":"AuthService.Api.Controllers.AuthController.Login (AuthService.Api)","RequestId":"0HNJ5KMQ6DOGD:00000002","RequestPath":"/api/v1/auth/login","ConnectionId":"0HNJ5KMQ6DOGD"}
+[2026-02-06 11:32:34 INF] HTTP POST /api/v1/auth/login responded 200 in 441.7855 ms {"SourceContext":"Serilog.AspNetCore.RequestLoggingMiddleware","RequestId":"0HNJ5KMQ6DOGD:00000002","ConnectionId":"0HNJ5KMQ6DOGD"}
