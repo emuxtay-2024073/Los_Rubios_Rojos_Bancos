@@ -1,0 +1,79 @@
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.deps.json
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.AssemblyReference.cache
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfoInputs.cache
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfo.cs
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthServ.5D1D95C4.Up2Date
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.deps.json
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.AssemblyReference.cache
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfoInputs.cache
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfo.cs
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthServ.5D1D95C4.Up2Date
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.sourcelink.json
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.deps.json
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.AssemblyReference.cache
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfoInputs.cache
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfo.cs
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.sourcelink.json
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthServ.5D1D95C4.Up2Date
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.deps.json
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.AssemblyReference.cache
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfoInputs.cache
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfo.cs
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.sourcelink.json
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthServ.5D1D95C4.Up2Date
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.deps.json
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.AssemblyReference.cache
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfoInputs.cache
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfo.cs
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.sourcelink.json
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthServ.5D1D95C4.Up2Date
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
