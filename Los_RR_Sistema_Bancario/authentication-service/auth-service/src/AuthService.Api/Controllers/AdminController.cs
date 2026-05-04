@@ -6,6 +6,7 @@ using System.Security.Claims;
 
 namespace AuthService.Api.Controllers;
 
+[ApiExplorerSettings(IgnoreApi = true)]
 [ApiController]
 [Route("api/management")]
 public class AdminController : ControllerBase

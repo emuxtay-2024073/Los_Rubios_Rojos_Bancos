@@ -26,6 +26,7 @@ El sistema está dividido en microservicios independientes, cada uno responsable
 - Generación y validación de tokens JWT
 - Verificación de roles y permisos
 - Gestión de perfiles de usuario
+- Administración de clientes: agregar, listar y eliminar
 
 ### Banking Service (Node.js)
 - Gestión de cuentas bancarias
@@ -67,6 +68,8 @@ Ambos servicios incluyen documentación interactiva con Swagger/OpenAPI.
 
 Descripción: Documentación completa de las APIs, incluyendo endpoints, parámetros, esquemas de respuesta y posibilidad de probar los endpoints directamente desde el navegador.
 
+Nota: en Swagger de .NET solo quedan visibles `POST /api/auth/login` y el CRUD de clientes en `POST /api/clientes`, `GET /api/clientes` y `DELETE /api/clientes/{id}`. El alta/listado/eliminación de clientes requiere token `Bearer` con rol `Admin`.
+
 ---
 
 ## Ejecución
@@ -99,13 +102,14 @@ Descripción: Documentación completa de las APIs, incluyendo endpoints, paráme
 ### Públicas
 | Método | Ruta                          | Descripción                     | Servicio |
 | ------ | ----------------------------- | ------------------------------- | -------- |
-| POST   | /api/auth/register            | Registro de usuario             | .NET & Node.js |
 | POST   | /api/auth/login               | Inicio de sesión y obtención JWT | .NET & Node.js |
 
 ### Protegidas (requieren JWT)
 | Método | Ruta                          | Descripción                     | Servicio |
 | ------ | ----------------------------- | ------------------------------- | -------- |
-| GET    | /api/auth/me                  | Obtener perfil del usuario      | .NET |
+| POST   | /api/clientes                 | Agregar cliente                 | .NET |
+| GET    | /api/clientes                 | Listar clientes                 | .NET |
+| DELETE | /api/clientes/{id}            | Eliminar cliente                | .NET |
 | GET    | /accounts                     | Listar cuentas (dependiendo del rol) | Node.js |
 | POST   | /accounts/create              | Crear cuenta bancaria           | Node.js |
 | POST   | /accounts/deposit             | Depositar dinero                | Node.js |

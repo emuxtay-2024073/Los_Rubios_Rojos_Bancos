@@ -7,6 +7,7 @@ namespace AuthService.Api.Controllers
     /// <summary>
     /// Controlador para verificar la salud del sistema
     /// </summary>
+    [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Route("api/health")]
     public class HealthController : ControllerBase

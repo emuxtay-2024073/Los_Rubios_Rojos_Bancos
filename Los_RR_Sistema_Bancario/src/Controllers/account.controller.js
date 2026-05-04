@@ -14,6 +14,14 @@ export const createAccount = async (req, res) => {
             });
         }
 
+        // Verificar que el usuario tenga rol Admin
+        if (req.user.role !== 'Admin') {
+            return res.status(403).json({ 
+                message: "Solo los administradores pueden crear cuentas bancarias.",
+                error: "INSUFFICIENT_PERMISSIONS"
+            });
+        }
+
         const { type, initialBalance } = req.body;
 
         if (!type) {

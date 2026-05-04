@@ -24,6 +24,7 @@ public class AuthController : ControllerBase
         return result.Success ? Ok(result) : Unauthorized(result);
     }
 
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
@@ -32,6 +33,7 @@ public class AuthController : ControllerBase
         return result.Success ? Ok(result) : BadRequest(result);
     }
 
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpGet("me")]
     [Authorize]
     public IActionResult GetMe()

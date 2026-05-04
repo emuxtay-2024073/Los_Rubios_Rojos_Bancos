@@ -65,14 +65,27 @@ namespace AuthService.Persistence.Repositories
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<List<User>> GetClientsAsync()
+        {
+            return await _context.User
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .Where(u => u.UserRoles.Any(ur => ur.Role.Name == "Cliente"))
+                .OrderBy(u => u.Username)
+                .ToListAsync();
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var user = await _context.User.FindAsync(id);
-            if (user != null)
+            if (user == null)
             {
-                _context.User.Remove(user);
-                await _context.SaveChangesAsync();
+                return false;
             }
+
+            _context.User.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

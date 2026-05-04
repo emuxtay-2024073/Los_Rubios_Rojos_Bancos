@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+/* Solamente estilos globales */
+@theme {
+  --color-main-blue: #D83030;
+  --color-secondary: #3C1518;
+  --color-tertiary: #323832;
+  --color-accent: #DE994E;
+  --color-surface: #F2D7AD;
+  --color-surface-soft: #FFF3DB;
+  --color-card: #FFF9EE;
+  --color-text: #3C1518;
+  --color-muted: #7E6551;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  --main-blue: #D83030;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out;
+}
+
+.bg-gray-50 {
+  background-color: var(--color-surface) !important;
+}
+
+.bg-slate-50 {
+  background-color: var(--color-surface-soft) !important;
+}
+
+.bg-white {
+  background-color: var(--color-card) !important;
+}
+
+.bg-gray-100 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.text-gray-900 {
+  color: var(--color-secondary) !important;
+}
+
+.text-gray-700,
+.text-gray-600 {
+  color: var(--color-tertiary) !important;
+}
+
+.border-gray-200 {
+  border-color: rgba(60, 21, 24, 0.14) !important;
+}
+
+.bg-main-blue {
+  background-color: var(--main-blue) !important;
+}
+
+.text-main-blue {
+  color: var(--main-blue) !important;
+}
+
+.border-main-blue {
+  border-color: var(--main-blue) !important;
+}
+
+.focus\:border-main-blue:focus {
+  border-color: var(--main-blue) !important;
+}
+
+.bg-red-600 {
+  background-color: #D83030 !important;
+}
+
+.hover\:bg-red-700:hover {
+  background-color: #B12B2B !important;
+}
+
+.bg-black\/40 {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+.sidebar-underline {
+  position: relative;
+}
+.sidebar-underline.active::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 6px;
+  height: 5px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(216, 48, 48, 0.18) 0%,
+    #D83030 50%,
+    rgba(216, 48, 48, 0.18) 100%
+  );
+  filter: blur(1.5px);
+  z-index: 1;
+}
