@@ -60,7 +60,7 @@ public class AuthService : IAuthService
     public async Task<AuthResponseDto> Register(RegisterDto dto)
     {
         if (!IsPasswordStrong(dto.Password)) 
-            return new AuthResponseDto { Success = false, Message = "La contraseña no cumple los requisitos bancarios." };
+            return new AuthResponseDto { Success = false, Message = "La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial. Ejemplo: MiPass123!" };
 
         if (await _users.ExistsAsync(dto.Email)) 
             return new AuthResponseDto { Success = false, Message = "El email ya está registrado" };
@@ -77,6 +77,8 @@ public class AuthService : IAuthService
     {
         Email = dto.Email,
         Username = string.IsNullOrWhiteSpace(dto.Username) ? dto.Email.Split('@')[0] : dto.Username,
+                PhoneNumber = dto.PhoneNumber,
+                Dpi = dto.Dpi,
         PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password, 12),
         EmailConfirmed = false,
         VerificationToken = Guid.NewGuid().ToString(),
@@ -127,7 +129,7 @@ public class AuthService : IAuthService
             throw new Exception("El token es inválido o ha expirado.");
 
         if (!IsPasswordStrong(dto.NewPassword))
-            throw new Exception("La contraseña no cumple los requisitos mínimos.");
+            throw new Exception("La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial. Ejemplo: MiPass123!");
 
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword, 12);
         user.ResetToken = null; 

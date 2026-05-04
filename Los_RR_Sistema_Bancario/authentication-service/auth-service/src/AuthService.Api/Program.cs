@@ -14,6 +14,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.SetMinimumLevel(LogLevel.Warning);
+builder.Logging.AddFilter("Program", LogLevel.Information);
+builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning);
+builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
+
 
 // ============================================
 // CONFIGURACIÓN DE BASE DE DATOS
@@ -74,14 +81,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // ============================================
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
-    options.AddPolicy("Cliente", policy => policy.RequireRole("Cliente"));
-    options.AddPolicy("Cajero", policy => policy.RequireRole("Cajero"));
-    options.AddPolicy("Auditor", policy => policy.RequireRole("Auditor"));
-    options.AddPolicy("CanMakeTransactions", policy => 
-        policy.RequireRole("Cliente", "Cajero", "Admin"));
-    options.AddPolicy("CanViewReports", policy => 
-        policy.RequireRole("Auditor", "Admin"));
+    options.AddPolicy("Admin", policy => policy.RequireRole("ADMIN"));
+    options.AddPolicy("Cliente", policy => policy.RequireRole("CLIENTE"));
 });
 
 // ============================================
@@ -89,7 +90,7 @@ builder.Services.AddAuthorization(options =>
 // ============================================
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-builder.Services.AddScoped<AuthService.Application.Interfaces.IAuthService, AuthService.Application.Services.AuthService>();
+builder.Services.AddScoped<IAuthService, AuthService.Application.Services.AuthService>();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
@@ -123,7 +124,8 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Sistema Bancario API",
         Version = "v1",
-        Description = "API REST para sistema bancario seguro"
+        Description = "API REST para sistema bancario seguro con autenticación JWT. " +
+                      "Roles disponibles: CLIENTE (operaciones básicas), ADMIN (gestión completa)."
     });
 
     // Configurar JWT en Swagger
@@ -134,7 +136,8 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Ingrese 'Bearer' [espacio] y luego su token"
+        Description = "Ingrese 'Bearer' [espacio] y luego su token. " +
+                      "Para endpoints ADMIN, el usuario debe tener rol ADMIN."
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -177,7 +180,10 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
 }
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Middlewares de seguridad (ORDEN IMPORTANTE)
 app.UseMiddleware<SecurityHeadersMiddleware>();
@@ -201,7 +207,26 @@ app.MapGet("/", () => new
     version = "1.0.0",
     status = "running",
     timestamp = DateTime.UtcNow
-}).AllowAnonymous();
+}).AllowAnonymous().ExcludeFromDescription();
+
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    var swaggerUrls = app.Urls
+        .Where(url => url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) || url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+        .Select(url => $"{url.TrimEnd('/')}/swagger")
+        .ToArray();
+
+    if (swaggerUrls.Length == 0)
+    {
+        Console.WriteLine("Swagger disponible en: http://localhost:5109/swagger");
+        return;
+    }
+
+    foreach (var swaggerUrl in swaggerUrls)
+    {
+        Console.WriteLine($"Swagger disponible en: {swaggerUrl}");
+    }
+});
 
 // ============================================
 // INICIALIZACIÓN DE BD (Versión Estable)
@@ -220,7 +245,7 @@ using (var scope = app.Services.CreateScope())
         // Ejecutamos de forma síncrona para evitar el error CS4034 en el Program.cs
         context.Database.Migrate(); 
         
-        dbLogger.LogInformation("✅ Base de datos inicializada correctamente");
+        dbLogger.LogInformation("Base de datos inicializada correctamente");
 
         // Usamos .Count() en lugar de CountAsync para no necesitar await
         var rolesCount = context.Role.Count();
@@ -228,7 +253,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        dbLogger.LogError(ex, "❌ Error al conectar o inicializar la base de datos.");
+        dbLogger.LogError(ex, "Error al conectar o inicializar la base de datos.");
     }
 }
 
@@ -236,8 +261,8 @@ using (var scope = app.Services.CreateScope())
 // INICIAR SERVIDOR
 // ============================================
 var logger = app.Services.GetRequiredService<ILogger<Program>>();
-logger.LogInformation("🚀 Sistema Bancario API iniciando...");
-logger.LogInformation("🌐 Entorno: {Environment}", app.Environment.EnvironmentName);
+logger.LogInformation("Sistema Bancario API iniciando...");
+logger.LogInformation("Entorno: {Environment}", app.Environment.EnvironmentName);
 
 app.Run();
 

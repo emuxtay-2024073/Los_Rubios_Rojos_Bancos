@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D83030" />
+      <stop offset="100%" stop-color="#DE994E" />
+    </linearGradient>
+  </defs>
+  <circle cx="128" cy="128" r="124" fill="#F2D7AD" stroke="#3C1518" stroke-width="10" />
+  <path d="M128 24 A104 104 0 0 1 232 128 L128 128 Z" fill="#D83030" opacity="0.95" />
+  <path d="M128 24 A104 104 0 0 0 24 128 L128 128 Z" fill="#3C1518" opacity="0.95" />
+  <path d="M128 128 L232 128 A104 104 0 0 1 128 232 Z" fill="#323832" opacity="0.95" />
+  <path d="M128 128 L24 128 A104 104 0 0 0 128 232 Z" fill="#DE994E" opacity="0.95" />
+  <g transform="translate(72 72)">
+    <rect x="0" y="16" width="16" height="88" rx="6" fill="#F2D7AD" />
+    <rect x="28" y="8" width="16" height="96" rx="6" fill="#F2D7AD" />
+    <rect x="56" y="16" width="16" height="88" rx="6" fill="#F2D7AD" />
+    <path d="M0 16 Q28 -18 56 16 T112 16" fill="none" stroke="#3C1518" stroke-width="10" stroke-linecap="round" />
+  </g>
+</svg>

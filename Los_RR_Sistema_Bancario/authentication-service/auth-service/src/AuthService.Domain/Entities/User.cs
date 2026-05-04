@@ -9,6 +9,8 @@ namespace AuthService.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Email { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+        public string Dpi { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
 
         public bool IsActive { get; set; } = true;
@@ -24,8 +26,8 @@ namespace AuthService.Domain.Entities
         // --- RELACIONES ---
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 
-        public string MainRole => (UserRoles != null && UserRoles.Any()) 
-            ? UserRoles.First().Role?.Name ?? "Cliente" 
-            : "Cliente";
+        public string Role { get; set; } = "CLIENTE";
+
+        public string MainRole => Role;
     }
 }
