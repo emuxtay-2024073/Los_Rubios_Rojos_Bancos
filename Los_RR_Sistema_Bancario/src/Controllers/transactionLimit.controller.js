@@ -93,7 +93,7 @@ export const setUserLimits = async (req, res) => {
     } = req.body;
 
     // Validar que sea admin
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden establecer límites personalizados",
       });
@@ -190,7 +190,7 @@ export const setDefaultLimits = async (req, res) => {
     } = req.body;
 
     // Validar permisos de super-admin
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden establecer límites por defecto",
       });
@@ -257,7 +257,7 @@ export const removeLimitForUser = async (req, res) => {
   try {
     const { limitId } = req.params;
 
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden eliminar límites",
       });
@@ -286,7 +286,7 @@ export const removeLimitForUser = async (req, res) => {
  */
 export const getAllLimits = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden ver todos los límites",
       });

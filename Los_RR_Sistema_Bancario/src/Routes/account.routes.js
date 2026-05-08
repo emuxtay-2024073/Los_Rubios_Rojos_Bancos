@@ -59,7 +59,7 @@ router.use(validateJWT);
  *       403:
  *         description: Permiso denegado
  */
-router.post('/create', requireRole('Admin', 'Cliente'), createAccount);
+router.post('/create', requireRole('admin', 'cliente'), createAccount);
 
 /**
  * @swagger

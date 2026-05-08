@@ -242,7 +242,7 @@ export const convertCurrency = async (req, res) => {
  */
 export const addExchangeRate = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden agregar tasas de cambio",
       });
@@ -371,7 +371,7 @@ export const getConversionHistory = async (req, res) => {
  */
 export const getAllExchangeRates = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden ver todas las tasas",
       });
@@ -417,7 +417,7 @@ export const getAllExchangeRates = async (req, res) => {
  */
 export const deactivateExchangeRate = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden desactivar tasas",
       });
@@ -428,7 +428,7 @@ export const deactivateExchangeRate = async (req, res) => {
     const rate = await ExchangeRate.findByIdAndUpdate(
       rateId,
       { isActive: false },
-      { new: true }
+      { returnDocument: 'after' }
     );
 
     if (!rate) {

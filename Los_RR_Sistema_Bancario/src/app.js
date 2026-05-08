@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import { connectDB } from "./Config/database.js";
 
 import authRoutes from "./Routes/authroutes.js";
 import accountRoutes from "./Routes/account.routes.js";
@@ -16,18 +15,11 @@ import userRoutes from "./Routes/user.routes.js";
 
 dotenv.config();
 
-console.log("SECRET:", process.env.JWT_SECRET);
-console.log("LENGTH:", process.env.JWT_SECRET?.length);
-console.log("ISSUER:", process.env.JWT_ISSUER);
-console.log("AUDIENCE:", process.env.JWT_AUDIENCE);
-
 const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
-
-connectDB();
 
 // Configuración de Swagger
 const swaggerOptions = {
@@ -64,16 +56,7 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 function filterSwaggerPaths(spec) {
   if (!spec || !spec.paths) return spec;
   const filtered = JSON.parse(JSON.stringify(spec));
-  Object.keys(filtered.paths).forEach((p) => {
-    // Ocultar solo autenticación y rutas de estado del Swagger de Node
-    if (
-      p.startsWith('/api/auth') ||
-      p.startsWith('/auth') ||
-      p.startsWith('/api/health')
-    ) {
-      delete filtered.paths[p];
-    }
-  });
+  // Mostrar todas las rutas, incluyendo auth si es necesario
   return filtered;
 }
 

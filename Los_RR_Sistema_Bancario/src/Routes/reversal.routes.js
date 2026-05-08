@@ -91,7 +91,7 @@ router.get('/', getUserReversals);
  *       200:
  *         description: Reversiones pendientes
  */
-router.get('/pending', requireRole('ADMIN'), getPendingReversals);
+router.get('/pending', requireRole('admin'), getPendingReversals);
 
 /**
  * @swagger
@@ -113,7 +113,7 @@ router.get('/pending', requireRole('ADMIN'), getPendingReversals);
  *       400:
  *         description: No se puede procesar (estado inválido o fondos insuficientes)
  */
-router.post('/:reversalId/approve', requireRole('ADMIN'), approveReversal);
+router.post('/:reversalId/approve', requireRole('admin'), approveReversal);
 
 /**
  * @swagger
@@ -143,7 +143,7 @@ router.post('/:reversalId/approve', requireRole('ADMIN'), approveReversal);
  *       200:
  *         description: Reversión rechazada
  */
-router.post('/:reversalId/reject', requireRole('ADMIN'), rejectReversal);
+router.post('/:reversalId/reject', requireRole('admin'), rejectReversal);
 
 /**
  * @swagger

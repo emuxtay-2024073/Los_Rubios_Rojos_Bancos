@@ -6,7 +6,7 @@ import { Transaction } from "../Models/transaction.model.js";
 // =====================================================
 export const getTransactions = async (req, res) => {
   try {
-    const isAdmin = req.user.roles.includes("Admin");
+    const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
 
     let transactions;
 
@@ -62,7 +62,7 @@ export const transfer = async (req, res) => {
     }
 
     // Verificar que la cuenta origen pertenece al usuario autenticado
-    if (!req.user.roles.includes("Admin") && fromAccount.userId !== req.user.id) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && fromAccount.userId !== req.user.id) {
       return res.status(403).json({ message: "No tienes permiso sobre la cuenta origen" });
     }
 
