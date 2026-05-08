@@ -8,5 +8,6 @@ public interface IAuthService
     Task<AuthResponseDto> Register(RegisterDto dto);
     Task<bool> VerifyEmail(string token); 
     Task ForgotPassword(string email);    
-    Task ResetPassword(ResetPasswordDto dto); 
+    Task ResetPassword(ResetPasswordDto dto);
+    IJwtService GetJwtService();
 }

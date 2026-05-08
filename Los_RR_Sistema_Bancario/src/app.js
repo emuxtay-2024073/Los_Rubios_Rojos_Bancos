@@ -12,8 +12,14 @@ import beneficiaryRoutes from "./Routes/beneficiary.routes.js";
 import transactionLimitRoutes from "./Routes/transactionLimit.routes.js";
 import reversalRoutes from "./Routes/reversal.routes.js";
 import currencyRoutes from "./Routes/currency.routes.js";
+import userRoutes from "./Routes/user.routes.js";
 
 dotenv.config();
+
+console.log("SECRET:", process.env.JWT_SECRET);
+console.log("LENGTH:", process.env.JWT_SECRET?.length);
+console.log("ISSUER:", process.env.JWT_ISSUER);
+console.log("AUDIENCE:", process.env.JWT_AUDIENCE);
 
 const app = express();
 
@@ -95,6 +101,7 @@ app.use("/beneficiaries", beneficiaryRoutes);
 app.use("/limits", transactionLimitRoutes);
 app.use("/reversals", reversalRoutes);
 app.use("/currency", currencyRoutes);
+app.use("/users", userRoutes);
 
 app.use((req, res) => {
     res.status(404).json({ message: "Ruta no encontrada" });

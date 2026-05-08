@@ -27,13 +27,11 @@ const transactionSchema = new mongoose.Schema({
         min: 0
     },
     originAccount: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Account',
+        type: String,
         index: true
     },
     destinationAccount: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Account',
+        type: String,
         index: true
     },
     date: {

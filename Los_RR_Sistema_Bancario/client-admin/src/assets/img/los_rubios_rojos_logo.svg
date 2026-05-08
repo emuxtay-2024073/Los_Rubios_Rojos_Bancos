@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D83030" />
-      <stop offset="100%" stop-color="#DE994E" />
-    </linearGradient>
-  </defs>
-  <circle cx="128" cy="128" r="124" fill="#F2D7AD" stroke="#3C1518" stroke-width="10" />
-  <path d="M128 24 A104 104 0 0 1 232 128 L128 128 Z" fill="#D83030" opacity="0.95" />
-  <path d="M128 24 A104 104 0 0 0 24 128 L128 128 Z" fill="#3C1518" opacity="0.95" />
-  <path d="M128 128 L232 128 A104 104 0 0 1 128 232 Z" fill="#323832" opacity="0.95" />
-  <path d="M128 128 L24 128 A104 104 0 0 0 128 232 Z" fill="#DE994E" opacity="0.95" />
-  <g transform="translate(72 72)">
-    <rect x="0" y="16" width="16" height="88" rx="6" fill="#F2D7AD" />
-    <rect x="28" y="8" width="16" height="96" rx="6" fill="#F2D7AD" />
-    <rect x="56" y="16" width="16" height="88" rx="6" fill="#F2D7AD" />
-    <path d="M0 16 Q28 -18 56 16 T112 16" fill="none" stroke="#3C1518" stroke-width="10" stroke-linecap="round" />
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <rect width="256" height="256" rx="40" fill="#F5EEDA" />
+  <circle cx="128" cy="128" r="92" fill="#FFFFFF" />
+  <path d="M96 68h20c22 0 36 12 36 32 0 12-6 20-14 24 10 4 16 12 16 26 0 20-14 32-36 32h-20V68z" fill="#002D62" />
+  <path d="M104 92h12c10 0 16 4 16 12s-6 12-16 12h-12V92z" fill="#005691" />
+  <path d="M104 156h12c10 0 16 4 16 12s-6 12-16 12h-12v-24z" fill="#005691" />
+  <path d="M92 60l32-12 32 12-8 20-24-9-24 9z" fill="#C9A063" opacity="0.95" />
+  <circle cx="160" cy="72" r="9" fill="#C9A063" />
 </svg>

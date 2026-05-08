@@ -19,8 +19,7 @@ import mongoose from "mongoose";
 const beneficiarySchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
       index: true,
     },
@@ -32,8 +31,7 @@ const beneficiarySchema = new mongoose.Schema(
       maxlength: 50,
     },
     accountId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Account",
+      type: String,
       required: true,
     },
     accountNumber: {

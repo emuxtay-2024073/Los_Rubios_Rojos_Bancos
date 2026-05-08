@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { getAccounts, getTransactions, transferMoney } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
+import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime, formatMoney } from '../shared/utils/banking.js';
 
@@ -17,6 +18,7 @@ export const Transfers = () => {
   const [search, setSearch] = useState('');
   const [form, setForm] = useState(emptyTransfer);
   const [transferModalOpen, setTransferModalOpen] = useState(false);
+  const isAdmin = useAuthStore((state) => state.isAdmin);
 
   const loadData = async () => {
     try {
@@ -81,14 +83,19 @@ export const Transfers = () => {
         <div>
           <p className='text-sm text-gray-500'>Movimientos entre cuentas</p>
           <h1 className='text-3xl font-bold text-main-blue'>Transferencias</h1>
+          {isAdmin && (
+            <p className='mt-2 text-sm text-gray-500'>Vista de sólo lectura para administradores. Puedes filtrar y revisar transferencias, pero no crear nuevas desde aquí.</p>
+          )}
         </div>
-        <button
-          type='button'
-          onClick={openTransferForm}
-          className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
-        >
-          + Nueva transferencia
-        </button>
+        {!isAdmin && (
+          <button
+            type='button'
+            onClick={openTransferForm}
+            className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+          >
+            + Nueva transferencia
+          </button>
+        )}
       </div>
 
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
@@ -126,7 +133,7 @@ export const Transfers = () => {
             </thead>
             <tbody>
               {filteredTransactions.map((transaction) => (
-                <tr key={transaction._id} className='border-t border-gray-100 hover:bg-slate-50'>
+                <tr key={transaction._id ?? `${transaction.date}-${transaction.amount}`} className='border-t border-gray-100 hover:bg-slate-50'>
                   <td className='px-5 py-4'>{transaction.type}</td>
                   <td className='px-5 py-4'>{transaction.originAccount?.accountNumber ?? '—'}</td>
                   <td className='px-5 py-4'>{transaction.destinationAccount?.accountNumber ?? '—'}</td>

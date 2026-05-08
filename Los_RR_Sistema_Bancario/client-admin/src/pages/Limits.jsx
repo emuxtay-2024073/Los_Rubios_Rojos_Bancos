@@ -172,7 +172,7 @@ export const Limits = () => {
             </thead>
             <tbody>
               {filteredLimits.map((limit) => (
-                <tr key={limit._id} className='border-t border-gray-100 hover:bg-slate-50'>
+                <tr key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='border-t border-gray-100 hover:bg-slate-50'>
                   <td className='px-5 py-4'>{limit.userId?.username ?? 'Sistema'}</td>
                   <td className='px-5 py-4'>{limit.accountType || 'General'}</td>
                   <td className='px-5 py-4'>{limit.transactionType || 'General'}</td>
@@ -189,7 +189,7 @@ export const Limits = () => {
                     <button
                       type='button'
                       onClick={() => handleDelete(limit)}
-                      className='rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700'
+                      className='rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition hover:opacity-90'
                     >
                       Eliminar
                     </button>
@@ -237,7 +237,7 @@ export const Limits = () => {
                   >
                     <option value=''>Seleccionar</option>
                     {users.map((user) => (
-                      <option key={user._id} value={user._id}>
+                      <option key={user._id ?? user.email} value={user._id}>
                         {user.username} · {user.email}
                       </option>
                     ))}

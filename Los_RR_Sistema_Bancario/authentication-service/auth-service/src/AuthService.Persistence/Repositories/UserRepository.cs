@@ -29,6 +29,16 @@ namespace AuthService.Persistence.Repositories
             return await _context.User.AnyAsync(u => u.Email == email);
         }
 
+        public async Task<bool> ExistsByUsernameAsync(string username)
+        {
+            return await _context.User.AnyAsync(u => u.Username == username);
+        }
+
+        public async Task<bool> ExistsByDpiAsync(string dpi)
+        {
+            return await _context.User.AnyAsync(u => u.Dpi == dpi);
+        }
+
         public async Task<User?> GetByVerificationTokenAsync(string token)
         {
             return await _context.User
@@ -63,6 +73,15 @@ namespace AuthService.Persistence.Repositories
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
                 .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<List<User>> GetAllAsync()
+        {
+            return await _context.User
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .OrderBy(u => u.Username)
+                .ToListAsync();
         }
 
         public async Task<List<User>> GetClientsAsync()

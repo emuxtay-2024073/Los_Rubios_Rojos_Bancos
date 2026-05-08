@@ -96,7 +96,7 @@ export const Dashboard = () => {
           </div>
           <div className='mt-6 space-y-4'>
             {recentAccounts.map((account) => (
-              <article key={account._id} className='rounded-3xl border border-slate-100 p-4'>
+              <article key={account._id ?? account.accountNumber} className='rounded-3xl border border-slate-100 p-4'>
                 <h3 className='font-semibold text-slate-900'>{account.accountNumber}</h3>
                 <p className='text-sm text-gray-500'>{toTitleCase(account.type)}</p>
                 <div className='mt-3 flex flex-wrap gap-x-3 gap-y-2 text-sm text-slate-600'>
@@ -116,7 +116,7 @@ export const Dashboard = () => {
           </div>
           <div className='mt-6 space-y-4'>
             {recentTransactions.map((transaction) => (
-              <article key={transaction._id} className='rounded-3xl border border-slate-100 p-4'>
+              <article key={transaction._id ?? `${transaction.date}-${transaction.amount}`} className='rounded-3xl border border-slate-100 p-4'>
                 <div className='flex items-center justify-between gap-4'>
                   <p className='font-semibold text-slate-900'>{transaction.type}</p>
                   <span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700'>
@@ -142,7 +142,7 @@ export const Dashboard = () => {
           </div>
           <div className='mt-6 space-y-4'>
             {limits.slice(0, 4).map((limit) => (
-              <article key={limit._id} className='rounded-3xl border border-slate-100 p-4'>
+              <article key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='rounded-3xl border border-slate-100 p-4'>
                 <p className='font-semibold text-slate-900'>
                   {toTitleCase(limit.accountType || 'General')} · {limit.transactionType || 'General'}
                 </p>
@@ -161,7 +161,7 @@ export const Dashboard = () => {
           </div>
           <div className='mt-6 space-y-4'>
             {recentReversals.map((reversal) => (
-              <article key={reversal._id} className='rounded-3xl border border-slate-100 p-4'>
+              <article key={reversal._id ?? reversal.transactionId} className='rounded-3xl border border-slate-100 p-4'>
                 <p className='font-semibold text-slate-900'>{reversal.reason}</p>
                 <p className='mt-1 text-sm text-gray-500'>Transacción #{String(reversal.transactionId?._id ?? reversal.transactionId).slice(-6)}</p>
                 <p className='mt-2 text-sm text-gray-600'>{formatMoney(reversal.amount)}</p>

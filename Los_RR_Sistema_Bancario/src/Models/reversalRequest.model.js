@@ -29,14 +29,12 @@ import mongoose from "mongoose";
 const reversalRequestSchema = new mongoose.Schema(
   {
     transactionId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Transaction",
+      type: String,
       required: true,
       unique: true,
     },
     requestedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
       index: true,
     },
@@ -69,8 +67,8 @@ const reversalRequestSchema = new mongoose.Schema(
       min: 0,
     },
     originalTransaction: {
-      fromAccountId: mongoose.Schema.Types.ObjectId,
-      toAccountId: mongoose.Schema.Types.ObjectId,
+      fromAccountId: String,
+      toAccountId: String,
       amount: Number,
       date: Date,
     },
@@ -83,8 +81,7 @@ const reversalRequestSchema = new mongoose.Schema(
       default: null,
     },
     processedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       default: null,
     },
     rejectionReason: {

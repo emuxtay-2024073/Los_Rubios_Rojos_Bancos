@@ -7,6 +7,7 @@ import {
   updateBeneficiary,
 } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
+import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime } from '../shared/utils/banking.js';
 
@@ -24,6 +25,7 @@ export const Beneficiaries = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeBeneficiary, setActiveBeneficiary] = useState(null);
   const [form, setForm] = useState(emptyBeneficiary);
+  const isAdmin = useAuthStore((state) => state.isAdmin);
 
   const loadBeneficiaries = async () => {
     try {
@@ -120,15 +122,20 @@ export const Beneficiaries = () => {
     <div className='space-y-8'>
       <div className='flex flex-col gap-4 md:flex-row md:justify-between md:items-end'>
         <div>
-          <p className='text-sm text-gray-500'>Cuentas favoritas</p>
+          <p className='text-sm text-gray-500'>Beneficiarios asociados</p>
           <h1 className='text-3xl font-bold text-main-blue'>Beneficiarios</h1>
+          {isAdmin && (
+            <p className='mt-2 text-sm text-gray-500'>Vista de sólo lectura. El administrador puede revisar beneficiarios y su cuenta asociada, pero no puede crear ni editar aquí.</p>
+          )}
         </div>
-        <button
-          onClick={() => handleOpenModal(null)}
-          className='rounded-full bg-main-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90'
-        >
-          + Nuevo beneficiario
-        </button>
+        {!isAdmin && (
+          <button
+            onClick={() => handleOpenModal(null)}
+            className='rounded-full bg-main-blue px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90'
+          >
+            + Nuevo beneficiario
+          </button>
+        )}
       </div>
 
       <div className='flex flex-col gap-4 md:flex-row md:items-center'>
@@ -143,7 +150,7 @@ export const Beneficiaries = () => {
 
       <div className='grid gap-5 md:grid-cols-2 xl:grid-cols-3'>
         {filteredBeneficiaries.map((beneficiary) => (
-          <article key={beneficiary._id} className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+          <article key={beneficiary._id ?? beneficiary.accountNumber} className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
             <div className='flex items-start justify-between gap-4'>
               <div>
                 <h2 className='text-xl font-semibold text-slate-900'>{beneficiary.name}</h2>
@@ -155,29 +162,31 @@ export const Beneficiaries = () => {
             </div>
             <p className='mt-4 text-sm text-slate-600'>{beneficiary.description || 'Sin descripción'}</p>
             <p className='mt-2 text-xs text-gray-500'>Agregado {formatDateTime(beneficiary.addedAt)}</p>
-            <div className='mt-5 flex flex-wrap gap-2'>
-              <button
-                type='button'
-                onClick={() => handleOpenModal(beneficiary)}
-                className='rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200'
-              >
-                Editar
-              </button>
-              <button
-                type='button'
-                onClick={() => handleToggleFavorite(beneficiary)}
-                className='rounded-full bg-amber-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-700'
-              >
-                {beneficiary.isFavorite ? 'Quitar favorito' : 'Marcar favorito'}
-              </button>
-              <button
-                type='button'
-                onClick={() => handleDelete(beneficiary)}
-                className='rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-red-700'
-              >
-                Eliminar
-              </button>
-            </div>
+            {!isAdmin && (
+              <div className='mt-5 flex flex-wrap gap-2'>
+                <button
+                  type='button'
+                  onClick={() => handleOpenModal(beneficiary)}
+                  className='rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-200'
+                >
+                  Editar
+                </button>
+                <button
+                  type='button'
+                  onClick={() => handleToggleFavorite(beneficiary)}
+                  className='rounded-full bg-amber-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-700'
+                >
+                  {beneficiary.isFavorite ? 'Quitar favorito' : 'Marcar favorito'}
+                </button>
+                <button
+                  type='button'
+                  onClick={() => handleDelete(beneficiary)}
+                  className='rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition hover:opacity-90'
+                >
+                  Eliminar
+                </button>
+              </div>
+            )}
           </article>
         ))}
         {filteredBeneficiaries.length === 0 && (

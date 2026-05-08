@@ -26,8 +26,7 @@ import mongoose from "mongoose";
 const transactionLimitSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       default: null, // null si es límite por defecto
       index: true,
     },

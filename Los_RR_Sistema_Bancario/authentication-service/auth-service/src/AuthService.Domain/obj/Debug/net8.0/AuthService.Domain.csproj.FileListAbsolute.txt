@@ -69,3 +69,15 @@ C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_
 C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
 C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
 C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll

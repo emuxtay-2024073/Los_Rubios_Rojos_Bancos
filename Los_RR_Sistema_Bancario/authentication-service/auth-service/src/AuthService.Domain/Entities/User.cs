@@ -17,14 +17,29 @@ namespace AuthService.Domain.Entities
         public bool IsLocked { get; set; } = false; 
         public int FailedLoginAttempts { get; set; } = 0;
         public DateTime? LastLogin { get; set; }
+        public DateTime? LastPasswordChangeAt { get; set; }
 
         public bool EmailConfirmed { get; set; } = false;
         public string? VerificationToken { get; set; }
         public string? ResetToken { get; set; }
         public DateTime? ResetTokenExpires { get; set; }
 
+        // --- DISABLE REQUEST & DISABILITY ---
+        public bool HasDisableRequest { get; set; } = false;
+        public string? DisableRequestReason { get; set; }
+        public DateTime? DisableRequestedAt { get; set; }
+        public bool IsDisabled { get; set; } = false;
+        public string? DisabilityReason { get; set; }
+        public DateTime? DisabledAt { get; set; }
+        
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+
         // --- RELACIONES ---
         public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public ICollection<UserEmail>? UserEmails { get; set; }
+        public ICollection<UserPasswordReset>? PasswordResets { get; set; }
+        public UserProfile? Profile { get; set; }
 
         public string Role { get; set; } = "CLIENTE";
 
