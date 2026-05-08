@@ -66,7 +66,7 @@ export const Fields = () => {
       <div className='grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
         {safeFields.map((field) => (
           <div
-            key={field._id}
+            key={field._id ?? field.name}
             className='bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:scale-[1.02]'
           >
             {/* IMAGEN */}
@@ -112,7 +112,7 @@ export const Fields = () => {
                 </button>
 
                 <button
-                  className='flex-1 py-2 rounded-lg bg-red-600 text-white font-medium hover:bg-red-700 transition'
+                  className='flex-1 py-2 rounded-lg bg-accent text-white font-medium hover:opacity-90 transition'
                   onClick={() => handleDeleteField(field._id, field.fieldName)}
                 >
                   Eliminar

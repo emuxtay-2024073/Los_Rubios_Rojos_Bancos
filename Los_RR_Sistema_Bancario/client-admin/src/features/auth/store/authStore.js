@@ -19,6 +19,49 @@ const parseJwt = (token) => {
   }
 };
 
+const resolveClaim = (claims, keys) => {
+  if (!claims) return null;
+  for (const key of keys) {
+    const value = claims[key];
+    if (value !== undefined && value !== null) {
+      return value;
+    }
+  }
+  return null;
+};
+
+const getRoleFromClaims = (claims) => {
+  const rawRole = resolveClaim(claims, [
+    'role',
+    'roles',
+    'http://schemas.microsoft.com/ws/2008/06/identity/claims/role',
+  ]);
+
+  if (Array.isArray(rawRole)) {
+    return String(rawRole[0] || '').trim();
+  }
+  return String(rawRole || '').trim();
+};
+
+const getUserIdFromClaims = (claims) => {
+  return (
+    resolveClaim(claims, [
+      'sub',
+      'id',
+      'userId',
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier',
+    ]) || null
+  );
+};
+
+const isAdminRole = (role) => {
+  return ['ADMIN', 'ADMIN_ROLE'].includes(role?.toString().toUpperCase());
+};
+
+const isValidRole = (role) => {
+  return ['ADMIN', 'ADMIN_ROLE', 'CLIENTE'].includes(role?.toString().toUpperCase());
+};
+
 export const useAuthStore = create(
   persist(
     (set, get) => ({
@@ -30,13 +73,13 @@ export const useAuthStore = create(
       error: null,
       isLoadingAuth: true,
       isAuthenticated: false,
+      isAdmin: false,
       checkAuth: () => {
         const token = get().token;
         const role = get().user?.role;
-        const adminRoles = ['ADMIN', 'ADMIN_ROLE'];
-        const isAdmin = adminRoles.includes(role);
+        const validRole = isValidRole(role);
 
-        if (token && !isAdmin) {
+        if (token && !validRole) {
           set({
             user: null,
             token: null,
@@ -44,6 +87,7 @@ export const useAuthStore = create(
             expiresAt: null,
             isLoadingAuth: true,
             isAuthenticated: false,
+            isAdmin: false,
             error: 'El acceso está restringido al personal autorizado',
           });
           return;
@@ -51,7 +95,8 @@ export const useAuthStore = create(
 
         set({
           isLoadingAuth: false,
-          isAuthenticated: Boolean(token) && isAdmin,
+          isAuthenticated: Boolean(token) && validRole,
+          isAdmin: isAdminRole(role),
         });
       },
 
@@ -62,6 +107,7 @@ export const useAuthStore = create(
           refreshToken: null,
           expiresAt: null,
           isAuthenticated: false,
+          isAdmin: false,
         });
       },
 
@@ -83,10 +129,11 @@ export const useAuthStore = create(
           }
 
           const claims = parseJwt(token);
-          const role = claims?.role;
-          const adminRoles = ['ADMIN', 'ADMIN_ROLE'];
-          if (!adminRoles.includes(role)) {
-              const message = 'El acceso está restringido al personal autorizado';
+          const role = getRoleFromClaims(claims);
+          const validRole = isValidRole(role);
+
+          if (!validRole) {
+            const message = 'El acceso está restringido al personal autorizado';
             set({
               user: null,
               token: null,
@@ -94,6 +141,7 @@ export const useAuthStore = create(
               expiresAt: null,
               isLoadingAuth: true,
               isAuthenticated: false,
+              isAdmin: false,
               error: message,
               loading: false,
             });
@@ -104,15 +152,16 @@ export const useAuthStore = create(
 
           set({
             user: {
-              id: claims?.sub,
-              username: claims?.unique_name,
-              email: claims?.email,
-              role: 'ADMIN',
+              id: getUserIdFromClaims(claims),
+              username: resolveClaim(claims, ['unique_name', 'name', 'preferred_username']) || null,
+              email: resolveClaim(claims, ['email', 'upn', 'preferred_username']) || null,
+              role: role || 'Cliente',
             },
             token,
             refreshToken: null,
             expiresAt: claims?.exp ? new Date(claims.exp * 1000).toISOString() : null,
             isAuthenticated: true,
+            isAdmin: isAdminRole(role),
             loading: false,
           });
           return { success: true };

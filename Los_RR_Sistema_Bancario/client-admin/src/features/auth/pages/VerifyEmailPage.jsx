@@ -23,7 +23,10 @@ export const VerifyEmailPage = () => {
   const renderIcon = () => {
     if (status === 'success') {
       return (
-        <div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-sm'>
+        <div
+          className='mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-sm'
+          style={{ backgroundColor: 'rgba(0, 45, 98, 0.1)', color: '#002D62' }}
+        >
           <span className='text-5xl'>✅</span>
         </div>
       );
@@ -31,14 +34,20 @@ export const VerifyEmailPage = () => {
 
     if (status === 'loading') {
       return (
-        <div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-slate-100 text-slate-700 shadow-sm'>
-          <div className='h-12 w-12 animate-spin rounded-full border-4 border-solid border-slate-300 border-t-transparent' />
+        <div
+          className='mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-sm'
+          style={{ backgroundColor: 'rgba(194, 183, 163, 0.14)', color: '#005691', border: '1px solid rgba(0, 45, 98, 0.12)' }}
+        >
+          <div className='h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-t-transparent' />
         </div>
       );
     }
 
     return (
-      <div className='mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-rose-100 text-rose-700 shadow-sm'>
+      <div
+        className='mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-sm'
+        style={{ backgroundColor: 'rgba(201, 160, 99, 0.18)', color: '#C9A063' }}
+      >
         <span className='text-5xl'>❌</span>
       </div>
     );
@@ -57,20 +66,20 @@ export const VerifyEmailPage = () => {
   };
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-amber-50 via-white to-rose-50 px-4 py-12'>
-      <div className='mx-auto max-w-3xl rounded-[2rem] border border-slate-200 bg-white/95 p-8 shadow-2xl backdrop-blur-sm'>
+    <div className='min-h-screen bg-surface px-4 py-12'>
+      <div className='mx-auto max-w-3xl rounded-[2rem] border border-gray-200 bg-white/95 p-8 shadow-2xl backdrop-blur-sm'>
         <div className='flex flex-col items-center text-center'>
-          <img src={logo} alt='Los Rubios Rojos Logo' className='mb-6 h-20 w-20 rounded-full border border-slate-200 bg-white p-3 shadow-sm' />
+          <img src={logo} alt='Los Rubios Rojos Logo' className='mb-6 h-20 w-20 rounded-full border border-gray-200 bg-white p-3 shadow-sm' />
           {renderIcon()}
-          <h1 className='text-3xl font-semibold text-slate-900'>{renderTitle()}</h1>
-          <p className='mt-4 max-w-2xl text-sm leading-7 text-slate-600'>{renderSubtitle()}</p>
+          <h1 className='text-3xl font-semibold text-gray-900'>{renderTitle()}</h1>
+          <p className='mt-4 max-w-2xl text-sm leading-7 text-gray-700'>{renderSubtitle()}</p>
 
           <div className='mt-8 flex flex-col items-center gap-3 sm:flex-row'>
             {status !== 'loading' && (
               <button
                 type='button'
                 onClick={() => navigate('/')}
-                className='inline-flex items-center justify-center rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700'
+                className='inline-flex items-center justify-center rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'
               >
                 Ir al inicio
               </button>

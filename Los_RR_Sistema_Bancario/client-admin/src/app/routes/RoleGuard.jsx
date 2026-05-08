@@ -8,8 +8,12 @@ export const RoleGuard = ({ children, allowedRoles = [] }) => {
   const allowed = allowedRoles.map((role) => role.toUpperCase());
   const hasAccess = isAuthenticated && allowed.includes(user?.role?.toUpperCase());
 
-  if (!hasAccess) {
+  if (!isAuthenticated) {
     return <Navigate to='/' replace />;
+  }
+
+  if (!hasAccess) {
+    return <Navigate to='/unauthorized' replace />;
   }
 
   return children;

@@ -1,17 +1,25 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useAuthStore } from '../../../features/auth/store/authStore.js';
 
 export const Sidebar = () => {
   const location = useLocation();
+  const userRole = useAuthStore((state) => state.user?.role);
+  const role = userRole?.toString().toUpperCase();
+  const isAdmin = role === 'ADMIN' || role === 'ADMIN_ROLE';
 
   const items = [
     { label: 'Dashboard', to: '/dashboard' },
     { label: 'Cuentas', to: '/dashboard/accounts' },
     { label: 'Beneficiarios', to: '/dashboard/beneficiaries' },
     { label: 'Transferencias', to: '/dashboard/transactions' },
-    { label: 'Límites', to: '/dashboard/limits' },
-    { label: 'Reversiones', to: '/dashboard/reversals' },
-    { label: 'Divisas', to: '/dashboard/currency' },
-    { label: 'Usuarios', to: '/dashboard/users' },
+    ...(isAdmin
+      ? [
+          { label: 'Límites', to: '/dashboard/limits' },
+          { label: 'Reversiones', to: '/dashboard/reversals' },
+          { label: 'Divisas', to: '/dashboard/currency' },
+          { label: 'Usuarios', to: '/dashboard/users' },
+        ]
+      : []),
   ];
 
   const isActive = (itemTo) => {

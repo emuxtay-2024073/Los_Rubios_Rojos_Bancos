@@ -45,8 +45,7 @@ const exchangeRateSchema = new mongoose.Schema(
       default: "MANUAL",
     },
     lastUpdatedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       default: null,
     },
     validUntil: {
@@ -82,8 +81,7 @@ exchangeRateSchema.index({ fromCurrency: 1, toCurrency: 1, isActive: 1 });
 const currencyConversionSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      type: String,
       required: true,
       index: true,
     },
@@ -112,8 +110,7 @@ const currencyConversionSchema = new mongoose.Schema(
       required: true,
     },
     transactionId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Transaction",
+      type: String,
       default: null,
     },
     conversionDate: {

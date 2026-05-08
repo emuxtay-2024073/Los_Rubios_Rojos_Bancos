@@ -8,6 +8,7 @@ import {
   getExchangeRates,
 } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
+import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime, formatMoney } from '../shared/utils/banking.js';
 
@@ -31,6 +32,7 @@ export const Currency = () => {
   const [rateForm, setRateForm] = useState(emptyRateForm);
   const [convertForm, setConvertForm] = useState(emptyConvertForm);
   const [conversionResult, setConversionResult] = useState(null);
+  const isAdmin = useAuthStore((state) => state.isAdmin);
 
   const loadData = async () => {
     try {
@@ -163,64 +165,72 @@ export const Currency = () => {
           </button>
         </form>
 
-        <form onSubmit={handleConvert} className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm space-y-4'>
-          <div>
-            <p className='text-sm text-gray-500'>Conversión</p>
-            <h2 className='text-xl font-semibold text-slate-900'>Convertir moneda</h2>
-          </div>
-          <div className='grid gap-4 sm:grid-cols-3'>
-            <input
-              type='number'
-              min='0'
-              step='0.01'
-              placeholder='Monto'
-              value={convertForm.amount}
-              onChange={(event) => setConvertForm({ ...convertForm, amount: event.target.value })}
-              className='rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
-              required
-            />
-            <input
-              type='text'
-              placeholder='Origen'
-              value={convertForm.fromCurrency}
-              onChange={(event) => setConvertForm({ ...convertForm, fromCurrency: event.target.value.toUpperCase() })}
-              className='rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
-              required
-            />
-            <input
-              type='text'
-              placeholder='Destino'
-              value={convertForm.toCurrency}
-              onChange={(event) => setConvertForm({ ...convertForm, toCurrency: event.target.value.toUpperCase() })}
-              className='rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
-              required
-            />
-          </div>
-          <div className='flex flex-wrap gap-3'>
-            <button type='submit' className='rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
-              Convertir
-            </button>
-            <button
-              type='button'
-              onClick={handleGetRate}
-              className='rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
-            >
-              Consultar tasa
-            </button>
-          </div>
-          {conversionResult && (
-            <div className='rounded-2xl bg-slate-50 p-4 text-sm text-slate-700'>
-              <p>
-                Tasa: <strong>{conversionResult.rate ?? conversionResult.exchangeRate ?? 0}</strong>
-              </p>
-              {'convertedAmount' in conversionResult && (
-                <p>
-                  Monto convertido: <strong>{formatMoney(conversionResult.convertedAmount)}</strong>
-                </p>
-              )}
+        {!isAdmin && (
+          <form onSubmit={handleConvert} className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm space-y-4'>
+            <div>
+              <p className='text-sm text-gray-500'>Conversión</p>
+              <h2 className='text-xl font-semibold text-slate-900'>Convertir moneda</h2>
             </div>
-          )}
-        </form>
+            <div className='grid gap-4 sm:grid-cols-3'>
+              <input
+                type='number'
+                min='0'
+                step='0.01'
+                placeholder='Monto'
+                value={convertForm.amount}
+                onChange={(event) => setConvertForm({ ...convertForm, amount: event.target.value })}
+                className='rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                required
+              />
+              <input
+                type='text'
+                placeholder='Origen'
+                value={convertForm.fromCurrency}
+                onChange={(event) => setConvertForm({ ...convertForm, fromCurrency: event.target.value.toUpperCase() })}
+                className='rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                required
+              />
+              <input
+                type='text'
+                placeholder='Destino'
+                value={convertForm.toCurrency}
+                onChange={(event) => setConvertForm({ ...convertForm, toCurrency: event.target.value.toUpperCase() })}
+                className='rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                required
+              />
+            </div>
+            <div className='flex flex-wrap gap-3'>
+              <button type='submit' className='rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
+                Convertir
+              </button>
+              <button
+                type='button'
+                onClick={handleGetRate}
+                className='rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+              >
+                Consultar tasa
+              </button>
+            </div>
+            {conversionResult && (
+              <div className='rounded-2xl bg-slate-50 p-4 text-sm text-slate-700'>
+                <p>
+                  Tasa: <strong>{conversionResult.rate ?? conversionResult.exchangeRate ?? 0}</strong>
+                </p>
+                {'convertedAmount' in conversionResult && (
+                  <p>
+                    Monto convertido: <strong>{formatMoney(conversionResult.convertedAmount)}</strong>
+                  </p>
+                )}
+              </div>
+            )}
+          </form>
+        )}
+        {isAdmin && (
+          <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+            <p className='text-sm text-gray-500'>Configuración de divisas</p>
+            <p className='mt-2 text-slate-700'>El administrador puede gestionar tipos de cambio y ver el historial de uso. Las conversiones de usuarios se aplican en las transacciones.</p>
+          </div>
+        )}
       </div>
 
       <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
@@ -250,7 +260,7 @@ export const Currency = () => {
             </thead>
             <tbody>
               {filteredRates.map((rate) => (
-                <tr key={rate._id} className='border-t border-gray-100 hover:bg-slate-50'>
+                <tr key={rate._id ?? `${rate.fromCurrency}-${rate.toCurrency}`} className='border-t border-gray-100 hover:bg-slate-50'>
                   <td className='px-5 py-4'>{rate.fromCurrency}</td>
                   <td className='px-5 py-4'>{rate.toCurrency}</td>
                   <td className='px-5 py-4'>{rate.rate}</td>

@@ -8,6 +8,7 @@ import {
   requestReversal,
 } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
+import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime, formatMoney } from '../shared/utils/banking.js';
 
@@ -23,6 +24,7 @@ export const Reversals = () => {
   const [search, setSearch] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
+  const isAdmin = useAuthStore((state) => state.isAdmin);
 
   const loadData = async () => {
     try {
@@ -87,14 +89,10 @@ export const Reversals = () => {
         <div>
           <p className='text-sm text-gray-500'>Operaciones especiales</p>
           <h1 className='text-3xl font-bold text-main-blue'>Reversiones</h1>
+          {isAdmin && (
+            <p className='mt-2 text-sm text-gray-500'>Aquí puedes revisar y resolver solicitudes de reversión. No se envían nuevas solicitudes desde la vista del administrador.</p>
+          )}
         </div>
-        <button
-          type='button'
-          onClick={() => setModalOpen(true)}
-          className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
-        >
-          + Solicitar reversión
-        </button>
       </div>
 
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
@@ -102,7 +100,7 @@ export const Reversals = () => {
           <p className='text-sm text-gray-500'>Solicitudes totales</p>
           <p className='mt-2 text-3xl font-semibold text-slate-900'>{reversals.length}</p>
         </article>
-        <article className='rounded-3xl border border-amber-200 bg-amber-50 p-6 shadow-sm'>
+        <article className='rounded-3xl border border-accent bg-surface-soft p-6 shadow-sm'>
           <p className='text-sm text-amber-700'>Pendientes</p>
           <p className='mt-2 text-3xl font-semibold text-amber-800'>{pendingReversals.length}</p>
         </article>
@@ -133,7 +131,7 @@ export const Reversals = () => {
             </thead>
             <tbody>
               {filteredReversals.map((reversal) => (
-                <tr key={reversal._id} className='border-t border-gray-100 hover:bg-slate-50'>
+                <tr key={reversal._id ?? reversal.transactionId} className='border-t border-gray-100 hover:bg-slate-50'>
                   <td className='px-5 py-4'>{String(reversal.transactionId?._id ?? reversal.transactionId ?? '').slice(-8)}</td>
                   <td className='px-5 py-4'>{formatMoney(reversal.transactionId?.amount)}</td>
                   <td className='px-5 py-4'>{reversal.reason || 'Sin motivo'}</td>
@@ -157,7 +155,7 @@ export const Reversals = () => {
                           <button
                             type='button'
                             onClick={() => handleAction(reversal, 'reject')}
-                            className='rounded-full bg-red-600 px-3 py-2 text-xs font-semibold text-white hover:bg-red-700'
+                            className='rounded-full bg-accent px-3 py-2 text-xs font-semibold text-white hover:opacity-90'
                           >
                             Rechazar
                           </button>

@@ -24,20 +24,74 @@ export const AppRoutes = () => {
         path='/dashboard/*'
         element={
           <ProtectedRoutes>
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
-              <DashboardPage />
-            </RoleGuard>
+            <DashboardPage />
           </ProtectedRoutes>
         }
       >
-        <Route index element={<Dashboard />} />
-        <Route path='accounts' element={<Accounts />} />
-        <Route path='beneficiaries' element={<Beneficiaries />} />
-        <Route path='transactions' element={<Transfers />} />
-        <Route path='limits' element={<Limits />} />
-        <Route path='reversals' element={<Reversals />} />
-        <Route path='currency' element={<Currency />} />
-        <Route path='users' element={<Users />} />
+        <Route
+          index
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
+              <Dashboard />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='accounts'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
+              <Accounts />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='beneficiaries'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
+              <Beneficiaries />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='transactions'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
+              <Transfers />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='limits'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
+              <Limits />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='reversals'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
+              <Reversals />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='currency'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
+              <Currency />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='users'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
+              <Users />
+            </RoleGuard>
+          }
+        />
         <Route path='*' element={<Navigate to='/dashboard' replace />} />
       </Route>
     </Routes>

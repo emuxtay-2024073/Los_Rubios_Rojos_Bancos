@@ -18,7 +18,7 @@ export function showConfirmToast({ title, message, onConfirm }) {
             onConfirm?.();
             toast.dismiss(t.id);
           }}
-          className='px-5 py-2 rounded-lg bg-red-600 text-white font-medium hover:bg-red-700 transition'
+          className='px-5 py-2 rounded-lg bg-accent text-white font-medium hover:opacity-90 transition'
         >
           Confirmar
         </button>

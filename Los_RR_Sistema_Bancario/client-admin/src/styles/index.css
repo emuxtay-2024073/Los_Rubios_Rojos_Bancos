@@ -1,15 +1,15 @@
 @import 'tailwindcss';
 /* Solamente estilos globales */
 @theme {
-  --color-main-blue: #D83030;
-  --color-secondary: #3C1518;
-  --color-tertiary: #323832;
-  --color-accent: #DE994E;
-  --color-surface: #F2D7AD;
-  --color-surface-soft: #FFF3DB;
-  --color-card: #FFF9EE;
-  --color-text: #3C1518;
-  --color-muted: #7E6551;
+  --color-main-blue: #002D62;
+  --color-secondary: #005691;
+  --color-tertiary: #5E5B54;
+  --color-accent: #C9A063;
+  --color-surface: #F5EEDA;
+  --color-surface-soft: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-text: #002D62;
+  --color-muted: #7A705F;
 }
 
 :root {
@@ -17,7 +17,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --main-blue: #D83030;
+  --main-blue: #002D62;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,8 +28,19 @@
 html,
 body {
   min-height: 100%;
-  background: var(--color-surface);
+  background: radial-gradient(circle at 0% 0%, rgba(0, 45, 98, 0.12), transparent 20%),
+    radial-gradient(circle at 100% 15%, rgba(201, 160, 99, 0.14), transparent 18%),
+    linear-gradient(180deg, #F5EEDA 0%, #E9DDC2 50%, #C2B7A3 100%);
   color: var(--color-text);
+}
+
+.page-background {
+  background-image:
+    radial-gradient(circle at 10% 5%, rgba(0, 45, 98, 0.08), transparent 25%),
+    radial-gradient(circle at 92% 20%, rgba(201, 160, 99, 0.14), transparent 22%),
+    linear-gradient(180deg, rgba(245, 238, 218, 0.9), rgba(242, 233, 208, 0.92) 48%, rgba(194, 183, 163, 0.95));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 @keyframes fadeIn {
@@ -48,6 +59,17 @@ body {
   animation: fadeIn 0.15s ease-out;
 }
 
+.auth-background {
+  background-image:
+    radial-gradient(circle at top left, rgba(0, 45, 98, 0.16), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(201, 160, 99, 0.18), transparent 22%),
+    linear-gradient(180deg, rgba(245, 238, 218, 0.95), rgba(228, 212, 181, 0.95));
+}
+
+.bg-surface {
+  background-color: var(--color-surface) !important;
+}
+
 .bg-gray-50 {
   background-color: var(--color-surface) !important;
 }
@@ -61,20 +83,36 @@ body {
 }
 
 .bg-gray-100 {
-  background-color: rgba(255, 255, 255, 0.85) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
 }
 
-.text-gray-900 {
+.bg-slate-100 {
+  background-color: rgba(194, 183, 163, 0.14) !important;
+}
+
+.bg-amber-50 {
+  background-color: rgba(201, 160, 99, 0.12) !important;
+}
+
+.text-gray-900,
+.text-slate-900 {
   color: var(--color-secondary) !important;
 }
 
 .text-gray-700,
-.text-gray-600 {
+.text-gray-600,
+.text-slate-700,
+.text-slate-600 {
   color: var(--color-tertiary) !important;
 }
 
-.border-gray-200 {
-  border-color: rgba(60, 21, 24, 0.14) !important;
+.text-slate-500 {
+  color: var(--color-muted) !important;
+}
+
+.border-gray-200,
+.border-slate-200 {
+  border-color: rgba(194, 183, 163, 0.35) !important;
 }
 
 .bg-main-blue {
@@ -93,12 +131,28 @@ body {
   border-color: var(--main-blue) !important;
 }
 
+.bg-accent {
+  background-color: var(--color-accent) !important;
+}
+
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
+.border-accent {
+  border-color: var(--color-accent) !important;
+}
+
+.focus\:border-accent:focus {
+  border-color: var(--color-accent) !important;
+}
+
 .bg-red-600 {
-  background-color: #D83030 !important;
+  background-color: var(--color-accent) !important;
 }
 
 .hover\:bg-red-700:hover {
-  background-color: #B12B2B !important;
+  background-color: rgba(201, 160, 99, 0.85) !important;
 }
 
 .bg-black\/40 {
@@ -118,9 +172,9 @@ body {
   border-radius: 6px;
   background: linear-gradient(
     90deg,
-    rgba(216, 48, 48, 0.18) 0%,
-    #D83030 50%,
-    rgba(216, 48, 48, 0.18) 100%
+    rgba(0, 45, 98, 0.18) 0%,
+    #002D62 50%,
+    rgba(201, 160, 99, 0.18) 100%
   );
   filter: blur(1.5px);
   z-index: 1;

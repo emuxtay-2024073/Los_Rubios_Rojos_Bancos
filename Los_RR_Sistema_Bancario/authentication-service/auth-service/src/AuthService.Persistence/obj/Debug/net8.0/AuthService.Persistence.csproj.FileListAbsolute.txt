@@ -93,3 +93,21 @@ C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_
 C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
 C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
 C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.deps.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.AssemblyReference.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfoInputs.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.AssemblyInfo.cs
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.sourcelink.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthServ.5D1D95C4.Up2Date
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\refint\AuthService.Persistence.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\ref\AuthService.Persistence.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\bin\Debug\net8.0\AuthService.Persistence.runtimeconfig.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\obj\Debug\net8.0\AuthService.Persistence.genruntimeconfig.cache

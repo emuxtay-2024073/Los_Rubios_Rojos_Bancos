@@ -41,10 +41,16 @@ export const validateJWT = (req, res, next) => {
     };
 
     const decoded = jwt.verify(token, secret, verifyOptions);
+    
+    // LOGS PARA DEBUGGING
+    console.log("=== TOKEN DECODIFICADO ===");
+    console.log(JSON.stringify(decoded, null, 2));
 
     // Extraer roles (puede ser string o array en .NET)
     const rawRoles = decoded[ROLE_CLAIM] || decoded.role || "User";
     const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
+    
+    console.log("ROLES EXTRAÍDOS:", roles);
 
     // Extraer userId con múltiples opciones de claims
     const userId = 
@@ -72,7 +78,10 @@ export const validateJWT = (req, res, next) => {
       role: roles[0], 
       jti: decoded.jti || null,
     };
-
+    
+    console.log("=== REQ.USER ===");
+    console.log(req.user);
+    
     next();
   } catch (error) {
     console.error("Error validando JWT:", error.message);
@@ -112,7 +121,16 @@ export const requireRole = (...allowedRoles) => {
       });
     }
 
-    const hasRole = req.user.roles.some((r) => allowedRoles.includes(r));
+    console.log("=== VERIFICANDO ROLES ===");
+    console.log("Roles permitidos:", allowedRoles);
+    console.log("Roles del usuario:", req.user.roles);
+
+    // Comparación case-insensitive: normalizar a mayúsculas
+    const hasRole = req.user.roles.some((r) => 
+      allowedRoles.map(role => role.toUpperCase()).includes(r.toUpperCase())
+    );
+    
+    console.log("¿Tiene rol requerido?:", hasRole);
 
     if (!hasRole) {
       return res.status(403).json({

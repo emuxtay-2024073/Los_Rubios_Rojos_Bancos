@@ -18,6 +18,8 @@ export const Users = () => {
   const [selectedRole, setSelectedRole] = useState('');
   const [selectedState, setSelectedState] = useState('');
 
+  const inactiveUsersCount = users.filter((user) => !user.isActive).length;
+
   const loadUsers = async () => {
     try {
       setLoading(true);
@@ -84,6 +86,7 @@ export const Users = () => {
         <div>
           <p className='text-sm text-gray-500'>Administración de accesos</p>
           <h1 className='text-3xl font-bold text-main-blue'>Usuarios</h1>
+          <p className='mt-2 text-sm text-gray-500'>Filtra, revisa usuarios y administra el estado de las cuentas. Hay {inactiveUsersCount} cuentas inactivas que puedes habilitar desde la tabla.</p>
         </div>
         <div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
           <select
@@ -139,7 +142,7 @@ export const Users = () => {
             </thead>
             <tbody>
               {filteredUsers.map((user) => (
-                <tr key={user._id} className='border-t border-gray-100 hover:bg-slate-50'>
+                <tr key={user._id ?? user.email} className='border-t border-gray-100 hover:bg-slate-50'>
                   <td className='px-5 py-4'>{toTitleCase(user.username)}</td>
                   <td className='px-5 py-4'>{user.email}</td>
                   <td className='px-5 py-4'>{user.role}</td>

@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using AuthService.Api.Extensions;
 using AuthService.Api.Middlewares;
-using AuthService.Application.Interfaces;
-using AuthService.Application.Services;
+using AuthService.Application.Settings;
 using AuthService.Domain.Interfaces;
 using AuthService.Persistence.Data;
 using AuthService.Persistence.Repositories;
@@ -13,6 +13,8 @@ using AuthService.Persistence.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
+
+builder.Services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -33,9 +35,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // CONFIGURACIÓN DE JWT
 // ============================================
 var jwtSettings = configuration.GetSection("Jwt");
+if (!jwtSettings.Exists())
+{
+    jwtSettings = configuration.GetSection("JwtSettings");
+}
 var securitySettings = configuration.GetSection("Security");
 
-var jwtKey = jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key no configurada");
+var jwtKey = jwtSettings["Key"] ?? jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT Key no configurada");
+var jwtIssuer = jwtSettings["Issuer"] ?? throw new InvalidOperationException("JWT Issuer no configurado");
+var jwtAudience = jwtSettings["Audience"] ?? throw new InvalidOperationException("JWT Audience no configurado");
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -49,8 +57,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
+            ValidIssuer = jwtIssuer,
+            ValidAudience = jwtAudience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
             ClockSkew = TimeSpan.FromSeconds(
                 securitySettings?.GetValue<int>("ClockSkewSeconds") ?? 0
@@ -89,11 +97,7 @@ builder.Services.AddAuthorization(options =>
 // REGISTRO DE SERVICIOS Y REPOSITORIOS
 // ============================================
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IAuthService, AuthService.Application.Services.AuthService>();
-
-builder.Services.AddScoped<IJwtService, JwtService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddAuthenticationServices();
 
 // ============================================
 // CONFIGURACIÓN DE CORS
@@ -103,7 +107,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy", policy =>
     {
         var allowedOrigins = configuration
-            .GetSection("Cors:AllowedOrigins")
+            .GetSection("Security:AllowedOrigins")
             .Get<string[]>() ?? new[] { "http://localhost:4200", "http://localhost:3000" };
 
         policy.WithOrigins(allowedOrigins)
@@ -111,6 +115,15 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod()
             .AllowCredentials();
     });
+
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 
 // ============================================
@@ -160,6 +173,7 @@ builder.Services.AddSwaggerGen(c =>
 // BUILD APP
 // ============================================
 var app = builder.Build();
+app.UseCors("AllowFrontend");
 
 // ============================================
 // CONFIGURACIÓN DEL PIPELINE
