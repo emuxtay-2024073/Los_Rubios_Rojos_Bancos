@@ -10,7 +10,6 @@ const EMAIL_CLAIM = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/email
  */
 export const validateJWT = (req, res, next) => {
   const secret = process.env.JWT_SECRET;
-  console.log('SECRET CARGADO:', JSON.stringify(secret));
 
   if (!secret) {
     console.error("Error JWT: JWT_SECRET no definido en .env");
@@ -42,15 +41,20 @@ export const validateJWT = (req, res, next) => {
 
     const decoded = jwt.verify(token, secret, verifyOptions);
     
-    // LOGS PARA DEBUGGING
-    console.log("=== TOKEN DECODIFICADO ===");
-    console.log(JSON.stringify(decoded, null, 2));
-
     // Extraer roles (puede ser string o array en .NET)
-    const rawRoles = decoded[ROLE_CLAIM] || decoded.role || "User";
+    const rawRoles = decoded.role || "User";
     const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
-    
-    console.log("ROLES EXTRAÍDOS:", roles);
+    const normalizedRoles = Array.from(
+      new Set(
+        roles.flatMap((r) => {
+          const roleValue = String(r || "");
+          const lower = roleValue.toLowerCase();
+          const title = lower.charAt(0).toUpperCase() + lower.slice(1);
+          const upper = lower.toUpperCase();
+          return [roleValue, lower, title, upper];
+        })
+      )
+    );
 
     // Extraer userId con múltiples opciones de claims
     const userId = 
@@ -74,13 +78,10 @@ export const validateJWT = (req, res, next) => {
     req.user = {
       id: userId,
       email: decoded[EMAIL_CLAIM] || decoded.email || null,
-      roles,
-      role: roles[0], 
+      roles: normalizedRoles,
+      role: normalizedRoles.find((r) => r.toLowerCase() === "admin") || normalizedRoles[0],
       jti: decoded.jti || null,
     };
-    
-    console.log("=== REQ.USER ===");
-    console.log(req.user);
     
     next();
   } catch (error) {
@@ -121,16 +122,19 @@ export const requireRole = (...allowedRoles) => {
       });
     }
 
-    console.log("=== VERIFICANDO ROLES ===");
-    console.log("Roles permitidos:", allowedRoles);
-    console.log("Roles del usuario:", req.user.roles);
+    if (!req.user.roles || !Array.isArray(req.user.roles)) {
+      return res.status(403).json({
+        success: false,
+        message: "Roles no definidos correctamente",
+        error: "INVALID_ROLES",
+      });
+    }
 
     // Comparación case-insensitive: normalizar a mayúsculas
     const hasRole = req.user.roles.some((r) => 
-      allowedRoles.map(role => role.toUpperCase()).includes(r.toUpperCase())
+      allowedRoles.map(role => role.toLowerCase()).includes(r.toLowerCase())
     );
-    
-    console.log("¿Tiene rol requerido?:", hasRole);
+
 
     if (!hasRole) {
       return res.status(403).json({
@@ -162,10 +166,23 @@ export const optionalJWT = (req, res, next) => {
       audience: process.env.JWT_AUDIENCE,
     });
     const rawRoles = decoded[ROLE_CLAIM] || decoded.role || "User";
+    const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
+    const normalizedRoles = Array.from(
+      new Set(
+        roles.flatMap((r) => {
+          const roleValue = String(r || "");
+          const lower = roleValue.toLowerCase();
+          const title = lower.charAt(0).toUpperCase() + lower.slice(1);
+          const upper = lower.toUpperCase();
+          return [roleValue, lower, title, upper];
+        })
+      )
+    );
     req.user = {
       id: decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"] || decoded.sub,
       email: decoded[EMAIL_CLAIM] || decoded.email || null,
-      roles: Array.isArray(rawRoles) ? rawRoles : [rawRoles],
+      roles: normalizedRoles,
+      role: normalizedRoles.find((r) => r.toLowerCase() === "admin") || normalizedRoles[0],
     };
   } catch {
     req.user = null;

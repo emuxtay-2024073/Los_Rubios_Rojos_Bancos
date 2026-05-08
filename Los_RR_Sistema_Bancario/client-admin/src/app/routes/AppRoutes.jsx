@@ -6,13 +6,13 @@ import { UnauthorizedPage } from '../../features/auth/pages/UnauthorizedPage.jsx
 import { RoleGuard } from './RoleGuard.jsx';
 import { VerifyEmailPage } from '../../features/auth/pages/VerifyEmailPage.jsx';
 import { Dashboard } from '../../pages/Dashboard.jsx';
-import { Accounts } from '../../pages/Accounts.jsx';
-import { Beneficiaries } from '../../pages/Beneficiaries.jsx';
-import { Transfers } from '../../pages/Transfers.jsx';
-import { Limits } from '../../pages/Limits.jsx';
-import { Reversals } from '../../pages/Reversals.jsx';
-import { Currency } from '../../pages/Currency.jsx';
-import { Users } from '../../pages/Users.jsx';
+import { AdminAccountsView } from '../../pages/AdminAccountsView.jsx';
+import { AdminBeneficiariesView } from '../../pages/AdminBeneficiariesView.jsx';
+import { AdminTransfersView } from '../../pages/AdminTransfersView.jsx';
+import { AdminLimitsView } from '../../pages/AdminLimitsView.jsx';
+import { AdminReversalsView } from '../../pages/AdminReversalsView.jsx';
+import { AdminCurrencyView } from '../../pages/AdminCurrencyView.jsx';
+import { AdminUsersView } from '../../pages/AdminUsersView.jsx';
 
 export const AppRoutes = () => {
   return (
@@ -31,7 +31,7 @@ export const AppRoutes = () => {
         <Route
           index
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
               <Dashboard />
             </RoleGuard>
           }
@@ -39,56 +39,56 @@ export const AppRoutes = () => {
         <Route
           path='accounts'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
-              <Accounts />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminAccountsView />
             </RoleGuard>
           }
         />
         <Route
           path='beneficiaries'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
-              <Beneficiaries />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminBeneficiariesView />
             </RoleGuard>
           }
         />
         <Route
           path='transactions'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin', 'Cliente', 'CLIENTE']}>
-              <Transfers />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminTransfersView />
             </RoleGuard>
           }
         />
         <Route
           path='limits'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
-              <Limits />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminLimitsView />
             </RoleGuard>
           }
         />
         <Route
           path='reversals'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
-              <Reversals />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminReversalsView />
             </RoleGuard>
           }
         />
         <Route
           path='currency'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
-              <Currency />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminCurrencyView />
             </RoleGuard>
           }
         />
         <Route
           path='users'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'Admin']}>
-              <Users />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminUsersView />
             </RoleGuard>
           }
         />

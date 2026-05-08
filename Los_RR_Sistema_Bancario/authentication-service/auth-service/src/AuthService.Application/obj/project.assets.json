@@ -973,19 +973,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\muxta\\.nuget\\packages\\": {}
+    "C:\\Users\\Informatica\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+      "projectUniqueName": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
       "projectName": "AuthService.Application",
-      "projectPath": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
-      "packagesPath": "C:\\Users\\muxta\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\obj\\",
+      "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+      "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\muxta\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -997,8 +997,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
-              "projectPath": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
+            "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
+              "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
             }
           }
         }
@@ -1064,7 +1064,7 @@
       "code": "NU1902",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'MailKit' 4.1.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "message": "El paquete \"MailKit\" 4.1.0 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
       "libraryId": "MailKit",
       "targetGraphs": [
         "net8.0"

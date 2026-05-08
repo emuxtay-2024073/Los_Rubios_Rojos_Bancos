@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\muxta\\.nuget\\packages\\": {}
+    "C:\\Users\\Informatica\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
       "projectName": "AuthService.Domain",
-      "projectPath": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
-      "packagesPath": "C:\\Users\\muxta\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\muxta\\Documents\\BANCORR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\obj\\",
+      "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+      "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\muxta\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"

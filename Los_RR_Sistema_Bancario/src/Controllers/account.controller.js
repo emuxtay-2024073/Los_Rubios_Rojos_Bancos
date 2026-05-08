@@ -64,7 +64,7 @@ export const createAccount = async (req, res) => {
 
 export const getAccounts = async (req, res) => {
     try {
-        const isAdmin = req.user.roles.includes("Admin");
+        const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
         const query = isAdmin ? {} : { userId: req.user.id };
         const accounts = await Account.find(query).sort({ createdAt: -1 });
 
@@ -85,7 +85,7 @@ export const deposit = async (req, res) => {
         const account = await Account.findById(accountId);
         if (!account) return res.status(404).json({ message: "Cuenta no encontrada" });
 
-        if (!req.user.roles.includes("Admin") && account.userId !== req.user.id) {
+        if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso sobre esta cuenta" });
         }
 
@@ -109,7 +109,7 @@ export const withdraw = async (req, res) => {
         const account = await Account.findById(accountId);
         if (!account) return res.status(404).json({ message: "Cuenta no encontrada" });
 
-        if (!req.user.roles.includes("Admin") && account.userId !== req.user.id) {
+        if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso sobre esta cuenta" });
         }
 

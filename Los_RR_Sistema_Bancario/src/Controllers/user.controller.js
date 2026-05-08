@@ -1,12 +1,12 @@
-import { User } from "../models/user.model.js";
+import { User } from "../Models/user.model.js";
 
 import bcrypt from "bcryptjs";
 
 export const createUser = async (req, res) => {
     try {
-        const { name, email, password, roles } = req.body;
+        const { username, email, password, role } = req.body;
 
-        if (!name || !email || !password) {
+        if (!username || !email || !password) {
             return res.status(400).json({ message: "Todos los campos son obligatorios" });
         }
 
@@ -19,10 +19,11 @@ export const createUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new User({ 
-            name, 
+            username, 
             email, 
-            password: hashedPassword, // Guardamos la versión secreta
-            roles: roles || "USER" 
+            password: hashedPassword,
+            role: role || "Cliente",
+            isActive: true
         });
 
         await newUser.save();
@@ -36,7 +37,7 @@ export const createUser = async (req, res) => {
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().select("-password -__v");
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: "Error al obtener usuarios" });

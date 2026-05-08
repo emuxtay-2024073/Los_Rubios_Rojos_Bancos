@@ -1,4 +1,4 @@
-import { User } from "../models/user.model.js";
+import { User } from "../Models/user.model.js";
 import bcrypt from "bcryptjs";
 
 /**
@@ -220,7 +220,7 @@ export const changePassword = async (req, res) => {
  */
 export const getUserById = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden ver datos de otros usuarios",
       });
@@ -257,7 +257,9 @@ export const getUserById = async (req, res) => {
  */
 export const getAllUsers = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    // Validar que sea admin
+    const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
+    if (!isAdmin) {
       return res.status(403).json({
         message: "Solo administradores pueden listar usuarios",
       });
@@ -312,7 +314,7 @@ export const getAllUsers = async (req, res) => {
  */
 export const changeUserRole = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden cambiar roles",
       });
@@ -332,7 +334,7 @@ export const changeUserRole = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       { role: newRole },
-      { new: true }
+      { returnDocument: 'after' }
     ).select("-password");
 
     if (!user) {
@@ -370,7 +372,7 @@ export const deactivateAccount = async (req, res) => {
     const requesterId = req.user.id;
 
     // Verificar permisos
-    const isAdmin = req.user.roles.includes("Admin");
+    const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
     const isOwnAccount = userId === requesterId;
 
     if (!isAdmin && !isOwnAccount) {
@@ -382,7 +384,7 @@ export const deactivateAccount = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       { isActive: false, deactivatedAt: new Date() },
-      { new: true }
+      { returnDocument: 'after' }
     ).select("-password");
 
     if (!user) {
@@ -418,7 +420,7 @@ export const deactivateAccount = async (req, res) => {
  */
 export const reactivateAccount = async (req, res) => {
   try {
-    if (!req.user.roles.includes("Admin")) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(403).json({
         message: "Solo administradores pueden reactivar cuentas",
       });
@@ -429,7 +431,7 @@ export const reactivateAccount = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       userId,
       { isActive: true, deactivatedAt: null },
-      { new: true }
+      { returnDocument: 'after' }
     ).select("-password");
 
     if (!user) {
