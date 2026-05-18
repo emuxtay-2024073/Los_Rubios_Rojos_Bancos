@@ -37,15 +37,21 @@ export const Transfers = () => {
     loadData();
   }, []);
 
+  const transferTransactions = useMemo(
+    () =>
+      transactions.filter((transaction) => transaction.type === 'TRANSFERENCIA'),
+    [transactions],
+  );
+
   const filteredTransactions = useMemo(
     () =>
-      transactions.filter((transaction) =>
+      transferTransactions.filter((transaction) =>
         transaction.type?.toLowerCase().includes(search.toLowerCase()) ||
         transaction.originAccount?.accountNumber?.toLowerCase().includes(search.toLowerCase()) ||
         transaction.destinationAccount?.accountNumber?.toLowerCase().includes(search.toLowerCase()) ||
         String(transaction.amount ?? '').includes(search),
       ),
-    [search, transactions],
+    [search, transferTransactions],
   );
 
   const openTransferForm = () => {
@@ -101,7 +107,7 @@ export const Transfers = () => {
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
         <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
           <p className='text-sm text-gray-500'>Transferencias totales</p>
-          <p className='mt-2 text-3xl font-semibold text-slate-900'>{transactions.length}</p>
+          <p className='mt-2 text-3xl font-semibold text-slate-900'>{transferTransactions.length}</p>
         </article>
         <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
           <p className='text-sm text-gray-500'>Cuentas disponibles</p>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj": {}
+    "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj": {
+    "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
         "projectName": "AuthService.Api",
-        "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
+        "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
         "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\obj\\",
+        "outputPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,11 +26,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj": {
-                "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj"
+              "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj": {
+                "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj"
               },
-              "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
-                "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj"
+              "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
+                "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj"
               }
             }
           }
@@ -112,14 +112,14 @@
         }
       }
     },
-    "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj": {
+    "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+        "projectUniqueName": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
         "projectName": "AuthService.Application",
-        "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+        "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
         "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\obj\\",
+        "outputPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -134,8 +134,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
-                "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
+              "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
+                "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
               }
             }
           }
@@ -196,14 +196,14 @@
         }
       }
     },
-    "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
+    "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
         "projectName": "AuthService.Domain",
-        "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+        "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
         "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\obj\\",
+        "outputPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -254,14 +254,14 @@
         }
       }
     },
-    "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
+    "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj",
         "projectName": "AuthService.Persistence",
-        "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj",
+        "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj",
         "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\obj\\",
+        "outputPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -276,8 +276,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
-                "projectPath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
+              "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
+                "projectPath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
               }
             }
           }

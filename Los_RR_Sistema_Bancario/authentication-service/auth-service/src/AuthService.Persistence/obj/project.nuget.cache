@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y/2/iByMKSg=",
+  "dgSpecHash": "vGErLNDl31s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj",
+  "projectFilePath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Informatica\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Informatica\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

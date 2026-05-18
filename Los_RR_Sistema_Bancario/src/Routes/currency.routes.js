@@ -160,7 +160,7 @@ router.post('/rates', validateJWT, requireRole('admin'), addExchangeRate);
  *       200:
  *         description: Lista de tasas de cambio
  */
-router.get('/rates', validateJWT, requireRole('admin'), getAllExchangeRates);
+router.get('/rates', validateJWT, getAllExchangeRates);
 
 /**
  * @swagger

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { LoginForm } from '../components/LoginForm.jsx';
 import { ForgotPassword } from '../components/ForgotPassword.jsx';
 import { RegisterForm } from '../components/RegisterForm.jsx';
@@ -7,7 +7,12 @@ import logo from '../../../assets/img/los_rubios_rojos_logo.svg';
 
 export const AuthPage = () => {
   const clearError = useAuthStore((state) => state.clearError);
+  const resetLoadingState = useAuthStore((state) => state.resetLoadingState);
   const [view, setView] = useState('login');
+
+  useEffect(() => {
+    resetLoadingState();
+  }, [resetLoadingState]);
 
   const switchView = (nextView) => {
     clearError();

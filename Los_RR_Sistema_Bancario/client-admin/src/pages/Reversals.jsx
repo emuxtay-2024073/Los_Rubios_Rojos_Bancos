@@ -1,14 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import {
-  approveReversal,
-  cancelReversal,
-  getPendingReversals,
-  getReversals,
-  rejectReversal,
-  requestReversal,
-} from '../services/adminApi.js';
+import { cancelReversal, getReversals, requestReversal } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
-import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime, formatMoney } from '../shared/utils/banking.js';
 
@@ -19,19 +11,16 @@ const emptyForm = {
 
 export const Reversals = () => {
   const [reversals, setReversals] = useState([]);
-  const [pendingReversals, setPendingReversals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
-  const isAdmin = useAuthStore((state) => state.isAdmin);
 
   const loadData = async () => {
     try {
       setLoading(true);
-      const [allData, pendingData] = await Promise.all([getReversals(), getPendingReversals()]);
-      setReversals(Array.isArray(allData) ? allData : []);
-      setPendingReversals(Array.isArray(pendingData) ? pendingData : []);
+      const data = await getReversals();
+      setReversals(Array.isArray(data) ? data : []);
     } catch {
       showError('No se pudieron cargar las reversiones');
     } finally {
@@ -56,6 +45,11 @@ export const Reversals = () => {
     [reversals, search],
   );
 
+  const pendingCount = useMemo(
+    () => reversals.filter((item) => item.status === 'PENDING').length,
+    [reversals],
+  );
+
   const handleRequest = async (event) => {
     event.preventDefault();
     try {
@@ -71,8 +65,6 @@ export const Reversals = () => {
 
   const handleAction = async (reversal, action) => {
     try {
-      if (action === 'approve') await approveReversal(reversal._id);
-      if (action === 'reject') await rejectReversal(reversal._id);
       if (action === 'cancel') await cancelReversal(reversal._id);
       showSuccess('Acción aplicada correctamente');
       loadData();
@@ -87,22 +79,27 @@ export const Reversals = () => {
     <div className='space-y-8'>
       <div className='flex flex-col gap-4 md:flex-row md:justify-between md:items-end'>
         <div>
-          <p className='text-sm text-gray-500'>Operaciones especiales</p>
+          <p className='text-sm text-gray-500'>Solicitudes de reversión</p>
           <h1 className='text-3xl font-bold text-main-blue'>Reversiones</h1>
-          {isAdmin && (
-            <p className='mt-2 text-sm text-gray-500'>Aquí puedes revisar y resolver solicitudes de reversión. No se envían nuevas solicitudes desde la vista del administrador.</p>
-          )}
+          <p className='mt-2 text-sm text-gray-500'>Envía solicitudes de reversión de transferencias realizadas en las últimas 24 horas.</p>
         </div>
+        <button
+          type='button'
+          onClick={() => setModalOpen(true)}
+          className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+        >
+          Nueva solicitud
+        </button>
       </div>
 
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
         <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Solicitudes totales</p>
+          <p className='text-sm text-gray-500'>Mis solicitudes</p>
           <p className='mt-2 text-3xl font-semibold text-slate-900'>{reversals.length}</p>
         </article>
         <article className='rounded-3xl border border-accent bg-surface-soft p-6 shadow-sm'>
           <p className='text-sm text-amber-700'>Pendientes</p>
-          <p className='mt-2 text-3xl font-semibold text-amber-800'>{pendingReversals.length}</p>
+          <p className='mt-2 text-3xl font-semibold text-amber-800'>{pendingCount}</p>
         </article>
       </div>
 
@@ -144,29 +141,13 @@ export const Reversals = () => {
                   <td className='px-5 py-4'>
                     <div className='flex flex-wrap gap-2'>
                       {reversal.status === 'PENDING' && (
-                        <>
-                          <button
-                            type='button'
-                            onClick={() => handleAction(reversal, 'approve')}
-                            className='rounded-full bg-emerald-600 px-3 py-2 text-xs font-semibold text-white hover:bg-emerald-700'
-                          >
-                            Aprobar
-                          </button>
-                          <button
-                            type='button'
-                            onClick={() => handleAction(reversal, 'reject')}
-                            className='rounded-full bg-accent px-3 py-2 text-xs font-semibold text-white hover:opacity-90'
-                          >
-                            Rechazar
-                          </button>
-                          <button
-                            type='button'
-                            onClick={() => handleAction(reversal, 'cancel')}
-                            className='rounded-full border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100'
-                          >
-                            Cancelar
-                          </button>
-                        </>
+                        <button
+                          type='button'
+                          onClick={() => handleAction(reversal, 'cancel')}
+                          className='rounded-full border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100'
+                        >
+                          Cancelar
+                        </button>
                       )}
                     </div>
                   </td>

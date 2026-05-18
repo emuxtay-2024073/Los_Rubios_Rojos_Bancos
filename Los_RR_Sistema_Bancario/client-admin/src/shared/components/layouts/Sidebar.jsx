@@ -8,15 +8,17 @@ export const Sidebar = () => {
   const isAdmin = role === 'ADMIN' || role === 'ADMIN_ROLE';
 
   const items = [
-    { label: 'Dashboard', to: '/dashboard' },
-    { label: 'Cuentas', to: '/dashboard/accounts' },
+    ...(isAdmin ? [{ label: 'Dashboard', to: '/dashboard' }] : []),
+    { label: isAdmin ? 'Cuentas' : 'Cuenta', to: '/dashboard/accounts' },
+    { label: 'Retiros y depósitos', to: '/dashboard/deposits' },
     { label: 'Beneficiarios', to: '/dashboard/beneficiaries' },
     { label: 'Transferencias', to: '/dashboard/transactions' },
+    { label: 'Reversiones', to: '/dashboard/reversals' },
+    { label: 'Divisas', to: '/dashboard/currency' },
     ...(isAdmin
       ? [
           { label: 'Límites', to: '/dashboard/limits' },
-          { label: 'Reversiones', to: '/dashboard/reversals' },
-          { label: 'Divisas', to: '/dashboard/currency' },
+          { label: 'Solicitudes de deshabilitación', to: '/dashboard/disable-requests' },
           { label: 'Usuarios', to: '/dashboard/users' },
         ]
       : []),
