@@ -87,9 +87,9 @@ export const addBeneficiary = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error("Error al agregar beneficiario:", error);
+    console.error("Cuenta de beneficiario inexistente o deshabilitada:", error);
     res.status(500).json({
-      message: "Error al agregar beneficiario",
+      message: "Cuenta de beneficiario inexistente o deshabilitada",
       error: error.message,
     });
   }

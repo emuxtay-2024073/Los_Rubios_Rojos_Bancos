@@ -371,19 +371,15 @@ export const getConversionHistory = async (req, res) => {
  */
 export const getAllExchangeRates = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
-      return res.status(403).json({
-        message: "Solo administradores pueden ver todas las tasas",
-      });
-    }
-
     const { currency, isActive } = req.query;
     let query = {};
 
-    if (isActive !== undefined) {
+    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+      query.isActive = true; // Clientes solo ven tasas activas
+    } else if (isActive !== undefined) {
       query.isActive = isActive === "true";
     } else {
-      query.isActive = true; // Por defecto, solo activas
+      query.isActive = true; // Admins por defecto también ven activas
     }
 
     if (currency) {

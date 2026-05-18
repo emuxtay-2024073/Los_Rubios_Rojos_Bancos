@@ -16,7 +16,7 @@ router.use(validateJWT);
  * @swagger
  * /reversals/request:
  *   post:
- *     summary: Solicitar reversión de una transferencia
+ *     summary: Solicitar reversión de una transferencia (máximo 24 horas desde la transacción)
  *     tags: [Reversiones]
  *     security:
  *       - bearerAuth: []

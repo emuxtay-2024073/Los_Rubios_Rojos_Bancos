@@ -28,7 +28,7 @@ export const requestReversal = async (req, res) => {
     const { transactionId, reason, additionalInfo } = req.body;
     const userId = req.user.id;
 
-    const REVERSAL_TIME_LIMIT = 48 * 60 * 60 * 1000; // 48 horas en ms
+    const REVERSAL_TIME_LIMIT = 24 * 60 * 60 * 1000; // 24 horas en ms
 
     // Validaciones
     if (!transactionId) {
@@ -88,8 +88,7 @@ export const requestReversal = async (req, res) => {
     const timeSinceTransaction = Date.now() - new Date(transaction.date);
     if (timeSinceTransaction > REVERSAL_TIME_LIMIT) {
       return res.status(400).json({
-        message:
-          "No se pueden reversar transferencias con más de 48 horas de antigüedad",
+        message: "No se pueden reversar transferencias con más de 24 horas de antigüedad",
         transactionDate: transaction.date,
         hoursAgo: Math.floor(timeSinceTransaction / (60 * 60 * 1000)),
       });

@@ -74,6 +74,9 @@ export const useAuthStore = create(
       isLoadingAuth: true,
       isAuthenticated: false,
       isAdmin: false,
+      resetLoadingState: () => {
+        set({ loading: false });
+      },
       checkAuth: () => {
         const token = get().token;
         const role = get().user?.role;

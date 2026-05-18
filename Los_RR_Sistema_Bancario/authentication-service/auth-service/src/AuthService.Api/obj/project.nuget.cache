@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rKRk/JbisYs=",
+  "dgSpecHash": "SXm7acJ7PHc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Informatica\\Desktop\\RESBB\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
+  "projectFilePath": "C:\\Users\\Informatica\\Documents\\sip1\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Informatica\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Informatica\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
@@ -111,7 +111,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "AuthService.Api depende de Swashbuckle.AspNetCore (>= 6.10.15), pero no se encontró Swashbuckle.AspNetCore 6.10.15. Se resolvió una mejor coincidencia aproximada de Swashbuckle.AspNetCore 7.0.0.",
+      "message": "AuthService.Api depends on Swashbuckle.AspNetCore (>= 6.10.15) but Swashbuckle.AspNetCore 6.10.15 was not found. An approximate best match of Swashbuckle.AspNetCore 7.0.0 was resolved.",
       "libraryId": "Swashbuckle.AspNetCore",
       "targetGraphs": [
         "net8.0"

@@ -1,4 +1,4 @@
-import { axiosAdmin } from '../shared/apis/api.js';
+import { axiosAdmin, axiosAuth } from '../shared/apis/api.js';
 import { normalizeList } from '../shared/utils/banking.js';
 
 const withFormData = (payload) => (payload instanceof FormData ? { headers: { 'Content-Type': undefined } } : {});
@@ -55,6 +55,33 @@ export const getTransactions = async () => {
 
 export const transferMoney = async (payload) => {
   const { data } = await axiosAdmin.post('/transactions/transfer', payload);
+  return data;
+};
+
+export const getAccountHistory = async (accountId, params = {}) => {
+  const { data } = await axiosAdmin.get(`/accounts/${accountId}/history`, { params });
+  return normalizeList(data, ['transactions']);
+};
+
+export const requestAccountDisable = async (accountId, payload) => {
+  const { data } = await axiosAdmin.post(`/accounts/${accountId}/disable-request`, payload);
+  return data;
+};
+
+export const getDisableAccountRequests = async (status) => {
+  const { data } = await axiosAdmin.get('/accounts/disable-requests', {
+    params: status ? { status } : undefined,
+  });
+  return normalizeList(data, ['requests']);
+};
+
+export const approveDisableAccountRequest = async (requestId, payload = {}) => {
+  const { data } = await axiosAdmin.post(`/accounts/disable-requests/${requestId}/approve`, payload);
+  return data;
+};
+
+export const rejectDisableAccountRequest = async (requestId, payload = {}) => {
+  const { data } = await axiosAdmin.post(`/accounts/disable-requests/${requestId}/reject`, payload);
   return data;
 };
 
@@ -146,21 +173,30 @@ export const getConversionHistory = async () => {
 };
 
 export const getUsers = async () => {
-  const { data } = await axiosAdmin.get('/users');
-  return normalizeList(data, ['users']);
+  try {
+    const { data } = await axiosAdmin.get('/users/admin/all');
+    return normalizeList(data, ['users']);
+  } catch (error) {
+    const status = error.response?.status;
+    if (status === 403 || status === 404) {
+      const { data } = await axiosAuth.get('/auth/users');
+      return normalizeList(data, ['users']);
+    }
+    throw error;
+  }
 };
 
 export const updateUserRole = async (userId, newRole) => {
-  const { data } = await axiosAdmin.patch(`/users/${userId}/role`, { newRole });
+  const { data } = await axiosAdmin.put(`/users/${userId}/role`, { newRole });
   return data;
 };
 
 export const deactivateUser = async (userId) => {
-  const { data } = await axiosAdmin.patch(`/users/${userId}/deactivate`);
+  const { data } = await axiosAdmin.put(`/users/${userId}/deactivate`);
   return data;
 };
 
 export const reactivateUser = async (userId) => {
-  const { data } = await axiosAdmin.patch(`/users/${userId}/reactivate`);
+  const { data } = await axiosAdmin.put(`/users/${userId}/reactivate`);
   return data;
 };

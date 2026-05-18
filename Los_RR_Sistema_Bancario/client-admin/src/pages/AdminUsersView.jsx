@@ -12,7 +12,7 @@ export const AdminUsersView = () => {
   const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState('active');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [newRole, setNewRole] = useState('CLIENTE');
+  const [newRole, setNewRole] = useState('Cliente');
   const [processingId, setProcessingId] = useState(null);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export const AdminUsersView = () => {
   const handleChangeRole = async (userId) => {
     try {
       setProcessingId(userId);
-      await updateUserRole(userId, { newRole });
+      await updateUserRole(userId, newRole);
       showSuccess('Rol cambiado exitosamente');
       loadUsers();
       setSelectedUser(null);
@@ -197,7 +197,10 @@ export const AdminUsersView = () => {
                   <td>
                     <button
                       className="btn btn-small btn-info"
-                      onClick={() => setSelectedUser(user)}
+                      onClick={() => {
+                        setSelectedUser(user);
+                        setNewRole(user.role || 'Cliente');
+                      }}
                     >
                       Gestionar
                     </button>
@@ -258,8 +261,8 @@ export const AdminUsersView = () => {
                     onChange={(e) => setNewRole(e.target.value)}
                     disabled={processingId === selectedUser._id}
                   >
-                    <option value="CLIENTE">Cliente</option>
-                    <option value="ADMIN">Administrador</option>
+                    <option value="Cliente">Cliente</option>
+                    <option value="Admin">Administrador</option>
                   </select>
                 </div>
                 <button
