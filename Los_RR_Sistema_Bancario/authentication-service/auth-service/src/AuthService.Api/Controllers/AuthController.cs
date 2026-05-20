@@ -80,7 +80,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("users")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _userRepository.GetAllAsync();
@@ -217,7 +217,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("users/{id}/disable")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> ApproveDisableAccount([FromRoute] string id, [FromBody] DisableRequestDto dto)
     {
         if (!Guid.TryParse(id, out var userId))
@@ -232,7 +232,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("users/{id}/reject-disable-request")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> RejectDisableRequest([FromRoute] string id)
     {
         if (!Guid.TryParse(id, out var userId))
@@ -247,7 +247,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("users/{id}/enable")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> ReenableAccount([FromRoute] string id)
     {
         if (!Guid.TryParse(id, out var userId))

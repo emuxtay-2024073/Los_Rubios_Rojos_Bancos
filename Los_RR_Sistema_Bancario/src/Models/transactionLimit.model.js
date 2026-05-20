@@ -14,7 +14,7 @@ import mongoose from "mongoose";
  * y los usuarios pueden tener límites personalizados.
  * 
  * @typedef {Object} TransactionLimit
- * @property {ObjectId} userId - ID del usuario (opcional si es límite por defecto)
+ * @property {string} userId - ID del usuario (opcional si es límite por defecto)
  * @property {string} accountType - Tipo de cuenta (ahorro, monetaria, corriente)
  * @property {string} transactionType - Tipo de transacción (DEPOSITO, RETIRO, TRANSFERENCIA)
  * @property {number} maxPerTransaction - Monto máximo por transacción
@@ -25,11 +25,11 @@ import mongoose from "mongoose";
  */
 const transactionLimitSchema = new mongoose.Schema(
   {
-    userId: {
-      type: String,
-      default: null, // null si es límite por defecto
-      index: true,
-    },
+      userId: {
+        type: String,
+        default: null, // null si es límite por defecto
+        index: true,
+      },
     accountType: {
       type: String,
       enum: ["ahorro", "monetaria", "corriente"],

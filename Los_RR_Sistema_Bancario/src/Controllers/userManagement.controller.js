@@ -226,9 +226,9 @@ export const getUserById = async (req, res) => {
       });
     }
 
-    const { userId } = req.params;
+    const { id } = req.params;
 
-    const user = await User.findById(userId).select("-password -__v");
+    const user = await User.findById(id).select("-password -__v");
 
     if (!user) {
       return res.status(404).json({
@@ -320,7 +320,7 @@ export const changeUserRole = async (req, res) => {
       });
     }
 
-    const { userId } = req.params;
+    const { id } = req.params;
     const { newRole } = req.body;
 
     const validRoles = ["Cliente", "Admin"];
@@ -332,7 +332,7 @@ export const changeUserRole = async (req, res) => {
     }
 
     const user = await User.findByIdAndUpdate(
-      userId,
+      id,
       { role: newRole },
       { returnDocument: 'after' }
     ).select("-password");
@@ -368,12 +368,20 @@ export const changeUserRole = async (req, res) => {
  */
 export const deactivateAccount = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { id } = req.params;
+    const { password } = req.body;
     const requesterId = req.user.id;
+
+    // Verificar que se proporcionó la contraseña
+    if (!password) {
+      return res.status(400).json({
+        message: "La contraseña es requerida para desactivar la cuenta",
+      });
+    }
 
     // Verificar permisos
     const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
-    const isOwnAccount = userId === requesterId;
+    const isOwnAccount = id === requesterId;
 
     if (!isAdmin && !isOwnAccount) {
       return res.status(403).json({
@@ -381,11 +389,8 @@ export const deactivateAccount = async (req, res) => {
       });
     }
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      { isActive: false, deactivatedAt: new Date() },
-      { returnDocument: 'after' }
-    ).select("-password");
+    // Obtener el usuario con su contraseña
+    const user = await User.findById(id);
 
     if (!user) {
       return res.status(404).json({
@@ -393,14 +398,29 @@ export const deactivateAccount = async (req, res) => {
       });
     }
 
+    // Validar la contraseña
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message: "Contraseña incorrecta",
+      });
+    }
+
+    // Desactivar la cuenta
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { isActive: false, deactivatedAt: new Date() },
+      { returnDocument: 'after' }
+    ).select("-password");
+
     res.json({
       success: true,
       message: "Cuenta desactivada exitosamente",
       user: {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        isActive: user.isActive,
+        id: updatedUser._id,
+        username: updatedUser.username,
+        email: updatedUser.email,
+        isActive: updatedUser.isActive,
       },
     });
   } catch (error) {
@@ -426,10 +446,10 @@ export const reactivateAccount = async (req, res) => {
       });
     }
 
-    const { userId } = req.params;
+    const { id } = req.params;
 
     const user = await User.findByIdAndUpdate(
-      userId,
+      id,
       { isActive: true, deactivatedAt: null },
       { returnDocument: 'after' }
     ).select("-password");

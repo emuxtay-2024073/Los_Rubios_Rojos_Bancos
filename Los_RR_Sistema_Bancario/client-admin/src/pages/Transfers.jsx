@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getAccounts, getTransactions, transferMoney } from '../services/adminApi.js';
+import { getAccounts, getAccountByNumber, getTransactions, transferMoney } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime, formatMoney } from '../shared/utils/banking.js';
 
 const emptyTransfer = {
-  fromAccountId: '',
-  toAccountId: '',
+  fromAccountNumber: '',
+  toAccountNumber: '',
   amount: '',
+  description: '',
 };
 
 export const Transfers = () => {
@@ -18,7 +19,9 @@ export const Transfers = () => {
   const [search, setSearch] = useState('');
   const [form, setForm] = useState(emptyTransfer);
   const [transferModalOpen, setTransferModalOpen] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
   const isAdmin = useAuthStore((state) => state.isAdmin);
+  const currentUser = useAuthStore((state) => state.user);
 
   const loadData = async () => {
     try {
@@ -55,31 +58,109 @@ export const Transfers = () => {
   );
 
   const openTransferForm = () => {
-    setForm(emptyTransfer);
+    // Prefill origin account with the logged in user's account when available
+    const myAccount = accounts.find((acc) => acc.userId === currentUser?.id);
+    setForm({ ...emptyTransfer, fromAccountNumber: myAccount?.accountNumber || '' });
     setTransferModalOpen(true);
+  };
+
+  const validateTransfer = () => {
+    const errors = {};
+
+    // Validar cuenta origen
+    if (!form.fromAccountNumber || form.fromAccountNumber.trim() === '') {
+      errors.fromAccountNumber = 'La cuenta de origen es requerida';
+    }
+
+    // Validar cuenta destino
+    if (!form.toAccountNumber || form.toAccountNumber.trim() === '') {
+      errors.toAccountNumber = 'La cuenta de destino es requerida';
+    }
+
+    // Validar que no sea la misma cuenta
+    if (form.fromAccountNumber && form.toAccountNumber && form.fromAccountNumber.trim() === form.toAccountNumber.trim()) {
+      errors.toAccountNumber = 'No puedes transferir hacia la misma cuenta';
+    }
+
+    // Validar que la cuenta de origen exista en las cuentas del usuario
+    const fromAccountExists = accounts.some((acc) => acc.accountNumber === form.fromAccountNumber);
+
+    if (form.fromAccountNumber && !fromAccountExists) {
+      errors.fromAccountNumber = 'La cuenta de origen no existe';
+    }
+
+    // Para usuarios no administradores, forzar que la cuenta origen sea la de la sesión activa
+    if (!isAdmin) {
+      const myAccount = accounts.find((acc) => acc.userId === currentUser?.id);
+      if (myAccount && form.fromAccountNumber !== myAccount.accountNumber) {
+        errors.fromAccountNumber = 'La cuenta de origen debe ser tu cuenta activa';
+      }
+    }
+
+    // Validar monto
+    if (!form.amount || form.amount === '') {
+      errors.amount = 'El monto es requerido';
+    } else if (Number(form.amount) <= 0) {
+      errors.amount = 'El monto debe ser mayor a 0';
+    } else if (!/^\d+(\.\d{1,2})?$/.test(form.amount)) {
+      errors.amount = 'El monto tiene un formato inválido';
+    }
+
+    // Validar que la cuenta origen tenga saldo suficiente
+    if (fromAccountExists) {
+      const fromAccount = accounts.find((acc) => acc.accountNumber === form.fromAccountNumber);
+      if (fromAccount && Number(form.amount) > fromAccount.balance) {
+        errors.amount = `Saldo insuficiente. Tu saldo es de ${fromAccount.balance}`;
+      }
+    }
+
+    // Validar descripción (opcional pero si la incluye, máximo 200 caracteres)
+    if (form.description && form.description.length > 200) {
+      errors.description = 'La descripción no puede exceder 200 caracteres';
+    }
+
+    return errors;
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    const errors = validateTransfer();
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      return;
+    }
 
     try {
+      const fromAccount = accounts.find((acc) => acc.accountNumber === form.fromAccountNumber);
+      if (!fromAccount) {
+        setValidationErrors({ fromAccountNumber: 'La cuenta de origen no existe' });
+        return;
+      }
+
+      const toAccounts = await getAccountByNumber(form.toAccountNumber);
+      const toAccount = Array.isArray(toAccounts) ? toAccounts[0] : null;
+      if (!toAccount) {
+        setValidationErrors({ toAccountNumber: 'La cuenta de destino no existe' });
+        return;
+      }
+
       await transferMoney({
-        fromAccountId: form.fromAccountId,
-        toAccountId: form.toAccountId,
-        amount: Number(form.amount) || 0,
+        fromAccountId: fromAccount._id,
+        toAccountId: toAccount._id,
+        amount: Number(form.amount),
+        description: form.description || '',
       });
-      showSuccess('Transferencia realizada');
+      showSuccess('Transferencia realizada exitosamente');
       setTransferModalOpen(false);
+      setForm(emptyTransfer);
+      setValidationErrors({});
       loadData();
     } catch (error) {
-      showError(error?.response?.data?.message || 'No se pudo realizar la transferencia');
+      const responseMessage = error?.response?.data?.error || error?.response?.data?.message;
+      showError(responseMessage || 'No se pudo realizar la transferencia');
     }
   };
-
-  const accountsOptions = accounts.map((account) => ({
-    value: account._id,
-    label: `${account.accountNumber} · ${account.type}`,
-  }));
 
   if (loading) return <Spinner />;
 
@@ -108,10 +189,6 @@ export const Transfers = () => {
         <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
           <p className='text-sm text-gray-500'>Transferencias totales</p>
           <p className='mt-2 text-3xl font-semibold text-slate-900'>{transferTransactions.length}</p>
-        </article>
-        <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Cuentas disponibles</p>
-          <p className='mt-2 text-3xl font-semibold text-slate-900'>{accounts.length}</p>
         </article>
       </div>
 
@@ -177,45 +254,93 @@ export const Transfers = () => {
             </div>
             <form onSubmit={handleSubmit} className='mt-6 grid gap-4 sm:grid-cols-2'>
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>Cuenta origen</span>
-                <select
-                  value={form.fromAccountId}
-                  onChange={(event) => setForm({ ...form, fromAccountId: event.target.value })}
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
-                >
-                  <option value=''>Seleccionar</option>
-                  {accountsOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                <span className='text-sm font-medium text-slate-700'>
+                  Cuenta origen <span className='text-red-500'>*</span>
+                </span>
+                <input
+                  type='text'
+                  placeholder='Tu número de cuenta'
+                  value={form.fromAccountNumber}
+                  readOnly={!isAdmin}
+                  disabled={!isAdmin}
+                  onChange={(event) => {
+                    if (!isAdmin) return;
+                    setForm({ ...form, fromAccountNumber: event.target.value });
+                    setValidationErrors({ ...validationErrors, fromAccountNumber: '' });
+                  }}
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none ${
+                    validationErrors.fromAccountNumber ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                />
+                {validationErrors.fromAccountNumber && (
+                  <p className='mt-1 text-xs text-red-500'>{validationErrors.fromAccountNumber}</p>
+                )}
               </label>
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>Cuenta destino</span>
-                <select
-                  value={form.toAccountId}
-                  onChange={(event) => setForm({ ...form, toAccountId: event.target.value })}
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
-                >
-                  <option value=''>Seleccionar</option>
-                  {accountsOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                <span className='text-sm font-medium text-slate-700'>
+                  Cuenta destino <span className='text-red-500'>*</span>
+                </span>
+                <input
+                  type='text'
+                  placeholder='Número de cuenta destino'
+                  value={form.toAccountNumber}
+                  onChange={(event) => {
+                    setForm({ ...form, toAccountNumber: event.target.value });
+                    setValidationErrors({ ...validationErrors, toAccountNumber: '' });
+                  }}
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none ${
+                    validationErrors.toAccountNumber ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                />
+                {validationErrors.toAccountNumber && (
+                  <p className='mt-1 text-xs text-red-500'>{validationErrors.toAccountNumber}</p>
+                )}
               </label>
               <label className='block sm:col-span-2'>
-                <span className='text-sm font-medium text-slate-700'>Monto</span>
+                <span className='text-sm font-medium text-slate-700'>
+                  Monto <span className='text-red-500'>*</span>
+                </span>
                 <input
                   type='number'
                   step='0.01'
                   min='0.01'
+                  placeholder='0.00'
                   value={form.amount}
-                  onChange={(event) => setForm({ ...form, amount: event.target.value })}
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  onChange={(event) => {
+                    setForm({ ...form, amount: event.target.value });
+                    setValidationErrors({ ...validationErrors, amount: '' });
+                  }}
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none ${
+                    validationErrors.amount ? 'border-red-500' : 'border-gray-200'
+                  }`}
                 />
+                {validationErrors.amount && (
+                  <p className='mt-1 text-xs text-red-500'>{validationErrors.amount}</p>
+                )}
+              </label>
+              <label className='block sm:col-span-2'>
+                <span className='text-sm font-medium text-slate-700'>
+                  Descripción <span className='text-gray-400'>(opcional)</span>
+                </span>
+                <textarea
+                  placeholder='Describe el motivo de la transferencia'
+                  value={form.description}
+                  onChange={(event) => {
+                    setForm({ ...form, description: event.target.value });
+                    setValidationErrors({ ...validationErrors, description: '' });
+                  }}
+                  maxLength={200}
+                  rows={3}
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none resize-none ${
+                    validationErrors.description ? 'border-red-500' : 'border-gray-200'
+                  }`}
+                />
+                <p className='mt-1 text-xs text-gray-400'>
+                  {form.description.length}/200
+                </p>
+                {validationErrors.description && (
+                  <p className='mt-1 text-xs text-red-500'>{validationErrors.description}</p>
+                )}
               </label>
               <div className='sm:col-span-2 flex justify-end gap-3 pt-2'>
                 <button

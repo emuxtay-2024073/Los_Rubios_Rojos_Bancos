@@ -141,29 +141,8 @@ router.post('/default', requireRole('admin'), setDefaultLimits);
  *       200:
  *         description: Límite eliminado exitosamente
  */
-router.delete('/:limitId', requireRole('admin'), removeLimitForUser);
-
-/**
- * @swagger
- * /limits/all:
- *   get:
- *     summary: Listar todos los límites (ADMIN)
- *     tags: [Límites de Transacciones]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: userId
- *         schema:
- *           type: string
- *       - in: query
- *         name: isDefault
- *         schema:
- *           type: boolean
- *     responses:
- *       200:
- *         description: Lista de todos los límites
- */
 router.get('/all', requireRole('admin'), getAllLimits);
+
+router.delete('/:limitId', requireRole('admin'), removeLimitForUser);
 
 export default router;

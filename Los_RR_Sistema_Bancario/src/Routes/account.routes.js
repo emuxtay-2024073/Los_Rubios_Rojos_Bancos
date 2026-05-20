@@ -10,6 +10,10 @@ import {
     getDisableAccountRequests,
     approveDisableAccountRequest,
     rejectDisableAccountRequest,
+    requestReactivateAccount,
+    getReactivateAccountRequests,
+    approveReactivateRequest,
+    rejectReactivateRequest,
 } from '../Controllers/account.controller.js';
 import { validateJWT, requireRole } from '../Middleware/validate-jwt.js';
 
@@ -252,6 +256,10 @@ router.post('/disable-requests/:requestId/reject', requireRole('admin'), rejectD
  *       404:
  *         description: Cuenta no encontrada
  */
+router.get('/reactivate-requests', requireRole('admin'), getReactivateAccountRequests);
+router.post('/reactivate-requests/:requestId/approve', requireRole('admin'), approveReactivateRequest);
+router.post('/reactivate-requests/:requestId/reject', requireRole('admin'), rejectReactivateRequest);
+ 
 router.get('/:accountId/history', getAccountHistory);
 
 /**
@@ -322,6 +330,7 @@ router.get('/:accountId', getAccountDetails);
  *         description: Permiso denegado
  */
 router.post('/:accountId/disable-request', requestDisableAccount);
+router.post('/:accountId/reactivate-request', requestReactivateAccount);
 
 /**
  * @swagger

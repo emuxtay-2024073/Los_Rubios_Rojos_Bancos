@@ -1,5 +1,7 @@
 ﻿import { Router } from 'express';
-import { register, login } from '../Controllers/authController.js'; 
+import { register, login } from '../Controllers/authController.js';
+import { getAllUsers } from '../Controllers/userManagement.controller.js';
+import { validateJWT, requireRole } from '../Middleware/validate-jwt.js';
 
 const router = Router();
 
@@ -77,5 +79,8 @@ router.post('/register', register);
  *         description: Credenciales inválidas
  */
 router.post('/login', login);
+
+// Obtener todos los usuarios (Admin)
+router.get('/users', validateJWT, requireRole('admin'), getAllUsers);
 
 export default router;

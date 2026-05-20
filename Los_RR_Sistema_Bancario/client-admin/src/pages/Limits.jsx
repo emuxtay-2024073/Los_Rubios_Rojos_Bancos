@@ -23,6 +23,9 @@ export const Limits = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const [filterAccountNumber, setFilterAccountNumber] = useState('');
+  const [filterAccountType, setFilterAccountType] = useState('');
+  const [filterTransactionType, setFilterTransactionType] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [mode, setMode] = useState('default');
   const [form, setForm] = useState(emptyLimit);
@@ -53,13 +56,24 @@ export const Limits = () => {
     () =>
       limits.filter((limit) => {
         const query = search.toLowerCase();
-        return (
-          String(limit.userId?.username ?? limit.userId ?? '').toLowerCase().includes(query) ||
+        const matchesSearch =
+          String(limit.accountNumber ?? limit.userId ?? '').toLowerCase().includes(query) ||
           String(limit.accountType ?? '').toLowerCase().includes(query) ||
-          String(limit.transactionType ?? '').toLowerCase().includes(query)
-        );
+          String(limit.transactionType ?? '').toLowerCase().includes(query);
+
+        const matchesAccountNumber =
+          !filterAccountNumber ||
+          String(limit.accountNumber ?? limit.userId ?? '').toLowerCase().includes(filterAccountNumber.toLowerCase());
+
+        const matchesAccountType =
+          !filterAccountType || limit.accountType === filterAccountType;
+
+        const matchesTransactionType =
+          !filterTransactionType || limit.transactionType === filterTransactionType;
+
+        return matchesSearch && matchesAccountNumber && matchesAccountType && matchesTransactionType;
       }),
-    [limits, search],
+    [limits, search, filterAccountNumber, filterAccountType, filterTransactionType],
   );
 
   const openModal = (nextMode) => {
@@ -147,14 +161,45 @@ export const Limits = () => {
         </article>
       </div>
 
-      <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
+      <div className='grid gap-4 lg:grid-cols-4'>
         <input
           type='search'
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder='Buscar por usuario, tipo o transacción'
-          className='w-full max-w-lg rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          placeholder='Buscar por cuenta, tipo o transacción'
+          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
         />
+        <input
+          type='text'
+          value={filterAccountNumber}
+          onChange={(event) => setFilterAccountNumber(event.target.value)}
+          placeholder='Filtrar por número de cuenta'
+          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+        />
+        <select
+          value={filterAccountType}
+          onChange={(event) => setFilterAccountType(event.target.value)}
+          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+        >
+          <option value=''>Todas las cuentas</option>
+          {accountTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+        <select
+          value={filterTransactionType}
+          onChange={(event) => setFilterTransactionType(event.target.value)}
+          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+        >
+          <option value=''>Todas las transacciones</option>
+          {transactionTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
@@ -162,8 +207,8 @@ export const Limits = () => {
           <table className='min-w-full border-collapse text-left'>
             <thead className='bg-slate-50 text-sm text-slate-600'>
               <tr>
-                <th className='px-5 py-4'>Usuario</th>
                 <th className='px-5 py-4'>Cuenta</th>
+                <th className='px-5 py-4'>Tipo cuenta</th>
                 <th className='px-5 py-4'>Transacción</th>
                 <th className='px-5 py-4'>Límites</th>
                 <th className='px-5 py-4'>Creado</th>
@@ -173,7 +218,7 @@ export const Limits = () => {
             <tbody>
               {filteredLimits.map((limit) => (
                 <tr key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='border-t border-gray-100 hover:bg-slate-50'>
-                  <td className='px-5 py-4'>{limit.userId?.username ?? 'Sistema'}</td>
+                  <td className='px-5 py-4'>{limit.accountNumber ?? 'General'}</td>
                   <td className='px-5 py-4'>{limit.accountType || 'General'}</td>
                   <td className='px-5 py-4'>{limit.transactionType || 'General'}</td>
                   <td className='px-5 py-4'>

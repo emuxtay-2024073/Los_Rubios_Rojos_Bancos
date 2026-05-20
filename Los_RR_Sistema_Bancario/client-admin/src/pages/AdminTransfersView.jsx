@@ -32,6 +32,9 @@ export const AdminTransfersView = () => {
 
   const filteredTransfers = useMemo(() => {
     return transfers.filter((transfer) => {
+      // Filtrar solo transferencias
+      if (transfer.type !== 'TRANSFERENCIA') return false;
+
       // Filtrar por monto
       if (filterAmount.min || filterAmount.max) {
         const min = filterAmount.min ? parseFloat(filterAmount.min) : 0;

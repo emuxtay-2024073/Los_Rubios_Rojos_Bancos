@@ -19,6 +19,7 @@ export const Sidebar = () => {
       ? [
           { label: 'Límites', to: '/dashboard/limits' },
           { label: 'Solicitudes de deshabilitación', to: '/dashboard/disable-requests' },
+          { label: 'Solicitudes de habilitación', to: '/dashboard/reactivate-requests' },
           { label: 'Usuarios', to: '/dashboard/users' },
         ]
       : []),

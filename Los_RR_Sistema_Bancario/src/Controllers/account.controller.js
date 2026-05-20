@@ -2,6 +2,8 @@ import { Account } from "../Models/account.model.js";
 import { Transaction } from "../Models/transaction.model.js";
 import { ExchangeRate } from "../Models/exchangeRate.model.js";
 import { DisableAccountRequest } from "../Models/disableAccountRequest.model.js";
+import { ReactivateAccountRequest } from "../Models/reactivateAccountRequest.model.js";
+import axios from 'axios';
 
 const generarNumeroCuenta = () => "ACC" + Math.floor(100000 + Math.random() * 900000);
 
@@ -70,8 +72,8 @@ export const createAccount = async (req, res) => {
             });
         }
 
-        // Verificar que el usuario tenga rol Admin
-        if (req.user.role !== 'Admin') {
+        // Verificar que el usuario tenga rol Admin (case-insensitive)
+        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
             return res.status(403).json({ 
                 message: "Solo los administradores pueden crear cuentas bancarias.",
                 error: "INSUFFICIENT_PERMISSIONS"
@@ -121,10 +123,18 @@ export const createAccount = async (req, res) => {
 export const getAccounts = async (req, res) => {
     try {
         const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
-        const query = isAdmin ? {} : { userId: req.user.id };
+        const { accountNumber } = req.query;
+        let query = {};
+
+        if (accountNumber) {
+            query.accountNumber = accountNumber;
+        } else if (!isAdmin) {
+            query.userId = req.user.id;
+        }
+
         let accounts = await Account.find(query).sort({ createdAt: -1 });
 
-        if (!isAdmin && accounts.length === 0) {
+        if (!accountNumber && !isAdmin && accounts.length === 0) {
             const newAccount = await createDefaultAccountForClient(req.user.id);
             accounts = [newAccount];
         }
@@ -273,7 +283,17 @@ export const getDisableAccountRequests = async (req, res) => {
         }
 
         const { status } = req.query;
-        const query = status ? { status } : {};
+        const allowedStatuses = ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'];
+        const query = {};
+
+        if (status) {
+            const normalizedStatus = String(status).trim().toUpperCase();
+            if (!allowedStatuses.includes(normalizedStatus)) {
+                return res.status(400).json({ message: "Estado inválido para filtrar solicitudes" });
+            }
+            query.status = normalizedStatus;
+        }
+
         const requests = await DisableAccountRequest.find(query)
             .sort({ requestedAt: -1 });
 
@@ -286,7 +306,7 @@ export const getDisableAccountRequests = async (req, res) => {
 
 export const approveDisableAccountRequest = async (req, res) => {
     try {
-        if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
             return res.status(403).json({ message: "Solo administradores pueden aprobar solicitudes" });
         }
 
@@ -331,7 +351,7 @@ export const approveDisableAccountRequest = async (req, res) => {
 
 export const rejectDisableAccountRequest = async (req, res) => {
     try {
-        if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
             return res.status(403).json({ message: "Solo administradores pueden rechazar solicitudes" });
         }
 
@@ -474,5 +494,165 @@ export const withdraw = async (req, res) => {
     } catch (error) {
         console.error("Error al retirar:", error);
         res.status(500).json({ message: "Error al retirar" });
+    }
+};
+
+export const requestReactivateAccount = async (req, res) => {
+    try {
+        const { accountId } = req.params;
+        const { dpi, description } = req.body;
+        const userId = req.user.id;
+
+        if (!dpi || !description) {
+            return res.status(400).json({ message: "DPI y descripción son obligatorios" });
+        }
+
+        // Basic dpi validation: digits only and length between 5 and 20
+        const dpiClean = String(dpi).replace(/\s+/g, '');
+        if (!/^[0-9]{5,20}$/.test(dpiClean)) {
+            return res.status(400).json({ message: "DPI inválido. Debe contener solo dígitos (5-20 caracteres)" });
+        }
+
+        const account = await Account.findById(accountId);
+        if (!account) {
+            return res.status(404).json({ message: "Cuenta no encontrada" });
+        }
+
+        if (String(account.userId) !== String(userId)) {
+            return res.status(403).json({ message: "Solo el propietario puede solicitar la habilitación" });
+        }
+
+        if (account.isActive) {
+            return res.status(400).json({ message: "La cuenta ya está activa" });
+        }
+
+        const pending = await ReactivateAccountRequest.findOne({ accountId, status: 'PENDING' });
+        if (pending) {
+            return res.status(400).json({ message: "Ya existe una solicitud de habilitación pendiente para esta cuenta" });
+        }
+
+        // Opcional: validar DPI contra AuthService si se configura un token de servicio
+        const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://localhost:5109';
+        const adminToken = process.env.AUTH_SERVICE_ADMIN_TOKEN || null;
+        if (adminToken) {
+            try {
+                const resp = await axios.get(`${authServiceUrl}/api/auth/users`, {
+                    headers: { Authorization: `Bearer ${adminToken}` },
+                    timeout: 5000,
+                });
+                const users = Array.isArray(resp.data) ? resp.data : resp.data?.users || [];
+                const owner = users.find(u => String(u.id) === String(account.userId) || String(u.Id) === String(account.userId));
+                if (!owner) {
+                    console.warn(`AuthService: usuario ${account.userId} no encontrado al validar DPI`);
+                } else if (owner.dpi && String(owner.dpi).replace(/\s+/g, '') !== dpiClean) {
+                    return res.status(400).json({ message: "El DPI proporcionado no coincide con nuestros registros de identidad" });
+                }
+            } catch (err) {
+                console.warn('No se pudo validar DPI con AuthService:', err.message || err);
+                // No detener la creación de la solicitud si AuthService no está disponible
+            }
+        }
+
+        const reqDoc = new ReactivateAccountRequest({
+            accountId,
+            requestedBy: userId,
+            dpi: dpiClean,
+            description: description.trim(),
+        });
+
+        await reqDoc.save();
+
+        res.status(201).json({ success: true, message: "Solicitud de habilitación creada exitosamente", request: reqDoc });
+    } catch (error) {
+        console.error("Error al solicitar habilitación de cuenta:", error);
+        res.status(500).json({ message: "Error al crear solicitud de habilitación" });
+    }
+};
+
+export const getReactivateAccountRequests = async (req, res) => {
+    try {
+        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+            return res.status(403).json({ message: "Solo administradores pueden ver solicitudes de habilitación" });
+        }
+
+        const { status } = req.query;
+        const allowedStatuses = ['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'];
+        const query = {};
+
+        if (status) {
+            const normalizedStatus = String(status).trim().toUpperCase();
+            if (!allowedStatuses.includes(normalizedStatus)) {
+                return res.status(400).json({ message: 'Estado inválido para filtrar solicitudes' });
+            }
+            query.status = normalizedStatus;
+        }
+
+        const requests = await ReactivateAccountRequest.find(query).sort({ requestedAt: -1 });
+
+        res.json({ success: true, total: requests.length, requests });
+    } catch (error) {
+        console.error('Error al obtener solicitudes de habilitación:', error);
+        res.status(500).json({ message: 'Error al obtener solicitudes de habilitación' });
+    }
+};
+
+export const approveReactivateRequest = async (req, res) => {
+    try {
+        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+            return res.status(403).json({ message: "Solo administradores pueden aprobar solicitudes" });
+        }
+
+        const { requestId } = req.params;
+        const { responseReason } = req.body;
+
+        const request = await ReactivateAccountRequest.findById(requestId);
+        if (!request) return res.status(404).json({ message: 'Solicitud no encontrada' });
+        if (request.status !== 'PENDING') return res.status(400).json({ message: 'Solo solicitudes pendientes pueden ser aprobadas' });
+
+        const account = await Account.findById(request.accountId);
+        if (!account) return res.status(404).json({ message: 'Cuenta ligada a la solicitud no encontrada' });
+        if (account.isActive) return res.status(400).json({ message: 'La cuenta ya está activa' });
+
+        account.isActive = true;
+        account.suspendedAt = null;
+        account.suspensionReason = '';
+        await account.save();
+
+        request.status = 'APPROVED';
+        request.reviewedBy = req.user.id;
+        request.reviewedAt = new Date();
+        request.responseReason = responseReason || 'Habilitación aprobada por administrador';
+        await request.save();
+
+        res.json({ success: true, message: 'Solicitud aprobada y cuenta reactivada', request, account });
+    } catch (error) {
+        console.error('Error al aprobar solicitud de habilitación:', error);
+        res.status(500).json({ message: 'Error al aprobar solicitud de habilitación' });
+    }
+};
+
+export const rejectReactivateRequest = async (req, res) => {
+    try {
+        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+            return res.status(403).json({ message: "Solo administradores pueden rechazar solicitudes" });
+        }
+
+        const { requestId } = req.params;
+        const { responseReason } = req.body;
+
+        const request = await ReactivateAccountRequest.findById(requestId);
+        if (!request) return res.status(404).json({ message: 'Solicitud no encontrada' });
+        if (request.status !== 'PENDING') return res.status(400).json({ message: 'Solo solicitudes pendientes pueden ser rechazadas' });
+
+        request.status = 'REJECTED';
+        request.reviewedBy = req.user.id;
+        request.reviewedAt = new Date();
+        request.responseReason = responseReason || 'Rechazo de solicitud';
+        await request.save();
+
+        res.json({ success: true, message: 'Solicitud rechazada', request });
+    } catch (error) {
+        console.error('Error al rechazar solicitud de habilitación:', error);
+        res.status(500).json({ message: 'Error al rechazar solicitud de habilitación' });
     }
 };

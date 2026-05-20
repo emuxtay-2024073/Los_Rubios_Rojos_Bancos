@@ -1,3 +1,4 @@
+using System.IO;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,15 @@ using AuthService.Domain.Interfaces;
 using AuthService.Persistence.Data;
 using AuthService.Persistence.Repositories;
 
+// Deshabilitar el remapeo automático de claims de JWT al formato largo de Microsoft.
+// Sin esto, el claim "role" se convierte a "http://schemas.microsoft.com/.../role"
+// y [Authorize(Roles = "ADMIN")] nunca coincide.
+System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+ 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
-
-builder.Services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -41,6 +46,92 @@ if (!jwtSettings.Exists())
 }
 var securitySettings = configuration.GetSection("Security");
 
+static bool TryParseBoolEnv(string? value, out bool result)
+{
+    if (bool.TryParse(value, out result)) return true;
+    if (string.IsNullOrWhiteSpace(value)) return false;
+    return value.Trim().ToLowerInvariant() switch
+    {
+        "1" => result = true,
+        "yes" => result = true,
+        "y" => result = true,
+        "on" => result = true,
+        "true" => result = true,
+        "0" => result = false,
+        "no" => result = false,
+        "n" => result = false,
+        "off" => result = false,
+        "false" => result = false,
+        _ => false
+    };
+}
+
+static string? FindDotEnvFile(string startPath)
+{
+    var dir = new DirectoryInfo(startPath);
+    while (dir != null)
+    {
+        var file = Path.Combine(dir.FullName, ".env");
+        if (File.Exists(file)) return file;
+        dir = dir.Parent;
+    }
+    return null;
+}
+
+static void LoadDotEnvFile(string filePath)
+{
+    foreach (var rawLine in File.ReadAllLines(filePath))
+    {
+        var line = rawLine.Trim();
+        if (string.IsNullOrWhiteSpace(line) || line.StartsWith("#")) continue;
+        var separatorIndex = line.IndexOf('=');
+        if (separatorIndex <= 0) continue;
+        var key = line[..separatorIndex].Trim();
+        var value = line[(separatorIndex + 1)..].Trim();
+        if (string.IsNullOrWhiteSpace(key)) continue;
+        Environment.SetEnvironmentVariable(key, value);
+    }
+}
+
+var dotEnvFile = FindDotEnvFile(builder.Environment.ContentRootPath) ?? FindDotEnvFile(Directory.GetCurrentDirectory());
+if (dotEnvFile != null)
+{
+    Console.WriteLine($"[EMAIL BANCARIO] Cargando variables de entorno desde {dotEnvFile}");
+    LoadDotEnvFile(dotEnvFile);
+}
+
+string? GetEnv(string name) => Environment.GetEnvironmentVariable(name);
+void MapEnv(string envKey, string configKey)
+{
+    var envValue = GetEnv(envKey);
+    if (!string.IsNullOrWhiteSpace(envValue)) builder.Configuration[configKey] = envValue;
+}
+
+MapEnv("SMTP_HOST", "SmtpSettings:Host");
+MapEnv("SMTP_PORT", "SmtpSettings:Port");
+MapEnv("SMTP_USER", "SmtpSettings:Username");
+MapEnv("SMTP_PASS", "SmtpSettings:Password");
+MapEnv("SMTP_FROM", "SmtpSettings:FromEmail");
+MapEnv("SMTP_FROM_NAME", "SmtpSettings:FromName");
+MapEnv("SMTP_TIMEOUT", "SmtpSettings:Timeout");
+MapEnv("SMTP_IGNORE_CERTIFICATE_ERRORS", "SmtpSettings:IgnoreCertificateErrors");
+MapEnv("SMTP_USE_FALLBACK", "SmtpSettings:UseFallback");
+
+var smtpEnabledValue = GetEnv("SMTP_ENABLED");
+if (!string.IsNullOrWhiteSpace(smtpEnabledValue) && TryParseBoolEnv(smtpEnabledValue, out var smtpEnabled))
+{
+    builder.Configuration["SmtpSettings:Enabled"] = smtpEnabled.ToString();
+}
+
+var smtpSecureValue = GetEnv("SMTP_SECURE");
+if (!string.IsNullOrWhiteSpace(smtpSecureValue) && TryParseBoolEnv(smtpSecureValue, out var smtpSecure))
+{
+    builder.Configuration["SmtpSettings:UseImplicitSsl"] = smtpSecure.ToString();
+    builder.Configuration["SmtpSettings:EnableSsl"] = (!smtpSecure).ToString();
+}
+
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+
 var jwtKey = jwtSettings["Key"] ?? jwtSettings["SecretKey"] ?? throw new InvalidOperationException("JWT Key no configurada");
 var jwtIssuer = jwtSettings["Issuer"] ?? throw new InvalidOperationException("JWT Issuer no configurado");
 var jwtAudience = jwtSettings["Audience"] ?? throw new InvalidOperationException("JWT Audience no configurado");
@@ -60,10 +151,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = jwtIssuer,
             ValidAudience = jwtAudience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            RoleClaimType = "role",
             ClockSkew = TimeSpan.FromSeconds(
                 securitySettings?.GetValue<int>("ClockSkewSeconds") ?? 0
             )
         };
+
 
         options.Events = new JwtBearerEvents
     
@@ -120,9 +213,15 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins("http://localhost:5173")
+                .WithOrigins(
+                    "http://localhost:5173",
+                    "http://localhost:5174",
+                    "http://127.0.0.1:5173",
+                    "http://127.0.0.1:5174"
+                )
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 
@@ -141,7 +240,6 @@ builder.Services.AddSwaggerGen(c =>
                       "Roles disponibles: CLIENTE (operaciones básicas), ADMIN (gestión completa)."
     });
 
-    // Configurar JWT en Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -169,17 +267,9 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// ============================================
-// BUILD APP
-// ============================================
 var app = builder.Build();
 app.UseCors("AllowFrontend");
 
-// ============================================
-// CONFIGURACIÓN DEL PIPELINE
-// ============================================
-
-// Swagger (solo en desarrollo)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -205,7 +295,7 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseMiddleware<RateLimitingMiddleware>();
 
 // CORS
-app.UseCors("CorsPolicy");
+app.UseCors("AllowFrontend");
 
 // Autenticación y Autorización
 app.UseAuthentication();
@@ -242,9 +332,6 @@ app.Lifetime.ApplicationStarted.Register(() =>
     }
 });
 
-// ============================================
-// INICIALIZACIÓN DE BD (Versión Estable)
-// ============================================
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -255,13 +342,11 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<ApplicationDbContext>();
         
         dbLogger.LogInformation("Verificando migraciones pendientes...");
-        
-        // Ejecutamos de forma síncrona para evitar el error CS4034 en el Program.cs
+ 
         context.Database.Migrate(); 
         
         dbLogger.LogInformation("Base de datos inicializada correctamente");
 
-        // Usamos .Count() en lugar de CountAsync para no necesitar await
         var rolesCount = context.Role.Count();
         dbLogger.LogInformation("Roles en BD: {Count}", rolesCount);
     }
@@ -279,4 +364,3 @@ logger.LogInformation("Sistema Bancario API iniciando...");
 logger.LogInformation("Entorno: {Environment}", app.Environment.EnvironmentName);
 
 app.Run();
-

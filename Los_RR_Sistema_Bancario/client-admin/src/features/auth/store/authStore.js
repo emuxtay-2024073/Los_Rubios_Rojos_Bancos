@@ -123,7 +123,8 @@ export const useAuthStore = create(
           set({ loading: true, error: null });
 
           const { data } = await loginRequest({ email, password });
-          const token = data?.token;
+          const token = data?.token || data?.accessToken || data?.Token || data?.AccessToken;
+          const refreshToken = data?.refreshToken || data?.RefreshToken || null;
 
           if (!token) {
             const message = data?.message || 'Error al iniciar sesión';
@@ -132,7 +133,7 @@ export const useAuthStore = create(
           }
 
           const claims = parseJwt(token);
-          const role = getRoleFromClaims(claims);
+          const role = getRoleFromClaims(claims) || data?.user?.role;
           const validRole = isValidRole(role);
 
           if (!validRole) {
@@ -155,13 +156,19 @@ export const useAuthStore = create(
 
           set({
             user: {
-              id: getUserIdFromClaims(claims),
-              username: resolveClaim(claims, ['unique_name', 'name', 'preferred_username']) || null,
-              email: resolveClaim(claims, ['email', 'upn', 'preferred_username']) || null,
-              role: role || 'Cliente',
+              id: getUserIdFromClaims(claims) || data?.user?.id || null,
+              username:
+                resolveClaim(claims, ['unique_name', 'name', 'preferred_username']) ||
+                data?.user?.username ||
+                null,
+              email:
+                resolveClaim(claims, ['email', 'upn', 'preferred_username']) ||
+                data?.user?.email ||
+                null,
+              role: role || data?.user?.role || 'Cliente',
             },
             token,
-            refreshToken: null,
+            refreshToken,
             expiresAt: claims?.exp ? new Date(claims.exp * 1000).toISOString() : null,
             isAuthenticated: true,
             isAdmin: isAdminRole(role),
