@@ -1,6 +1,66 @@
+import mongoose from "mongoose";
 import { Account } from "../Models/account.model.js";
 import { Transaction } from "../Models/transaction.model.js";
 import { User } from "../Models/user.model.js";
+import { TransactionLimit } from "../Models/transactionLimit.model.js";
+
+const getApplicableTransactionLimit = async (userId, accountType, transactionType) => {
+  const normalizedUserId = String(userId);
+  const normalizedType = transactionType || 'TRANSFERENCIA';
+  const normalizedAccountType = accountType || null;
+
+  let limit = await TransactionLimit.findOne({
+    userId: normalizedUserId,
+    accountType: normalizedAccountType,
+    transactionType: normalizedType,
+  });
+
+  if (!limit) {
+    limit = await TransactionLimit.findOne({
+      isDefault: true,
+      accountType: normalizedAccountType,
+      transactionType: normalizedType,
+    });
+  }
+
+  if (!limit && normalizedAccountType != null) {
+    limit = await TransactionLimit.findOne({
+      userId: normalizedUserId,
+      accountType: null,
+      transactionType: normalizedType,
+    });
+  }
+
+  if (!limit) {
+    limit = await TransactionLimit.findOne({
+      isDefault: true,
+      accountType: null,
+      transactionType: normalizedType,
+    });
+  }
+
+  return limit || {
+    maxPerTransaction: 10000,
+    maxDailyTotal: 50000,
+    maxMonthlyTotal: 500000,
+    maxDailyCount: 20,
+  };
+};
+
+const calculateTransferUsage = async (accountIds, start, end) => {
+  const query = {
+    type: 'TRANSFERENCIA',
+    originAccount: { $in: accountIds },
+    isReversed: false,
+    date: { $gte: start, $lte: end },
+  };
+
+  const transfers = await Transaction.find(query);
+  const totalAmount = transfers.reduce((sum, tx) => sum + Number(tx.amount || 0), 0);
+  const count = transfers.length;
+
+  return { totalAmount, count };
+};
 
 // =====================================================
 // HISTORIAL DE TRANSACCIONES
@@ -112,7 +172,10 @@ export const transfer = async (req, res) => {
       return res.status(400).json({ message: "La cuenta origen está deshabilitada" });
     }
 
-    const destinationUser = await User.findById(toAccount.userId);
+    let destinationUser = null;
+    if (mongoose.isValidObjectId(toAccount.userId)) {
+      destinationUser = await User.findById(toAccount.userId);
+    }
     if (destinationUser && destinationUser.roles.some(role => role.toLowerCase() === 'admin')) {
       return res.status(400).json({ message: "No se puede transferir a una cuenta de administrador" });
     }
@@ -120,6 +183,41 @@ export const transfer = async (req, res) => {
     // Verificar que la cuenta origen pertenece al usuario autenticado
     if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && fromAccount.userId !== req.user.id) {
       return res.status(403).json({ message: "No tienes permiso sobre la cuenta origen" });
+    }
+
+    const limit = await getApplicableTransactionLimit(fromAccount.userId, fromAccount.type, 'TRANSFERENCIA');
+    const accountIdsOfType = await Account.find({ userId: fromAccount.userId, type: fromAccount.type }).select('_id');
+    const originAccountIds = accountIdsOfType.length > 0 ? accountIdsOfType.map((a) => String(a._id)) : [String(fromAccount._id)];
+
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    const monthStart = new Date(todayStart.getFullYear(), todayStart.getMonth(), 1);
+
+    const { totalAmount: dailyTotal, count: dailyCount } = await calculateTransferUsage(originAccountIds, todayStart, new Date());
+    const { totalAmount: monthlyTotal } = await calculateTransferUsage(originAccountIds, monthStart, new Date());
+
+    if (amountNumber > limit.maxPerTransaction) {
+      return res.status(400).json({
+        message: `Límite por transferencia superado. El máximo por operación es ${limit.maxPerTransaction}.`,
+      });
+    }
+
+    if (dailyTotal + amountNumber > limit.maxDailyTotal) {
+      return res.status(400).json({
+        message: `Límite diario de transferencia superado. Ya se han transferido ${dailyTotal} hoy y el máximo es ${limit.maxDailyTotal}.`,
+      });
+    }
+
+    if (monthlyTotal + amountNumber > limit.maxMonthlyTotal) {
+      return res.status(400).json({
+        message: `Límite mensual de transferencia superado. Ya se han transferido ${monthlyTotal} este mes y el máximo es ${limit.maxMonthlyTotal}.`,
+      });
+    }
+
+    if (dailyCount + 1 > limit.maxDailyCount) {
+      return res.status(400).json({
+        message: `Límite de cantidad diaria de transferencias superado. Ya realizaste ${dailyCount} transferencias hoy y el máximo es ${limit.maxDailyCount}.`,
+      });
     }
 
     if (fromAccount.balance < amountNumber) {
@@ -149,6 +247,8 @@ export const transfer = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ message: "Error al transferir dinero", error: error.message });
+    console.error("Error en transferencia:", error);
+    const message = error?.message || "Error al transferir dinero";
+    res.status(500).json({ message, error: error?.message });
   }
 };

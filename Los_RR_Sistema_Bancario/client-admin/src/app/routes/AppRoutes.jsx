@@ -19,6 +19,8 @@ import { AdminReversalsView } from '../../pages/AdminReversalsView.jsx';
 import { AdminCurrencyView } from '../../pages/AdminCurrencyView.jsx';
 import { AdminUsersView } from '../../pages/AdminUsersView.jsx';
 import { AdminDisableRequestsView } from '../../pages/AdminDisableRequestsView.jsx';
+import { AdminReactivationRequests } from '../../pages/AdminReactivationRequests.jsx';
+import { AdminDepositsView } from '../../pages/AdminDepositsView.jsx';
 import { Deposits } from '../../pages/Deposits.jsx';
 import { useAuthStore } from '../../features/auth/store/authStore.js';
 
@@ -109,7 +111,7 @@ export const AppRoutes = () => {
           path='deposits'
           element={
             <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
-              <RoleBasedPage adminElement={<AdminAccountsView />} clientElement={<Deposits />} />
+              <RoleBasedPage adminElement={<AdminDepositsView />} clientElement={<Deposits />} />
             </RoleGuard>
           }
         />
@@ -118,6 +120,14 @@ export const AppRoutes = () => {
           element={
             <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
               <AdminDisableRequestsView />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path='reactivate-requests'
+          element={
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminReactivationRequests />
             </RoleGuard>
           }
         />

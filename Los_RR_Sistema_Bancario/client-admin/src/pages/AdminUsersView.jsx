@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { getUsers, updateUserRole, deactivateUser, reactivateUser } from '../services/adminApi.js';
+import { getUsers, deactivateUser, reactivateUser } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { formatDateTime } from '../shared/utils/banking.js';
 import { showSuccess, showError } from '../shared/utils/toast.js';
@@ -12,7 +12,7 @@ export const AdminUsersView = () => {
   const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState('active');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [newRole, setNewRole] = useState('Cliente');
+  const [deactivatePassword, setDeactivatePassword] = useState('');
   const [processingId, setProcessingId] = useState(null);
 
   useEffect(() => {
@@ -55,30 +55,23 @@ export const AdminUsersView = () => {
     return filtered;
   }, [users, searchValue, activeTab]);
 
-  const handleChangeRole = async (userId) => {
-    try {
-      setProcessingId(userId);
-      await updateUserRole(userId, newRole);
-      showSuccess('Rol cambiado exitosamente');
-      loadUsers();
-      setSelectedUser(null);
-    } catch (err) {
-      showError('Error al cambiar rol');
-      console.error(err);
-    } finally {
-      setProcessingId(null);
-    }
-  };
+
 
   const handleDeactivate = async (userId) => {
-    if (window.confirm('¿Seguro que deseas desactivar esta cuenta?')) {
+    if (!deactivatePassword) {
+      showError('Debes ingresar la contraseña para desactivar la cuenta');
+      return;
+    }
+    if (window.confirm('¿Seguro que deseas desactivar esta cuenta? Esta acción requiere confirmación.')) {
       try {
         setProcessingId(userId);
-        await deactivateUser(userId);
+        await deactivateUser(userId, deactivatePassword);
         showSuccess('Cuenta desactivada');
         loadUsers();
+        setSelectedUser(null);
+        setDeactivatePassword('');
       } catch (err) {
-        showError('Error al desactivar cuenta');
+        showError(err?.response?.data?.message || 'Error al desactivar cuenta');
         console.error(err);
       } finally {
         setProcessingId(null);
@@ -184,7 +177,7 @@ export const AdminUsersView = () => {
           <tbody>
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
-                <tr key={user._id}>
+                <tr key={user._id || user.id}>
                   <td>{user.username || 'N/A'}</td>
                   <td>{user.email}</td>
                   <td className="badge">{user.role || 'CLIENTE'}</td>
@@ -199,7 +192,7 @@ export const AdminUsersView = () => {
                       className="btn btn-small btn-info"
                       onClick={() => {
                         setSelectedUser(user);
-                        setNewRole(user.role || 'Cliente');
+                        setDeactivatePassword('');
                       }}
                     >
                       Gestionar
@@ -231,6 +224,10 @@ export const AdminUsersView = () => {
 
             <div className="modal-body">
               <div className="detail-row">
+                <span>ID del Usuario:</span>
+                <strong className="mono">{selectedUser._id || selectedUser.id}</strong>
+              </div>
+              <div className="detail-row">
                 <span>Usuario:</span>
                 <strong>{selectedUser.username}</strong>
               </div>
@@ -254,33 +251,26 @@ export const AdminUsersView = () => {
               </div>
 
               <div className="modal-actions">
-                <div className="form-group">
-                  <label>Cambiar Rol:</label>
-                  <select
-                    value={newRole}
-                    onChange={(e) => setNewRole(e.target.value)}
-                    disabled={processingId === selectedUser._id}
-                  >
-                    <option value="Cliente">Cliente</option>
-                    <option value="Admin">Administrador</option>
-                  </select>
-                </div>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleChangeRole(selectedUser._id)}
-                  disabled={processingId === selectedUser._id}
-                >
-                  {processingId === selectedUser._id ? 'Procesando...' : 'Cambiar Rol'}
-                </button>
-
                 {selectedUser.isActive !== false ? (
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDeactivate(selectedUser._id)}
-                    disabled={processingId === selectedUser._id}
-                  >
-                    {processingId === selectedUser._id ? 'Procesando...' : 'Desactivar Cuenta'}
-                  </button>
+                  <>
+                    <div className="form-group">
+                      <label>Contraseña (requerida para desactivar):</label>
+                      <input
+                        type="password"
+                        placeholder="Ingrese la contraseña..."
+                        value={deactivatePassword}
+                        onChange={(e) => setDeactivatePassword(e.target.value)}
+                        disabled={processingId === selectedUser._id}
+                      />
+                    </div>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDeactivate(selectedUser._id)}
+                      disabled={processingId === selectedUser._id || !deactivatePassword}
+                    >
+                      {processingId === selectedUser._id ? 'Procesando...' : 'Desactivar Cuenta'}
+                    </button>
+                  </>
                 ) : (
                   <button
                     className="btn btn-success"

@@ -20,8 +20,7 @@ public class EmailService : IEmailService
     {
         if (!_smtpSettings.Enabled)
         {
-            Console.WriteLine("[EMAIL BANCARIO] SMTP deshabilitado en la configuración. No se envía el correo.");
-            return;
+            throw new InvalidOperationException("SMTP está deshabilitado. Configure SMTP_ENABLED=true o SmtpSettings__Enabled=true en la configuración.");
         }
 
         if (string.IsNullOrWhiteSpace(_smtpSettings.Host) ||
@@ -33,19 +32,24 @@ public class EmailService : IEmailService
             throw new InvalidOperationException("SmtpSettings incompletos. Verifique Host, Port, Username, Password y FromEmail.");
         }
 
+        Console.WriteLine($"[EMAIL BANCARIO] Enviando email a {to} usando SMTP {_smtpSettings.Host}:{_smtpSettings.Port}");
+
         var message = new MimeMessage();
-        message.From.Add(new MailboxAddress(
-            string.IsNullOrWhiteSpace(_smtpSettings.FromName) ? _smtpSettings.FromEmail : _smtpSettings.FromName,
-            _smtpSettings.FromEmail));
+
+        if (_smtpSettings.FromEmail.Contains("<") && _smtpSettings.FromEmail.Contains(">"))
+        {
+            message.From.Add(MailboxAddress.Parse(_smtpSettings.FromEmail));
+        }
+        else
+        {
+            message.From.Add(new MailboxAddress(
+                string.IsNullOrWhiteSpace(_smtpSettings.FromName) ? _smtpSettings.FromEmail : _smtpSettings.FromName,
+                _smtpSettings.FromEmail));
+        }
+
         message.To.Add(MailboxAddress.Parse(to));
         message.Subject = subject;
-
-        var bodyBuilder = new BodyBuilder
-        {
-            TextBody = body
-        };
-
-        message.Body = bodyBuilder.ToMessageBody();
+        message.Body = new BodyBuilder { TextBody = body }.ToMessageBody();
 
         using var smtp = new SmtpClient();
 
@@ -54,25 +58,21 @@ public class EmailService : IEmailService
             smtp.ServerCertificateValidationCallback = (_, _, _, _) => true;
         }
 
-        SecureSocketOptions socketOptions;
-        if (_smtpSettings.UseImplicitSsl)
-        {
-            socketOptions = SecureSocketOptions.SslOnConnect;
-        }
-        else if (_smtpSettings.EnableSsl)
-        {
-            socketOptions = SecureSocketOptions.StartTls;
-        }
-        else
-        {
-            socketOptions = SecureSocketOptions.Auto;
-        }
+        smtp.AuthenticationMechanisms.Remove("XOAUTH2");
 
-        smtp.Timeout = _smtpSettings.Timeout;
+        var socketOptions = _smtpSettings.UseImplicitSsl
+            ? SecureSocketOptions.SslOnConnect
+            : _smtpSettings.EnableSsl
+                ? SecureSocketOptions.StartTls
+                : SecureSocketOptions.Auto;
+
+        smtp.Timeout = _smtpSettings.Timeout > 0 ? _smtpSettings.Timeout : 10000;
 
         await smtp.ConnectAsync(_smtpSettings.Host, _smtpSettings.Port, socketOptions);
         await smtp.AuthenticateAsync(_smtpSettings.Username, _smtpSettings.Password);
         await smtp.SendAsync(message);
         await smtp.DisconnectAsync(true);
+
+        Console.WriteLine($"[EMAIL BANCARIO] Email enviado exitosamente a {to}");
     }
 }

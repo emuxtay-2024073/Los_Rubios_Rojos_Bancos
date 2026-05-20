@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getCurrentLimits, createDefaultLimit, createUserLimit, deleteLimit } from '../services/adminApi.js';
+import {
+  getCurrentLimits,
+  createDefaultLimit,
+  createUserLimit,
+  deleteLimit,
+} from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { formatMoney } from '../shared/utils/banking.js';
 import { showSuccess, showError } from '../shared/utils/toast.js';
@@ -53,7 +58,12 @@ export const AdminLimitsView = () => {
         maxDailyCount: parseInt(defaultForm.maxDailyCount),
       });
       showSuccess('Límites por defecto establecidos');
-      setDefaultForm({ maxPerTransaction: '', maxDailyTotal: '', maxMonthlyTotal: '', maxDailyCount: '' });
+      setDefaultForm({
+        maxPerTransaction: '',
+        maxDailyTotal: '',
+        maxMonthlyTotal: '',
+        maxDailyCount: '',
+      });
       setShowDefaultForm(false);
       loadLimits();
     } catch (err) {
@@ -73,7 +83,13 @@ export const AdminLimitsView = () => {
         maxDailyCount: parseInt(userForm.maxDailyCount),
       });
       showSuccess('Límite de usuario establecido');
-      setUserForm({ userId: '', maxPerTransaction: '', maxDailyTotal: '', maxMonthlyTotal: '', maxDailyCount: '' });
+      setUserForm({
+        userId: '',
+        maxPerTransaction: '',
+        maxDailyTotal: '',
+        maxMonthlyTotal: '',
+        maxDailyCount: '',
+      });
       setShowUserForm(false);
       loadLimits();
     } catch (err) {
@@ -98,69 +114,73 @@ export const AdminLimitsView = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="admin-page">
-      <div className="admin-header">
+    <div className='admin-page'>
+      <div className='admin-header'>
         <h1>Gestión de Límites de Transacciones</h1>
         <p>Configura límites de retiro y transferencia para el sistema</p>
       </div>
 
-      {error && <div className="alert alert-error">{error}</div>}
+      {error && <div className='alert alert-error'>{error}</div>}
 
-      <div className="admin-actions">
-        <button className="btn btn-primary" onClick={() => setShowDefaultForm(!showDefaultForm)}>
+      <div className='admin-actions'>
+        <button className='btn btn-primary' onClick={() => setShowDefaultForm(!showDefaultForm)}>
           {showDefaultForm ? '✕ Cancelar' : '+ Límites por Defecto'}
         </button>
-        <button className="btn btn-primary" onClick={() => setShowUserForm(!showUserForm)}>
+        <button className='btn btn-primary' onClick={() => setShowUserForm(!showUserForm)}>
           {showUserForm ? '✕ Cancelar' : '+ Límite Personalizado'}
         </button>
       </div>
 
       {/* Formulario Límites por Defecto */}
       {showDefaultForm && (
-        <div className="form-container">
+        <div className='form-container'>
           <h2>Establecer Límites por Defecto</h2>
           <form onSubmit={handleSetDefaultLimit}>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo por Transacción:</label>
               <input
-                type="number"
-                placeholder="Ej: 10000"
+                type='number'
+                placeholder='Ej: 10000'
                 value={defaultForm.maxPerTransaction}
-                onChange={(e) => setDefaultForm({ ...defaultForm, maxPerTransaction: e.target.value })}
+                onChange={(e) =>
+                  setDefaultForm({ ...defaultForm, maxPerTransaction: e.target.value })
+                }
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo Diario Total:</label>
               <input
-                type="number"
-                placeholder="Ej: 50000"
+                type='number'
+                placeholder='Ej: 50000'
                 value={defaultForm.maxDailyTotal}
                 onChange={(e) => setDefaultForm({ ...defaultForm, maxDailyTotal: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo Mensual Total:</label>
               <input
-                type="number"
-                placeholder="Ej: 500000"
+                type='number'
+                placeholder='Ej: 500000'
                 value={defaultForm.maxMonthlyTotal}
-                onChange={(e) => setDefaultForm({ ...defaultForm, maxMonthlyTotal: e.target.value })}
+                onChange={(e) =>
+                  setDefaultForm({ ...defaultForm, maxMonthlyTotal: e.target.value })
+                }
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo Conteo Diario:</label>
               <input
-                type="number"
-                placeholder="Ej: 20"
+                type='number'
+                placeholder='Ej: 20'
                 value={defaultForm.maxDailyCount}
                 onChange={(e) => setDefaultForm({ ...defaultForm, maxDailyCount: e.target.value })}
                 required
               />
             </div>
-            <button type="submit" className="btn btn-success">
+            <button type='submit' className='btn btn-success'>
               Guardar Límites por Defecto
             </button>
           </form>
@@ -169,60 +189,60 @@ export const AdminLimitsView = () => {
 
       {/* Formulario Límite Personalizado */}
       {showUserForm && (
-        <div className="form-container">
+        <div className='form-container'>
           <h2>Establecer Límite Personalizado para Usuario</h2>
           <form onSubmit={handleSetUserLimit}>
-            <div className="form-group">
+            <div className='form-group'>
               <label>ID del Usuario:</label>
               <input
-                type="text"
-                placeholder="ID del usuario"
+                type='text'
+                placeholder='ID del usuario'
                 value={userForm.userId}
                 onChange={(e) => setUserForm({ ...userForm, userId: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo por Transacción:</label>
               <input
-                type="number"
-                placeholder="Ej: 10000"
+                type='number'
+                placeholder='Ej: 10000'
                 value={userForm.maxPerTransaction}
                 onChange={(e) => setUserForm({ ...userForm, maxPerTransaction: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo Diario Total:</label>
               <input
-                type="number"
-                placeholder="Ej: 50000"
+                type='number'
+                placeholder='Ej: 50000'
                 value={userForm.maxDailyTotal}
                 onChange={(e) => setUserForm({ ...userForm, maxDailyTotal: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo Mensual Total:</label>
               <input
-                type="number"
-                placeholder="Ej: 500000"
+                type='number'
+                placeholder='Ej: 500000'
                 value={userForm.maxMonthlyTotal}
                 onChange={(e) => setUserForm({ ...userForm, maxMonthlyTotal: e.target.value })}
                 required
               />
             </div>
-            <div className="form-group">
+            <div className='form-group'>
               <label>Máximo Conteo Diario:</label>
               <input
-                type="number"
-                placeholder="Ej: 20"
+                type='number'
+                placeholder='Ej: 20'
                 value={userForm.maxDailyCount}
                 onChange={(e) => setUserForm({ ...userForm, maxDailyCount: e.target.value })}
                 required
               />
             </div>
-            <button type="submit" className="btn btn-success">
+            <button type='submit' className='btn btn-success'>
               Guardar Límite Personalizado
             </button>
           </form>
@@ -230,9 +250,9 @@ export const AdminLimitsView = () => {
       )}
 
       {/* Tabla de Límites */}
-      <div className="admin-content">
+      <div className='admin-content'>
         <h2>Límites Configurados ({limits.length})</h2>
-        <table className="admin-table">
+        <table className='admin-table'>
           <thead>
             <tr>
               <th>Tipo</th>
@@ -248,15 +268,23 @@ export const AdminLimitsView = () => {
             {limits.length > 0 ? (
               limits.map((limit, index) => (
                 <tr key={limit._id || index}>
-                  <td className="badge">{limit.isDefault ? 'Por Defecto' : 'Personalizado'}</td>
-                  <td className="amount">{formatMoney(limit.maxPerTransaction)}</td>
-                  <td className="amount">{formatMoney(limit.maxDailyTotal)}</td>
-                  <td className="amount">{formatMoney(limit.maxMonthlyTotal)}</td>
+                  <td className='badge'>{limit.isDefault ? 'Por Defecto' : 'Personalizado'}</td>
+                  <td className='amount'>{formatMoney(limit.maxPerTransaction)}</td>
+                  <td className='amount'>{formatMoney(limit.maxDailyTotal)}</td>
+                  <td className='amount'>{formatMoney(limit.maxMonthlyTotal)}</td>
                   <td>{limit.maxDailyCount}</td>
-                  <td>{limit.userId ? limit.userId.substring(0, 8) + '...' : 'Sistema'}</td>
+                  <td>
+                    {limit.userId
+                      ? typeof limit.userId === 'object'
+                        ? limit.userId.email ||
+                          limit.userId.username ||
+                          String(limit.userId._id).substring(0, 8) + '...'
+                        : String(limit.userId).substring(0, 8) + '...'
+                      : 'Sistema'}
+                  </td>
                   <td>
                     <button
-                      className="btn btn-small btn-danger"
+                      className='btn btn-small btn-danger'
                       onClick={() => handleDeleteLimit(limit._id)}
                     >
                       Eliminar
@@ -266,7 +294,7 @@ export const AdminLimitsView = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="no-data">
+                <td colSpan='7' className='no-data'>
                   No hay límites configurados
                 </td>
               </tr>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useAuthStore } from '../../auth/store/authStore.js';
 
 export const DisableRequestsPanel = () => {
+  const token = useAuthStore((state) => state.token);
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,7 +15,7 @@ export const DisableRequestsPanel = () => {
     try {
       const response = await fetch('/api/auth/users', {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -39,7 +41,7 @@ export const DisableRequestsPanel = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ reason: reason || 'Cuenta deshabilitada por solicitud del usuario' }),
       });
@@ -61,7 +63,7 @@ export const DisableRequestsPanel = () => {
       const response = await fetch(`/api/auth/users/${userId}/reject-disable-request`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 

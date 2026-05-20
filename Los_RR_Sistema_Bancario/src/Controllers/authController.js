@@ -60,17 +60,19 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         // Obtenemos email y password del request
-        const { email, password } = req.body;
+        const { email, password, Email, Password } = req.body;
+        const loginEmail = email || Email;
+        const loginPassword = password || Password;
         
         // Verificamos que ambos campos estén presentes
-        if (!email || !password) {
+        if (!loginEmail || !loginPassword) {
             return res.status(400).json({ 
                 error: "Se requieren email y contraseña" 
             });
         }
 
         // Buscamos al usuario por email (convertido a minúsculas para consistencia)
-        const user = await User.findOne({ email: email.toLowerCase() });
+        const user = await User.findOne({ email: loginEmail.toLowerCase() });
         if (!user) {
             return res.status(401).json({ 
                 error: "Credenciales incorrectas" 
@@ -78,7 +80,7 @@ export const login = async (req, res) => {
         }
 
         // Verificamos que la contraseña coincida con el hash almacenado
-        const isPasswordValid = await bcrypt.compare(password, user.password);
+        const isPasswordValid = await bcrypt.compare(loginPassword, user.password);
         
         if (!isPasswordValid) {
             return res.status(401).json({ 

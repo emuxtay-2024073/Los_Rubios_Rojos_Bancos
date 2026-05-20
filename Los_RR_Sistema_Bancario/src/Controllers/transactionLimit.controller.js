@@ -1,4 +1,5 @@
 import { TransactionLimit } from "../Models/transactionLimit.model.js";
+import { Account } from "../Models/account.model.js";
 
 /**
  * CONTROLADOR DE LÍMITES DE TRANSACCIONES
@@ -20,10 +21,15 @@ import { TransactionLimit } from "../Models/transactionLimit.model.js";
  */
 export const getUserLimits = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     const { accountType, transactionType } = req.query;
 
-    let query = { userId };
+    const query = {};
+    if (userId) {
+      query.userId = String(userId);
+    }
+
+    console.log('getUserLimits - query:', JSON.stringify(query), 'accountType:', accountType, 'transactionType:', transactionType);
 
     if (accountType) query.accountType = accountType;
     if (transactionType) query.transactionType = transactionType;
@@ -64,7 +70,8 @@ export const getUserLimits = async (req, res) => {
       limits,
     });
   } catch (error) {
-    console.error("Error al obtener límites:", error);
+    console.error("Error al obtener límites:", error?.message);
+    console.error(error?.stack);
     res.status(500).json({
       message: "Error al obtener límites",
       error: error.message,
@@ -130,15 +137,16 @@ export const setUserLimits = async (req, res) => {
     }
 
     // Buscar o crear límite
+    const normalizedUserId = String(targetUserId);
     let limit = await TransactionLimit.findOne({
-      userId: targetUserId,
+      userId: normalizedUserId,
       accountType: accountType || null,
       transactionType: transactionType || null,
     });
 
     if (!limit) {
       limit = new TransactionLimit({
-        userId: targetUserId,
+        userId: normalizedUserId,
         accountType: accountType || null,
         transactionType: transactionType || null,
         maxPerTransaction,
@@ -295,17 +303,43 @@ export const getAllLimits = async (req, res) => {
     const { userId, isDefault } = req.query;
     let query = {};
 
-    if (userId) query.userId = userId;
+    if (userId) query.userId = String(userId);
     if (isDefault) query.isDefault = isDefault === "true";
 
-    const limits = await TransactionLimit.find(query)
-      .sort({ isDefault: -1, userId: 1 })
-      .populate("userId", "email username");
+    const limits = await TransactionLimit.find(query).sort({ isDefault: -1, userId: 1 });
+
+    const personalizedLimits = limits.filter((limit) => !limit.isDefault && limit.userId);
+    const userIds = Array.from(new Set(personalizedLimits.map((limit) => limit.userId)));
+
+    const accounts = userIds.length > 0
+      ? await Account.find({ userId: { $in: userIds } }).lean()
+      : [];
+
+    const accountMap = accounts.reduce((map, account) => {
+      if (!map[account.userId]) map[account.userId] = {};
+      if (account.type) {
+        map[account.userId][account.type] = account.accountNumber;
+      }
+      if (!map[account.userId].default) {
+        map[account.userId].default = account.accountNumber;
+      }
+      return map;
+    }, {});
+
+    const limitsWithAccount = limits.map((limit) => {
+      const accountNumber = limit.isDefault
+        ? 'General'
+        : accountMap[limit.userId]?.[limit.accountType] || accountMap[limit.userId]?.default || null;
+      return {
+        ...limit.toObject(),
+        accountNumber,
+      };
+    });
 
     res.json({
       success: true,
-      total: limits.length,
-      limits,
+      total: limitsWithAccount.length,
+      limits: limitsWithAccount,
     });
   } catch (error) {
     console.error("Error al listar límites:", error);
@@ -315,3 +349,4 @@ export const getAllLimits = async (req, res) => {
     });
   }
 };
+ 

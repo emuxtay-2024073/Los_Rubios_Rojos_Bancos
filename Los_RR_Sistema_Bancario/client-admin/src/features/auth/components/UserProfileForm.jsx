@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 export const UserProfileForm = ({ onClose }) => {
   const [isDisableRequested, setIsDisableRequested] = useState(false);
   const user = useAuthStore((state) => state.user);
+  const token = useAuthStore((state) => state.token);
   const {
     register,
     handleSubmit,
@@ -24,7 +25,7 @@ export const UserProfileForm = ({ onClose }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           email: data.email,
@@ -54,7 +55,7 @@ export const UserProfileForm = ({ onClose }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ reason }),
       });

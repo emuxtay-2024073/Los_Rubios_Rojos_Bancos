@@ -21,7 +21,7 @@ public class ClientsController : ControllerBase
     /// Requiere token JWT de un usuario con rol Admin.
     /// </summary>
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMIN")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

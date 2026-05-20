@@ -8,6 +8,11 @@ export const getAccounts = async () => {
   return normalizeList(data, ['accounts']);
 };
 
+export const getAccountByNumber = async (accountNumber) => {
+  const { data } = await axiosAdmin.get('/accounts', { params: { accountNumber } });
+  return normalizeList(data, ['accounts']);
+};
+
 export const createAccount = async (payload) => {
   const { data } = await axiosAdmin.post('/accounts/create', payload, withFormData(payload));
   return data;
@@ -68,6 +73,11 @@ export const requestAccountDisable = async (accountId, payload) => {
   return data;
 };
 
+export const requestAccountReactivation = async (accountId, payload) => {
+  const { data } = await axiosAdmin.post(`/accounts/${accountId}/reactivate-request`, payload);
+  return data;
+};
+
 export const getDisableAccountRequests = async (status) => {
   const { data } = await axiosAdmin.get('/accounts/disable-requests', {
     params: status ? { status } : undefined,
@@ -86,7 +96,7 @@ export const rejectDisableAccountRequest = async (requestId, payload = {}) => {
 };
 
 export const getCurrentLimits = async () => {
-  const { data } = await axiosAdmin.get('/limits');
+  const { data } = await axiosAdmin.get('/limits/all');
   return normalizeList(data, ['limits']);
 };
 
@@ -113,6 +123,21 @@ export const deleteLimit = async (limitId) => {
 export const getReversals = async () => {
   const { data } = await axiosAdmin.get('/reversals');
   return normalizeList(data, ['reversals']);
+};
+
+export const getReactivateAccountRequests = async (status) => {
+  const { data } = await axiosAdmin.get('/accounts/reactivate-requests', { params: status && status !== 'ALL' ? { status } : undefined });
+  return normalizeList(data, ['requests']);
+};
+
+export const approveReactivateAccountRequest = async (requestId, payload = {}) => {
+  const { data } = await axiosAdmin.post(`/accounts/reactivate-requests/${requestId}/approve`, payload);
+  return data;
+};
+
+export const rejectReactivateAccountRequest = async (requestId, payload = {}) => {
+  const { data } = await axiosAdmin.post(`/accounts/reactivate-requests/${requestId}/reject`, payload);
+  return data;
 };
 
 export const getPendingReversals = async () => {
@@ -173,17 +198,64 @@ export const getConversionHistory = async () => {
 };
 
 export const getUsers = async () => {
+  const adminUsers = [];
+  const authUsers = [];
+  let adminError = null;
+  let authError = null;
+
+  const extractUsers = (data) => {
+    if (Array.isArray(data)) return data;
+    return normalizeList(data, ['users']);
+  };
+
   try {
     const { data } = await axiosAdmin.get('/users/admin/all');
-    return normalizeList(data, ['users']);
+    adminUsers.push(...extractUsers(data));
   } catch (error) {
-    const status = error.response?.status;
-    if (status === 403 || status === 404) {
-      const { data } = await axiosAuth.get('/auth/users');
-      return normalizeList(data, ['users']);
-    }
-    throw error;
+    adminError = error;
   }
+
+  try {
+    const { data } = await axiosAuth.get('/auth/users');
+    authUsers.push(...extractUsers(data));
+  } catch (error) {
+    authError = error;
+  }
+
+  const combinedUsers = [...adminUsers, ...authUsers];
+  if (combinedUsers.length > 0) {
+    const uniqueUsers = Object.values(
+      combinedUsers.reduce((acc, user) => {
+        const key =
+          user.email?.toString().toLowerCase() ||
+          user.username?.toString().toLowerCase() ||
+          user.id?.toString() ||
+          user._id?.toString();
+        if (!key) return acc;
+        acc[key] = {
+          ...acc[key],
+          ...user,
+        };
+        return acc;
+      }, {})
+    );
+    return uniqueUsers;
+  }
+
+  if (adminError) {
+    const status = adminError.response?.status;
+    if (status === 403 || status === 404) {
+      if (authError) throw authError;
+      return authUsers;
+    }
+    throw adminError;
+  }
+
+  if (authError) {
+    throw authError;
+  }
+
+  return [];
 };
 
 export const updateUserRole = async (userId, newRole) => {

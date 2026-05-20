@@ -41,8 +41,8 @@ export const validateJWT = (req, res, next) => {
 
     const decoded = jwt.verify(token, secret, verifyOptions);
     
-    // Extraer roles (puede ser string o array en .NET)
-    const rawRoles = decoded.role || "User";
+    // Extraer roles (puede venir como claim estándar de .NET o como claim personalizado)
+    const rawRoles = decoded[ROLE_CLAIM] || decoded.role || decoded.roles || "User";
     const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
     const normalizedRoles = Array.from(
       new Set(
@@ -130,11 +130,9 @@ export const requireRole = (...allowedRoles) => {
       });
     }
 
-    // Comparación case-insensitive: normalizar a mayúsculas
-    const hasRole = req.user.roles.some((r) => 
-      allowedRoles.map(role => role.toLowerCase()).includes(r.toLowerCase())
-    );
-
+    // Comparación case-insensitive: normalizar los roles permitidos y los roles del usuario
+    const allowed = allowedRoles.map((role) => String(role).toLowerCase());
+    const hasRole = req.user.roles.some((r) => allowed.includes(String(r).toLowerCase()));
 
     if (!hasRole) {
       return res.status(403).json({
@@ -165,7 +163,7 @@ export const optionalJWT = (req, res, next) => {
       issuer: process.env.JWT_ISSUER,
       audience: process.env.JWT_AUDIENCE,
     });
-    const rawRoles = decoded[ROLE_CLAIM] || decoded.role || "User";
+    const rawRoles = decoded[ROLE_CLAIM] || decoded.role || decoded.roles || "User";
     const roles = Array.isArray(rawRoles) ? rawRoles : [rawRoles];
     const normalizedRoles = Array.from(
       new Set(

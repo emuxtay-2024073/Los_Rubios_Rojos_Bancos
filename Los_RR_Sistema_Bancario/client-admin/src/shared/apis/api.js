@@ -3,7 +3,7 @@ import { useAuthStore } from '../../features/auth/store/authStore.js';
 
 //Crear instancias de axios para cada servicio
 const axiosAuth = axios.create({
-  baseURL: import.meta.env.VITE_AUTH_URL,
+  baseURL: import.meta.env.VITE_AUTH_URL || 'http://localhost:5109/api',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -11,7 +11,7 @@ const axiosAuth = axios.create({
 });
 
 const axiosAdmin = axios.create({
-  baseURL: import.meta.env.VITE_ADMIN_URL,
+  baseURL: import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
@@ -21,6 +21,7 @@ const axiosAdmin = axios.create({
 axiosAuth.interceptors.request.use((config) => {
   config._axiosClient = 'auth';
   const token = useAuthStore.getState().token;
+  config.headers = config.headers || {};
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
@@ -30,6 +31,7 @@ axiosAuth.interceptors.request.use((config) => {
 axiosAdmin.interceptors.request.use((config) => {
   config._axiosClient = 'admin';
   const token = useAuthStore.getState().token;
+  config.headers = config.headers || {};
   if (token) {
     config.headers['Authorization'] = `Bearer ${token}`;
   }
