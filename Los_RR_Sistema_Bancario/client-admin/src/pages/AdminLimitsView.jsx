@@ -4,6 +4,7 @@ import {
   createDefaultLimit,
   createUserLimit,
   deleteLimit,
+  getAccounts,
 } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { formatMoney } from '../shared/utils/banking.js';
@@ -12,6 +13,7 @@ import '../styles/AdminPages.css';
 
 export const AdminLimitsView = () => {
   const [limits, setLimits] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showDefaultForm, setShowDefaultForm] = useState(false);
@@ -23,7 +25,7 @@ export const AdminLimitsView = () => {
     maxDailyCount: '',
   });
   const [userForm, setUserForm] = useState({
-    userId: '',
+    accountNumber: '',
     maxPerTransaction: '',
     maxDailyTotal: '',
     maxMonthlyTotal: '',
@@ -37,8 +39,9 @@ export const AdminLimitsView = () => {
   const loadLimits = async () => {
     try {
       setLoading(true);
-      const data = await getCurrentLimits();
+      const [data, accountsData] = await Promise.all([getCurrentLimits(), getAccounts()]);
       setLimits(Array.isArray(data) ? data : []);
+      setAccounts(Array.isArray(accountsData) ? accountsData : []);
       setError(null);
     } catch (err) {
       setError('Error al cargar límites');
@@ -75,16 +78,22 @@ export const AdminLimitsView = () => {
   const handleSetUserLimit = async (e) => {
     e.preventDefault();
     try {
+      const selectedAccount = accounts.find((account) => account.accountNumber === userForm.accountNumber);
+      if (!selectedAccount) {
+        showError('Cuenta no encontrada. Por favor ingresa un número de cuenta válido.');
+        return;
+      }
+
       await createUserLimit({
-        targetUserId: userForm.userId,
+        targetUserId: selectedAccount.userId,
         maxPerTransaction: parseFloat(userForm.maxPerTransaction),
         maxDailyTotal: parseFloat(userForm.maxDailyTotal),
         maxMonthlyTotal: parseFloat(userForm.maxMonthlyTotal),
         maxDailyCount: parseInt(userForm.maxDailyCount),
       });
-      showSuccess('Límite de usuario establecido');
+      showSuccess('Límite personalizado establecido');
       setUserForm({
-        userId: '',
+        accountNumber: '',
         maxPerTransaction: '',
         maxDailyTotal: '',
         maxMonthlyTotal: '',
@@ -93,7 +102,7 @@ export const AdminLimitsView = () => {
       setShowUserForm(false);
       loadLimits();
     } catch (err) {
-      showError('Error al establecer límite de usuario');
+      showError('Error al establecer límite personalizado');
       console.error(err);
     }
   };
@@ -190,17 +199,22 @@ export const AdminLimitsView = () => {
       {/* Formulario Límite Personalizado */}
       {showUserForm && (
         <div className='form-container'>
-          <h2>Establecer Límite Personalizado para Usuario</h2>
+          <h2>Establecer Límite Personalizado para Cuenta</h2>
           <form onSubmit={handleSetUserLimit}>
             <div className='form-group'>
-              <label>ID del Usuario:</label>
-              <input
-                type='text'
-                placeholder='ID del usuario'
-                value={userForm.userId}
-                onChange={(e) => setUserForm({ ...userForm, userId: e.target.value })}
+              <label>Número de cuenta:</label>
+              <select
+                value={userForm.accountNumber}
+                onChange={(e) => setUserForm({ ...userForm, accountNumber: e.target.value })}
                 required
-              />
+              >
+                <option value=''>Seleccionar cuenta</option>
+                {accounts.map((account) => (
+                  <option key={account._id} value={account.accountNumber}>
+                    {account.accountNumber} ({account.type})
+                  </option>
+                ))}
+              </select>
             </div>
             <div className='form-group'>
               <label>Máximo por Transacción:</label>
@@ -260,7 +274,7 @@ export const AdminLimitsView = () => {
               <th>Máx Diario Total</th>
               <th>Máx Mensual Total</th>
               <th>Máx Conteo Diario</th>
-              <th>Usuario/Sistema</th>
+              <th>Cuenta/Sistema</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -274,13 +288,14 @@ export const AdminLimitsView = () => {
                   <td className='amount'>{formatMoney(limit.maxMonthlyTotal)}</td>
                   <td>{limit.maxDailyCount}</td>
                   <td>
-                    {limit.userId
-                      ? typeof limit.userId === 'object'
-                        ? limit.userId.email ||
-                          limit.userId.username ||
-                          String(limit.userId._id).substring(0, 8) + '...'
-                        : String(limit.userId).substring(0, 8) + '...'
-                      : 'Sistema'}
+                    {limit.userId ? (
+                      (() => {
+                        const account = accounts.find((acc) => String(acc.userId) === String(limit.userId));
+                        return account ? account.accountNumber : String(limit.userId).substring(0, 8) + '...';
+                      })()
+                    ) : (
+                      'Sistema'
+                    )}
                   </td>
                   <td>
                     <button

@@ -116,6 +116,7 @@ MapEnv("SMTP_FROM_NAME", "SmtpSettings:FromName");
 MapEnv("SMTP_TIMEOUT", "SmtpSettings:Timeout");
 MapEnv("SMTP_IGNORE_CERTIFICATE_ERRORS", "SmtpSettings:IgnoreCertificateErrors");
 MapEnv("SMTP_USE_FALLBACK", "SmtpSettings:UseFallback");
+MapEnv("FRONTEND_URL", "FrontendUrl");
 
 var smtpEnabledValue = GetEnv("SMTP_ENABLED");
 if (!string.IsNullOrWhiteSpace(smtpEnabledValue) && TryParseBoolEnv(smtpEnabledValue, out var smtpEnabled))

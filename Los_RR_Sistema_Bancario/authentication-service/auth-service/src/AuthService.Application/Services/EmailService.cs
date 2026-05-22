@@ -61,10 +61,10 @@ public class EmailService : IEmailService
         smtp.AuthenticationMechanisms.Remove("XOAUTH2");
 
         var socketOptions = _smtpSettings.UseImplicitSsl
-            ? SecureSocketOptions.SslOnConnect
-            : _smtpSettings.EnableSsl
-                ? SecureSocketOptions.StartTls
-                : SecureSocketOptions.Auto;
+    ? SecureSocketOptions.SslOnConnect
+    : _smtpSettings.EnableSsl
+        ? SecureSocketOptions.StartTlsWhenAvailable
+        : SecureSocketOptions.None;
 
         smtp.Timeout = _smtpSettings.Timeout > 0 ? _smtpSettings.Timeout : 10000;
 

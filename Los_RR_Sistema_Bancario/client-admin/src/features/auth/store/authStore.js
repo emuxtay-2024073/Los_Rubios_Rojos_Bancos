@@ -184,6 +184,7 @@ export const useAuthStore = create(
       },
 
       register: async (formData) => {
+        set({ loading: true, error: null });
         try {
           set({ loading: true, error: null });
           const { data } = await registerRequest(formData);

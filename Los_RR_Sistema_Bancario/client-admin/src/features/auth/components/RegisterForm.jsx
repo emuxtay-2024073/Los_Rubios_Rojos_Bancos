@@ -5,9 +5,9 @@ import toast from 'react-hot-toast';
 
 export const RegisterForm = ({ onLogin }) => {
   const [successMessage, setSuccessMessage] = useState('');
+  const [localError, setLocalError] = useState('');
   const registerUser = useAuthStore((state) => state.register);
   const loading = useAuthStore((state) => state.loading);
-  const error = useAuthStore((state) => state.error);
 
   const {
     register,
@@ -20,6 +20,9 @@ export const RegisterForm = ({ onLogin }) => {
   const selectedRole = watch('role', 'user');
 
   const onSubmit = async (data) => {
+    setSuccessMessage('');
+    setLocalError('');
+
     const payload = {
       username: data.username,
       email: data.email,
@@ -31,10 +34,27 @@ export const RegisterForm = ({ onLogin }) => {
     };
 
     const res = await registerUser(payload);
+
     if (res.success) {
-      setSuccessMessage('Cuenta creada. Ya puedes ingresar al panel.');
-      toast.success('Cuenta creada exitosamente.', { duration: 3000 });
-      setTimeout(() => onLogin(), 1500);
+      setSuccessMessage(`Cuenta creada. Revisa tu bandeja de entrada en ${data.email} para verificar tu correo.`);
+      toast.success('¡Registro exitoso! Revisa tu correo.', { duration: 4000 });
+      setTimeout(() => onLogin(), 3000);
+    } else {
+      const errMsg = res.error || '';
+      const esErrorDeCorreo =
+        errMsg.toLowerCase().includes('email') ||
+        errMsg.toLowerCase().includes('smtp') ||
+        errMsg.toLowerCase().includes('mail') ||
+        errMsg.toLowerCase().includes('timeout') ||
+        errMsg.toLowerCase().includes('timed out');
+
+      if (esErrorDeCorreo) {
+        setSuccessMessage(`Cuenta creada. Es posible que el correo de verificación tarde unos minutos en llegar a ${data.email}.`);
+        toast.success('Cuenta creada. Revisa tu correo en unos minutos.', { duration: 4000 });
+        setTimeout(() => onLogin(), 3000);
+      } else {
+        setLocalError(errMsg || 'Error al registrar usuario');
+      }
     }
   };
 
@@ -101,7 +121,9 @@ export const RegisterForm = ({ onLogin }) => {
             },
           })}
         />
-        {errors.phoneNumber && <p className='text-red-600 text-xs mt-2'>{errors.phoneNumber.message}</p>}
+        {errors.phoneNumber && (
+          <p className='text-red-600 text-xs mt-2'>{errors.phoneNumber.message}</p>
+        )}
       </div>
 
       <div>
@@ -135,9 +157,9 @@ export const RegisterForm = ({ onLogin }) => {
           className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
           {...register('password', {
             required: 'Contraseña obligatoria',
-            minLength: { 
-              value: 8, 
-              message: 'Mínimo 8 caracteres' 
+            minLength: {
+              value: 8,
+              message: 'Mínimo 8 caracteres',
             },
             pattern: {
               value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
@@ -162,7 +184,9 @@ export const RegisterForm = ({ onLogin }) => {
             validate: (value) => value === password || 'Las contraseñas no coinciden',
           })}
         />
-        {errors.confirmPassword && <p className='text-red-600 text-xs mt-2'>{errors.confirmPassword.message}</p>}
+        {errors.confirmPassword && (
+          <p className='text-red-600 text-xs mt-2'>{errors.confirmPassword.message}</p>
+        )}
       </div>
 
       <div>
@@ -197,12 +221,25 @@ export const RegisterForm = ({ onLogin }) => {
               validate: (value) => value === 'CLAVE_ADMIN0101' || 'La clave secreta es inválida',
             })}
           />
-          {errors.secretKey && <p className='text-red-600 text-xs mt-2'>{errors.secretKey.message}</p>}
+          {errors.secretKey && (
+            <p className='text-red-600 text-xs mt-2'>{errors.secretKey.message}</p>
+          )}
         </div>
       )}
 
-      {error && <p className='text-red-600 text-sm text-center'>{error}</p>}
-      {successMessage && <p className='text-green-600 text-sm text-center'>{successMessage}</p>}
+      {localError && (
+        <div className='flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3'>
+          <span className='mt-0.5 text-red-500'>✕</span>
+          <p className='text-sm text-red-700'>{localError}</p>
+        </div>
+      )}
+
+      {successMessage && (
+        <div className='flex items-start gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3'>
+          <span className='mt-0.5 text-green-500'>✓</span>
+          <p className='text-sm text-green-700'>{successMessage}</p>
+        </div>
+      )}
 
       <button
         type='submit'
@@ -214,7 +251,11 @@ export const RegisterForm = ({ onLogin }) => {
 
       <p className='text-center text-sm text-slate-600'>
         ¿Ya tienes una cuenta?{' '}
-        <button type='button' onClick={onLogin} className='text-main-blue font-semibold transition hover:text-secondary hover:underline'>
+        <button
+          type='button'
+          onClick={onLogin}
+          className='text-main-blue font-semibold transition hover:text-secondary hover:underline'
+        >
           Inicia sesión
         </button>
       </p>
