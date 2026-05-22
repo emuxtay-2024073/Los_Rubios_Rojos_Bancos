@@ -46,14 +46,14 @@ export const LoginForm = ({ onForgot, onRegister }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
       <div>
-        <label htmlFor='email' className='block text-sm font-semibold text-[#002D62] mb-2'>
+        <label htmlFor='email' className='block text-sm font-semibold text-[var(--text-primary)] mb-2'>
           Correo electrónico
         </label>
         <input
           type='email'
           id='email'
           placeholder='usuario@banco.com'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
+          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none'
           {...register('email', {
             required: 'Correo electrónico obligatorio',
             pattern: {
@@ -66,14 +66,14 @@ export const LoginForm = ({ onForgot, onRegister }) => {
       </div>
 
       <div>
-        <label htmlFor='password' className='block text-sm font-semibold text-[#002D62] mb-2'>
+        <label htmlFor='password' className='block text-sm font-semibold text-[var(--text-primary)] mb-2'>
           Contraseña
         </label>
         <input
           type='password'
           id='password'
           placeholder='* * * * * * *'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
+          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none'
           {...register('password', {
             required: 'Contraseña obligatoria',
             minLength: {
@@ -89,7 +89,7 @@ export const LoginForm = ({ onForgot, onRegister }) => {
       <button
         type='submit'
         disabled={loading}
-        className='w-full rounded-2xl bg-main-blue px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(0,45,98,0.18)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_42px_rgba(0,45,98,0.22)] disabled:cursor-not-allowed disabled:opacity-60'
+        className='w-full rounded-2xl btn-primary text-sm font-semibold shadow-[0_14px_32px_rgba(198,167,94,0.25)] transition duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60'
       >
         {loading ? 'Iniciando...' : 'Ingresar'}
       </button>

@@ -1,22 +1,45 @@
 import { Typography } from '@material-tailwind/react';
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
 import { AvatarUser } from '../ui/AvatarUser.jsx';
+import { useAuthStore } from '../../../features/auth/store/authStore.js';
 import imgLogo from '../../../assets/img/los_rubios_rojos_logo.svg';
 
 export const Navbar = () => {
+  const user = useAuthStore((state) => state.user);
+  const firstName = user?.firstName || user?.name || user?.username || 'Administrador';
+  const today = new Date().toLocaleDateString('es-ES', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
   return (
-    <nav className='bg-white shadow-md sticky top-0 z-50'>
-      <div className='max-w-7xl mx-auto px-6 h-16 flex items-center justify-between'>
-        <div className='flex items-center gap-2'>
+    <nav className='app-header sticky top-0 z-50'>
+      <div className='max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-50 px-6 py-4'>
+        <div className='flex min-w-0 flex-1 items-start gap-4'>
           <img
             src={imgLogo}
             alt='Bancos RR Logo'
-            className='h-8 md:h-10 w-auto object-contain'
+            className='h-10 md:h-12 w-auto object-contain'
           />
-          <Typography variant='h5' className='font-bold text-main-blue'>
-            Administración Bancaria
-          </Typography>
+          <div className='min-w-0'>
+            <Typography variant='h5' className='header-title text-[var(--text-primary)]'>
+              Administración Bancaria
+            </Typography>
+            <div className='mt-2 flex flex-wrap items-center gap-5 text-sm text-[#7b8190]'>
+              <span>Hola, {firstName}</span>
+              <span className='inline-flex items-center gap-2'>
+                <CalendarDaysIcon className='h-4 w-4' />
+                {today}
+              </span>
+            </div>
+          </div>
         </div>
-        <AvatarUser />
+
+        <div className='flex items-center justify-end min-w-0'>
+          <AvatarUser />
+        </div>
       </div>
     </nav>
   );
