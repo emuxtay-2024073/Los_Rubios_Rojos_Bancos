@@ -3,6 +3,7 @@ using AuthService.Application.Interfaces;
 using AuthService.Domain.Constants;
 using AuthService.Domain.Entities;
 using AuthService.Domain.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace AuthService.Application.Services;
 
@@ -15,19 +16,22 @@ public class AuthService : IAuthService
     private readonly IEmailService _emailService;
     private readonly IPasswordHashService _passwordHashService;
     private readonly IRefreshTokenService _refreshTokenService;
+    private readonly IConfiguration _configuration;
 
     public AuthService(
         IUserRepository users,
         IJwtService jwt,
         IEmailService emailService,
         IPasswordHashService passwordHashService,
-        IRefreshTokenService refreshTokenService)
+        IRefreshTokenService refreshTokenService,
+        IConfiguration configuration)
     {
         _users = users;
         _jwt = jwt;
         _emailService = emailService;
         _passwordHashService = passwordHashService;
         _refreshTokenService = refreshTokenService;
+        _configuration = configuration;
     }
 
     public async Task<AuthResponseDto> Login(LoginDto dto)
@@ -150,10 +154,30 @@ public class AuthService : IAuthService
 
         try
         {
+            var frontendUrl = _configuration["FrontendUrl"] ?? "http://localhost:5173";
+            var verificationLink = $"{frontendUrl}/verify-email?token={verificationToken}";
+
+            var emailBody = $@"Hola {newUser.Username},
+
+¡Bienvenido a Los Rubios Rojos Banco!
+
+Para activar tu cuenta, haz clic en el siguiente enlace:
+
+{verificationLink}
+
+Si no puedes hacer clic en el enlace, cópialo y pégalo en tu navegador.
+
+Este enlace es válido por 24 horas.
+
+Si no creaste esta cuenta, ignora este mensaje.
+
+Atentamente,
+El equipo de Los Rubios Rojos Banco";
+
             await _emailService.SendEmailAsync(
                 newUser.Email,
-                "Bienvenido",
-                $"Verifique su cuenta bancaria. Token: {verificationToken}");
+                "Verifica tu cuenta bancaria",
+                emailBody);
         }
         catch (Exception ex)
         {
@@ -181,10 +205,7 @@ public class AuthService : IAuthService
         user.UpdatedAt = DateTime.UtcNow;
         await _users.UpdateAsync(user);
 
-        if (!await TrySendEmailAsync(user.Email, "Cuenta Activada", "Su correo ha sido verificado."))
-        {
-            Console.WriteLine("[EMAIL BANCARIO] No fue posible enviar el email de cuenta activada.");
-        }
+        _ = Task.Run(() => TrySendEmailAsync(user.Email, "Cuenta Activada", "Su correo ha sido verificado."));
 
         return true;
     }

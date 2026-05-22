@@ -1,30 +1,26 @@
 import axios from 'axios';
 import { useAuthStore } from '../../features/auth/store/authStore.js';
 
+const ANONYMOUS_ENDPOINTS = ['/auth/verify-email', '/auth/login', '/auth/register', '/auth/forgot-password', '/auth/reset-password'];
+
 //Crear instancias de axios para cada servicio
 const axiosAuth = axios.create({
   baseURL: import.meta.env.VITE_AUTH_URL || 'http://localhost:5109/api',
   timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
 });
 
 const axiosAdmin = axios.create({
   baseURL: import.meta.env.VITE_ADMIN_URL || 'http://localhost:3000',
   timeout: 5000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+  headers: { 'Content-Type': 'application/json' },
 });
-// Interceptor para agregar token a cada petición del admin
+
 axiosAuth.interceptors.request.use((config) => {
   config._axiosClient = 'auth';
   const token = useAuthStore.getState().token;
   config.headers = config.headers || {};
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
-  }
+  if (token) config.headers['Authorization'] = `Bearer ${token}`;
   return config;
 });
 
@@ -32,9 +28,7 @@ axiosAdmin.interceptors.request.use((config) => {
   config._axiosClient = 'admin';
   const token = useAuthStore.getState().token;
   config.headers = config.headers || {};
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
-  }
+  if (token) config.headers['Authorization'] = `Bearer ${token}`;
   return config;
 });
 
@@ -48,36 +42,26 @@ function _processQueue(_error, token = null) {
 
 const handleRefreshToken = async function (_error) {
   const _original = _error.config;
-  if (!_original || _original._retry) {
-    // Ya se reintentó o no hay config
-    return Promise.reject(_error);
-  }
+
+  // Rutas anónimas: no intentar refresh
+  const requestUrl = _original?.url || '';
+  const isAnonymous = ANONYMOUS_ENDPOINTS.some(ep => requestUrl.includes(ep));
+  if (isAnonymous) return Promise.reject(_error);
+
+  if (!_original || _original._retry) return Promise.reject(_error);
+
   const status = _error.response?.status;
   const errorCode = _error.response?.data?.error;
-  const requestUrl = _original.url || '';
   const isRefreshEndpoint = requestUrl.includes('/auth/refresh');
-  const shouldAttemptRefresh =
-    !isRefreshEndpoint &&
-    // La mayoría de casos es 401 (TokenExpiredError)
-    status === 401;
-
-  // Algunos servicios pueden responder 403 con `error: TOKEN_EXPIRED`
-  const shouldAttemptRefreshFrom403 =
-    !isRefreshEndpoint && status === 403 && errorCode === 'TOKEN_EXPIRED';
-
-  const shouldRefresh = shouldAttemptRefresh || shouldAttemptRefreshFrom403;
+  const shouldRefresh =
+    (!isRefreshEndpoint && status === 401) ||
+    (!isRefreshEndpoint && status === 403 && errorCode === 'TOKEN_EXPIRED');
 
   if (shouldRefresh) {
     const retryClient = _original._axiosClient === 'admin' ? axiosAdmin : axiosAuth;
     if (_isRefreshing) {
-      // Si ya hay un refresh en curso, encola la petición
-      return new Promise(function (resolve, reject) {
-        failedQueue.push({ resolve, reject });
-      })
-        .then((token) => {
-          _original.headers['Authorization'] = 'Bearer ' + token;
-          return retryClient(_original);
-        })
+      return new Promise((resolve, reject) => failedQueue.push({ resolve, reject }))
+        .then((token) => { _original.headers['Authorization'] = 'Bearer ' + token; return retryClient(_original); })
         .catch((err) => Promise.reject(err));
     }
     _original._retry = true;
@@ -112,7 +96,6 @@ const handleRefreshToken = async function (_error) {
 };
 
 axiosAuth.interceptors.response.use((res) => res, handleRefreshToken);
-
 axiosAdmin.interceptors.response.use((res) => res, handleRefreshToken);
 
 export { axiosAuth, axiosAdmin };

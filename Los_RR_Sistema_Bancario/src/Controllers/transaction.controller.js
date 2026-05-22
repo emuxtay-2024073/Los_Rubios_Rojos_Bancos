@@ -9,20 +9,14 @@ const getApplicableTransactionLimit = async (userId, accountType, transactionTyp
   const normalizedType = transactionType || 'TRANSFERENCIA';
   const normalizedAccountType = accountType || null;
 
+  // 1. Límite personalizado del usuario con accountType y transactionType específicos (mayor prioridad)
   let limit = await TransactionLimit.findOne({
     userId: normalizedUserId,
     accountType: normalizedAccountType,
     transactionType: normalizedType,
   });
 
-  if (!limit) {
-    limit = await TransactionLimit.findOne({
-      isDefault: true,
-      accountType: normalizedAccountType,
-      transactionType: normalizedType,
-    });
-  }
-
+  // 2. Límite personalizado del usuario sin accountType específico (aplica a todos sus tipos de cuenta)
   if (!limit && normalizedAccountType != null) {
     limit = await TransactionLimit.findOne({
       userId: normalizedUserId,
@@ -31,11 +25,39 @@ const getApplicableTransactionLimit = async (userId, accountType, transactionTyp
     });
   }
 
+  // 3. Límite personalizado del usuario completamente genérico (sin accountType ni transactionType)
+  if (!limit) {
+    limit = await TransactionLimit.findOne({
+      userId: normalizedUserId,
+      accountType: null,
+      transactionType: null,
+    });
+  }
+
+  // 4. Límite por defecto del sistema con accountType específico (solo si no hay límite personalizado)
+  if (!limit) {
+    limit = await TransactionLimit.findOne({
+      isDefault: true,
+      accountType: normalizedAccountType,
+      transactionType: normalizedType,
+    });
+  }
+
+  // 5. Límite por defecto del sistema sin accountType (fallback global)
   if (!limit) {
     limit = await TransactionLimit.findOne({
       isDefault: true,
       accountType: null,
       transactionType: normalizedType,
+    });
+  }
+
+  // 6. Límite por defecto completamente genérico (último recurso)
+  if (!limit) {
+    limit = await TransactionLimit.findOne({
+      isDefault: true,
+      accountType: null,
+      transactionType: null,
     });
   }
 

@@ -94,6 +94,8 @@ export const Accounts = () => {
     }
   }, [selectedAccount, historyFilters, isAdmin]);
 
+  const getAccountLabel = (account) => account?.accountNumber || account?.name || toTitleCase(account?.type) || 'Cuenta';
+
   const filteredAccounts = useMemo(
     () =>
       accounts.filter((account) =>
@@ -225,7 +227,7 @@ export const Accounts = () => {
             <div className='flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between'>
               <div>
                 <p className='text-sm text-gray-500'>Tu cuenta</p>
-                <h2 className='text-4xl font-semibold text-slate-900'>{selectedAccount.accountNumber}</h2>
+                <h2 className='text-4xl font-semibold text-slate-900'>{getAccountLabel(selectedAccount)}</h2>
                 <p className='mt-3 text-base uppercase tracking-[0.16em] text-main-blue'>{toTitleCase(selectedAccount.type)}</p>
               </div>
               <div className='rounded-3xl bg-slate-50 p-6 text-center'>
