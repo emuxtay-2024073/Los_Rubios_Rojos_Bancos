@@ -1,13 +1,7 @@
 import mongoose from "mongoose";
-
+ 
 /**
  * Modelo de Reversión de Transferencias
- * 
- * Permite solicitar y gestionar reversióndes de transferencias realizadas.
- * Una transferencia puede ser reversada si:
- * - Fue realizada hace menos de 24-48 horas (configurable)
- * - La cuenta destino tiene fondos suficientes
- * - El estado es válido (pendiente o completada)
  * 
  * Estados:
  * - PENDING: Solicitud en espera de procesamiento
@@ -16,22 +10,18 @@ import mongoose from "mongoose";
  * - REJECTED: Rechazada (fondos insuficientes, tiempo límite, etc)
  * - CANCELLED: Cancelada por el usuario
  * 
- * @typedef {Object} ReversalRequest
- * @property {ObjectId} transactionId - ID de la transacción a reversar
- * @property {ObjectId} requestedBy - ID del usuario que solicita la reversión
- * @property {string} reason - Razón de la reversión
- * @property {string} status - Estado de la solicitud
- * @property {number} amount - Monto a reversar
- * @property {Date} requestedAt - Fecha de solicitud
- * @property {Date} processedAt - Fecha de procesamiento
- * @property {ObjectId} processedBy - Admin que procesó la solicitud
+ * NOTA: transactionId NO es unique a nivel de BD.
+ * La unicidad se controla en el controlador: solo se bloquea
+ * si ya existe una reversión en estado PENDING o APPROVED.
+ * Esto permite reintentar tras un rechazo o cancelación.
  */
 const reversalRequestSchema = new mongoose.Schema(
   {
     transactionId: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true  <-- ELIMINADO: permitir múltiples intentos tras rechazo/cancelación
+      index: true,
     },
     requestedBy: {
       type: String,
@@ -92,12 +82,11 @@ const reversalRequestSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-// Índices para búsquedas frecuentes
-// transactionId ya tiene índice unique, no repetir aquí
+ 
 reversalRequestSchema.index({ requestedBy: 1, status: 1 });
 reversalRequestSchema.index({ status: 1, createdAt: -1 });
-
+reversalRequestSchema.index({ transactionId: 1, status: 1 }); // para la consulta de duplicados en el controlador
+ 
 export const ReversalRequest = mongoose.model(
   "ReversalRequest",
   reversalRequestSchema

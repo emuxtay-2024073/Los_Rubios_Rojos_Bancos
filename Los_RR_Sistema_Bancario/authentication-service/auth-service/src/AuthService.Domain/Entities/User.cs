@@ -43,6 +43,9 @@ namespace AuthService.Domain.Entities
 
         public string Role { get; set; } = "CLIENTE";
 
+        /// <summary>Tipo de cuenta bancaria preferido al registrarse: ahorro, monetaria o corriente.</summary>
+        public string AccountType { get; set; } = "ahorro";
+
         public string MainRole => Role;
     }
 }

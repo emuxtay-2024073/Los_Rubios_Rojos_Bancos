@@ -17,7 +17,7 @@ namespace AuthService.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -102,38 +102,6 @@ namespace AuthService.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d"),
-                            Description = "",
-                            Name = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("b2c3d4e5-f6a7-4b6c-9d0e-1f2a3b4c5d6e"),
-                            Description = "",
-                            Name = "CLIENTE"
-                        },
-                        new
-                        {
-                            Id = new Guid("c3d4e5f6-a7b8-4c7d-0e1f-2a3b4c5d6e7f"),
-                            Description = "",
-                            Name = "CAJERO"
-                        },
-                        new
-                        {
-                            Id = new Guid("d4e5f6a7-b8c9-4d8e-1f2a-3b4c5d6e7f8a"),
-                            Description = "",
-                            Name = "AUDITOR"
-                        },
-                        new
-                        {
-                            Id = new Guid("e5f6a7b8-c9d0-4e9f-2a3b-4c5d6e7f8a9b"),
-                            Description = "",
-                            Name = "SUPERADMIN"
-                        });
                 });
 
             modelBuilder.Entity("AuthService.Domain.Entities.User", b =>
@@ -141,6 +109,10 @@ namespace AuthService.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("AccountType")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");

@@ -28,4 +28,7 @@ public class RegisterDto
 
     [Required(ErrorMessage = "Role es requerido")]
     public string Role { get; set; } = "Cliente";
+
+    /// <summary>Tipo de cuenta bancaria inicial: ahorro, monetaria o corriente.</summary>
+    public string AccountType { get; set; } = "ahorro";
 }

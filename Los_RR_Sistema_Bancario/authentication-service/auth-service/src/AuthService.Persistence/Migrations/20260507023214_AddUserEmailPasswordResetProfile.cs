@@ -125,39 +125,6 @@ namespace AuthService.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d"),
-                column: "Name",
-                value: "ADMIN");
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("b2c3d4e5-f6a7-4b6c-9d0e-1f2a3b4c5d6e"),
-                column: "Name",
-                value: "CLIENTE");
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("c3d4e5f6-a7b8-4c7d-0e1f-2a3b4c5d6e7f"),
-                column: "Name",
-                value: "CAJERO");
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("d4e5f6a7-b8c9-4d8e-1f2a-3b4c5d6e7f8a"),
-                column: "Name",
-                value: "AUDITOR");
-
-            migrationBuilder.InsertData(
-                table: "Role",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { new Guid("e5f6a7b8-c9d0-4e9f-2a3b-4c5d6e7f8a9b"), "", "SUPERADMIN" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_UserEmail_Email",
                 table: "UserEmail",
@@ -228,33 +195,6 @@ namespace AuthService.Persistence.Migrations
                 name: "UpdatedAt",
                 table: "User");
 
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d"),
-                column: "Name",
-                value: "Admin");
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("b2c3d4e5-f6a7-4b6c-9d0e-1f2a3b4c5d6e"),
-                column: "Name",
-                value: "Cliente");
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("c3d4e5f6-a7b8-4c7d-0e1f-2a3b4c5d6e7f"),
-                column: "Name",
-                value: "Cajero");
-
-            migrationBuilder.UpdateData(
-                table: "Role",
-                keyColumn: "Id",
-                keyValue: new Guid("d4e5f6a7-b8c9-4d8e-1f2a-3b4c5d6e7f8a"),
-                column: "Name",
-                value: "Auditor");
         }
     }
 }

@@ -12,6 +12,7 @@ import transactionLimitRoutes from "./Routes/transactionLimit.routes.js";
 import reversalRoutes from "./Routes/reversal.routes.js";
 import currencyRoutes from "./Routes/currency.routes.js";
 import userRoutes from "./Routes/user.routes.js";
+import { errorHandler } from "./Middleware/errorHandler.js";
 
 dotenv.config();
 
@@ -90,10 +91,7 @@ app.use((req, res) => {
     res.status(404).json({ message: "Ruta no encontrada" });
 });
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: "Error interno del servidor", error: err.message });
-});
+app.use(errorHandler);
 
 export default app;
 

@@ -28,7 +28,7 @@ export const Sidebar = () => {
     { label: 'Retiros y depósitos', to: '/dashboard/deposits', icon: ArrowDownTrayIcon },
     { label: 'Beneficiarios', to: '/dashboard/beneficiaries', icon: UsersIcon },
     { label: 'Transferencias', to: '/dashboard/transactions', icon: ArrowsRightLeftIcon },
-    { label: 'Reversiones', to: '/dashboard/reversals', icon: ArrowUturnLeftIcon },
+    ...(isAdmin ? [{ label: 'Reversiones', to: '/dashboard/reversals', icon: ArrowUturnLeftIcon }] : []),
     { label: 'Divisas', to: '/dashboard/currency', icon: CurrencyDollarIcon },
     ...(isAdmin
       ? [

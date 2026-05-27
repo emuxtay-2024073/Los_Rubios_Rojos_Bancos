@@ -75,18 +75,30 @@ Nota: en Swagger de .NET solo quedan visibles `POST /api/auth/login` y el CRUD d
 ## Ejecución
 
 ### Node.js
-1. Instalar dependencias:
+1. Copiar el archivo de ejemplo de variables de entorno:
+   ```bash
+   cp .env.example .env
+   ```
+2. Editar `.env` y definir al menos `MONGODB_URI`, `JWT_SECRET`, `JWT_ISSUER` y `JWT_AUDIENCE`.
+3. Instalar dependencias:
    ```bash
    pnpm install
    ```
-2. Ejecutar en modo desarrollo:
+4. Ejecutar en modo desarrollo:
    ```bash
    pnpm run dev
    ```
-3. Abrir Swagger en:
+5. Abrir Swagger en:
    ```bash
    http://localhost:3000/api-docs
    ```
+
+### Variables de entorno importantes
+- `PORT`: puerto donde corre el servidor (por defecto `3000`)
+- `MONGODB_URI`: conexión a MongoDB
+- `JWT_SECRET`: clave secreta para firmar JWT
+- `JWT_ISSUER`: emisor del token
+- `JWT_AUDIENCE`: audiencia del token
 
 ### .NET
 1. Abrir el proyecto `authentication-service/auth-service/AuthService.sln`.

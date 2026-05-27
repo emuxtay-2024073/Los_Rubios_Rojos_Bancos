@@ -106,10 +106,6 @@ export const Dashboard = () => {
             <p className='text-sm font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)]'>Beneficiarios</p>
             <p className='mt-5 text-4xl font-bold text-[var(--navy)]'>{beneficiaries.length}</p>
           </article>
-          <article className='card'>
-            <p className='text-sm font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)]'>Usuarios y tasas</p>
-            <p className='mt-5 text-4xl font-bold text-[var(--navy)]'>{users.length + rates.length}</p>
-          </article>
         </div>
       </div>
 

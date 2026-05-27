@@ -121,6 +121,7 @@ export const AdminTransfersView = () => {
             <tr>
               <th>Cuenta Origen</th>
               <th>Cuenta Destino</th>
+              <th>Estado</th>
               <th>Monto</th>
               <th>Tipo</th>
               <th>Fecha</th>
@@ -128,18 +129,33 @@ export const AdminTransfersView = () => {
           </thead>
           <tbody>
             {filteredTransfers.length > 0 ? (
-              filteredTransfers.map((transfer, idx) => (
-                <tr key={idx}>
-                  <td className="mono">{transfer.originAccount?.accountNumber || 'N/A'}</td>
-                  <td className="mono">{transfer.destinationAccount?.accountNumber || 'N/A'}</td>
-                  <td className="amount">{formatMoney(transfer.amount)}</td>
-                  <td className="badge">{transfer.type}</td>
-                  <td>{formatDateTime(transfer.date)}</td>
-                </tr>
-              ))
+              filteredTransfers.map((transfer, idx) => {
+                const reversalState = transfer.reversalRequestId?.status;
+                const status = reversalState
+                  ? reversalState === 'PENDING'
+                    ? 'Reversión pendiente'
+                    : reversalState === 'REJECTED'
+                    ? 'Reversión rechazada'
+                    : reversalState === 'CANCELLED'
+                    ? 'Reversión cancelada'
+                    : ['APPROVED', 'COMPLETED'].includes(reversalState)
+                    ? 'Reversión aceptada'
+                    : reversalState
+                  : transfer.status || (transfer.isReversed ? 'Reversión aceptada' : 'COMPLETADO');
+                return (
+                  <tr key={idx}>
+                    <td className="mono">{transfer.originAccount?.accountNumber || transfer.originAccount || 'N/A'}</td>
+                    <td className="mono">{transfer.destinationAccount?.accountNumber || transfer.destinationAccount || 'N/A'}</td>
+                    <td>{status}</td>
+                    <td className="amount">{formatMoney(transfer.amount)}</td>
+                    <td className="badge">{transfer.type}</td>
+                    <td>{formatDateTime(transfer.date)}</td>
+                  </tr>
+                );
+              })
             ) : (
               <tr>
-                <td colSpan="5" className="no-data">
+                <td colSpan="6" className="no-data">
                   No se encontraron transferencias
                 </td>
               </tr>

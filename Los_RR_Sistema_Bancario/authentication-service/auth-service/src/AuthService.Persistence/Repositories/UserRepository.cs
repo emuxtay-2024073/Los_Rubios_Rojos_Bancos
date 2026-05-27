@@ -89,7 +89,7 @@ namespace AuthService.Persistence.Repositories
             return await _context.User
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
-                .Where(u => u.UserRoles.Any(ur => ur.Role.Name == "Cliente"))
+                .Where(u => u.UserRoles != null && u.UserRoles.Any(ur => ur.Role != null && ur.Role.Name == "Cliente"))
                 .OrderBy(u => u.Username)
                 .ToListAsync();
         }

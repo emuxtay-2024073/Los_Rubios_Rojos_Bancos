@@ -4,6 +4,15 @@ import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { formatMoney, formatDateTime } from '../shared/utils/banking.js';
 import '../styles/AdminPages.css';
 
+const ACCOUNT_TYPE_LABELS = {
+  ahorro: 'Cuenta de Ahorro',
+  monetaria: 'Cuenta Monetaria',
+  corriente: 'Cuenta Corriente',
+};
+
+const getAccountTypeLabel = (type) =>
+  ACCOUNT_TYPE_LABELS[type?.toLowerCase()] ?? type ?? 'Desconocido';
+
 export const AdminAccountsView = () => {
   const [accounts, setAccounts] = useState([]);
   const [transactions, setTransactions] = useState([]);
@@ -143,7 +152,7 @@ export const AdminAccountsView = () => {
                     className={selectedAccount?._id === account._id ? 'active' : ''}
                   >
                     <td>{account.accountNumber}</td>
-                    <td className="badge">{account.type}</td>
+                    <td className="badge">{getAccountTypeLabel(account.type)}</td>
                     <td className="amount">{formatMoney(account.balance)}</td>
                     <td>
                       <span className="status active">Activa</span>
@@ -180,7 +189,7 @@ export const AdminAccountsView = () => {
               </div>
               <div className="detail-row">
                 <span>Tipo:</span>
-                <strong className="badge">{selectedAccount.type}</strong>
+                <strong className="badge">{getAccountTypeLabel(selectedAccount.type)}</strong>
               </div>
               <div className="detail-row">
                 <span>Saldo Actual:</span>

@@ -81,6 +81,7 @@ export const validateJWT = (req, res, next) => {
       roles: normalizedRoles,
       role: normalizedRoles.find((r) => r.toLowerCase() === "admin") || normalizedRoles[0],
       jti: decoded.jti || null,
+      accountType: decoded.accountType || 'ahorro',
     };
     
     next();
