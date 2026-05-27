@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nWfZLepcVSg=",
+  "dgSpecHash": "2ag9KbxNXxQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\muxta\\Downloads\\Presentacion-pre\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+  "projectFilePath": "C:\\Users\\muxta\\Downloads\\Presentación\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\muxta\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\muxta\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
