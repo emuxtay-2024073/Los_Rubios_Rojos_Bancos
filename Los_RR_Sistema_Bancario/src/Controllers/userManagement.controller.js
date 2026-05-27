@@ -1,5 +1,6 @@
 import { User } from "../Models/user.model.js";
 import bcrypt from "bcryptjs";
+import { createAuditLog } from "../Services/log.service.js";
 
 /**
  * CONTROLADOR DE GESTIÓN DE USUARIOS MEJORADO
@@ -167,7 +168,7 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('+password');
 
     if (!user) {
       return res.status(404).json({
@@ -343,6 +344,20 @@ export const changeUserRole = async (req, res) => {
       });
     }
 
+    await createAuditLog({
+      userId: req.user.id,
+      username: req.user.email || null,
+      email: req.user.email || null,
+      action: 'user.changeRole',
+      entityType: 'User',
+      entityId: user._id.toString(),
+      ip: req.ip,
+      meta: {
+        newRole,
+        changedBy: req.user.id,
+      },
+    });
+
     res.json({
       success: true,
       message: "Rol actualizado exitosamente",
@@ -390,7 +405,7 @@ export const deactivateAccount = async (req, res) => {
     }
 
     // Obtener el usuario con su contraseña
-    const user = await User.findById(id);
+    const user = await User.findById(id).select('+password');
 
     if (!user) {
       return res.status(404).json({
@@ -412,6 +427,20 @@ export const deactivateAccount = async (req, res) => {
       { isActive: false, deactivatedAt: new Date() },
       { returnDocument: 'after' }
     ).select("-password");
+
+    await createAuditLog({
+      userId: req.user.id,
+      username: req.user.email || null,
+      email: req.user.email || null,
+      action: 'user.deactivate',
+      entityType: 'User',
+      entityId: updatedUser._id.toString(),
+      ip: req.ip,
+      meta: {
+        targetUserId: id,
+        performedBy: req.user.id,
+      },
+    });
 
     res.json({
       success: true,
@@ -459,6 +488,20 @@ export const reactivateAccount = async (req, res) => {
         message: "Usuario no encontrado",
       });
     }
+
+    await createAuditLog({
+      userId: req.user.id,
+      username: req.user.email || null,
+      email: req.user.email || null,
+      action: 'user.reactivate',
+      entityType: 'User',
+      entityId: user._id.toString(),
+      ip: req.ip,
+      meta: {
+        targetUserId: id,
+        performedBy: req.user.id,
+      },
+    });
 
     res.json({
       success: true,

@@ -18,6 +18,11 @@ export const createAccount = async (payload) => {
   return data;
 };
 
+export const updateAccountType = async (accountId, newType) => {
+  const { data } = await axiosAdmin.put(`/accounts/${accountId}/update-type`, { newType });
+  return data;
+};
+
 export const depositToAccount = async (payload) => {
   const { data } = await axiosAdmin.post('/accounts/deposit', payload);
   return data;

@@ -14,10 +14,11 @@ export const RegisterForm = ({ onLogin }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { role: 'user' } });
+  } = useForm({ defaultValues: { role: 'user', accountType: 'ahorro' } });
 
   const password = watch('password', '');
   const selectedRole = watch('role', 'user');
+  const selectedAccountType = watch('accountType', 'ahorro');
 
   const onSubmit = async (data) => {
     setSuccessMessage('');
@@ -30,6 +31,7 @@ export const RegisterForm = ({ onLogin }) => {
       dpi: data.dpi,
       password: data.password,
       role: data.role === 'admin' ? 'Admin' : 'Cliente',
+      accountType: data.accountType || 'ahorro',
       secretKey: data.role === 'admin' ? data.secretKey || '' : '',
     };
 
@@ -53,7 +55,7 @@ export const RegisterForm = ({ onLogin }) => {
         toast.success('Cuenta creada. Revisa tu correo en unos minutos.', { duration: 4000 });
         setTimeout(() => onLogin(), 3000);
       } else {
-        setLocalError(errMsg || 'Error al registrar usuario');
+        setLocalError(errMsg || 'Usuario registrado pero no se pudo enviar el correo de verificación. Intenta iniciar sesión para verificar tu cuenta.');
       }
     }
   };
@@ -189,10 +191,26 @@ export const RegisterForm = ({ onLogin }) => {
         )}
       </div>
 
+      {selectedRole === 'user' && (
+        <div>
+          <label htmlFor='accountType' className='block text-sm font-semibold text-[#002D62] mb-2'>
+            Tipo de cuenta
+          </label>
+          <select
+            id='accountType'
+            className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
+            {...register('accountType', {
+              required: 'El tipo de cuenta es obligatorio',
+            })}
+          >
+            <option value='ahorro'>Cuenta de Ahorro</option>
+            <option value='monetaria'>Cuenta Monetaria</option>
+          </select>
+          {errors.accountType && <p className='text-red-600 text-xs mt-2'>{errors.accountType.message}</p>}
+        </div>
+      )}
+
       <div>
-        <label htmlFor='role' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          Seleccionar rol
-        </label>
         <select
           id='role'
           className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
@@ -214,7 +232,6 @@ export const RegisterForm = ({ onLogin }) => {
           <input
             type='password'
             id='secretKey'
-            placeholder='CLAVE_ADMIN0101'
             className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
             {...register('secretKey', {
               required: 'La clave secreta es obligatoria para el registro de administrador',

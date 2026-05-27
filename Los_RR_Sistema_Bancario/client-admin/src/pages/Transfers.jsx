@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { getAccounts, getAccountByNumber, getTransactions, transferMoney } from '../services/adminApi.js';
+import { getAccounts, getAccountByNumber, getTransactions, transferMoney, requestReversal } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { useAuthStore } from '../features/auth/store/authStore.js';
 import { showError, showSuccess } from '../shared/utils/toast.js';
@@ -12,6 +12,11 @@ const emptyTransfer = {
   description: '',
 };
 
+const emptyReversal = {
+  transactionId: '',
+  reason: '',
+};
+
 export const Transfers = () => {
   const [accounts, setAccounts] = useState([]);
   const [transactions, setTransactions] = useState([]);
@@ -20,6 +25,12 @@ export const Transfers = () => {
   const [form, setForm] = useState(emptyTransfer);
   const [transferModalOpen, setTransferModalOpen] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+
+  // Estado para modal de reversión
+  const [reversalModalOpen, setReversalModalOpen] = useState(false);
+  const [reversalForm, setReversalForm] = useState(emptyReversal);
+  const [reversalLoading, setReversalLoading] = useState(false);
+
   const isAdmin = useAuthStore((state) => state.isAdmin);
   const currentUser = useAuthStore((state) => state.user);
 
@@ -41,8 +52,7 @@ export const Transfers = () => {
   }, []);
 
   const transferTransactions = useMemo(
-    () =>
-      transactions.filter((transaction) => transaction.type === 'TRANSFERENCIA'),
+    () => transactions.filter((transaction) => transaction.type === 'TRANSFERENCIA'),
     [transactions],
   );
 
@@ -52,44 +62,102 @@ export const Transfers = () => {
         transaction.type?.toLowerCase().includes(search.toLowerCase()) ||
         transaction.originAccount?.accountNumber?.toLowerCase().includes(search.toLowerCase()) ||
         transaction.destinationAccount?.accountNumber?.toLowerCase().includes(search.toLowerCase()) ||
+        String(transaction._id ?? '').toLowerCase().includes(search.toLowerCase()) ||
         String(transaction.amount ?? '').includes(search),
       ),
     [search, transferTransactions],
   );
 
   const openTransferForm = () => {
-    // Prefill origin account with the logged in user's account when available
     const myAccount = accounts.find((acc) => acc.userId === currentUser?.id);
     setForm({ ...emptyTransfer, fromAccountNumber: myAccount?.accountNumber || '' });
     setTransferModalOpen(true);
   };
 
+  // Abrir modal de reversión con el ID de la transacción ya cargado
+  const openReversalModal = (transaction) => {
+    setReversalForm({ transactionId: transaction._id, reason: '' });
+    setReversalModalOpen(true);
+  };
+
+  const getReversalStatusLabel = (transaction) => {
+    if (transaction.isReversed) return 'Reversada';
+
+    const status = transaction.reversalRequestId?.status;
+    switch (status) {
+      case 'PENDING':
+        return 'Pendiente de reversión';
+      case 'APPROVED':
+        return 'Reversión aprobada';
+      case 'COMPLETED':
+        return 'Reversión completada';
+      case 'REJECTED':
+        return 'Reversión rechazada';
+      case 'CANCELLED':
+        return 'Reversión cancelada';
+      default:
+        return '—';
+    }
+  };
+
+  const canRequestReversal = (transaction) => {
+    const originId = transaction.originAccount?._id ?? transaction.originAccount;
+    const originNum = transaction.originAccount?.accountNumber;
+    const isOwnOutgoing = accounts.some(
+      (acc) =>
+        (originNum && acc.accountNumber === originNum) ||
+        (originId && String(acc._id) === String(originId)),
+    );
+
+    if (!isOwnOutgoing) return false;
+    if (transaction.isReversed) return false;
+
+    const status = transaction.reversalRequestId?.status;
+    return !['PENDING', 'APPROVED'].includes(status);
+  };
+
+  const handleReversalSubmit = async (event) => {
+    event.preventDefault();
+    if (!reversalForm.reason.trim()) {
+      showError('El motivo es obligatorio');
+      return;
+    }
+    try {
+      setReversalLoading(true);
+      await requestReversal(reversalForm);
+      showSuccess('Solicitud de reversión enviada correctamente');
+      setReversalModalOpen(false);
+      setReversalForm(emptyReversal);
+      loadData();
+    } catch (error) {
+      const responseData = error?.response?.data;
+      showError(responseData?.waitMessage || responseData?.message || 'No se pudo crear la solicitud de reversión');
+    } finally {
+      setReversalLoading(false);
+    }
+  };
+
   const validateTransfer = () => {
     const errors = {};
 
-    // Validar cuenta origen
     if (!form.fromAccountNumber || form.fromAccountNumber.trim() === '') {
       errors.fromAccountNumber = 'La cuenta de origen es requerida';
     }
 
-    // Validar cuenta destino
     if (!form.toAccountNumber || form.toAccountNumber.trim() === '') {
       errors.toAccountNumber = 'La cuenta de destino es requerida';
     }
 
-    // Validar que no sea la misma cuenta
     if (form.fromAccountNumber && form.toAccountNumber && form.fromAccountNumber.trim() === form.toAccountNumber.trim()) {
       errors.toAccountNumber = 'No puedes transferir hacia la misma cuenta';
     }
 
-    // Validar que la cuenta de origen exista en las cuentas del usuario
     const fromAccountExists = accounts.some((acc) => acc.accountNumber === form.fromAccountNumber);
 
     if (form.fromAccountNumber && !fromAccountExists) {
       errors.fromAccountNumber = 'La cuenta de origen no existe';
     }
 
-    // Para usuarios no administradores, forzar que la cuenta origen sea la de la sesión activa
     if (!isAdmin) {
       const myAccount = accounts.find((acc) => acc.userId === currentUser?.id);
       if (myAccount && form.fromAccountNumber !== myAccount.accountNumber) {
@@ -97,7 +165,6 @@ export const Transfers = () => {
       }
     }
 
-    // Validar monto
     if (!form.amount || form.amount === '') {
       errors.amount = 'El monto es requerido';
     } else if (Number(form.amount) <= 0) {
@@ -106,7 +173,6 @@ export const Transfers = () => {
       errors.amount = 'El monto tiene un formato inválido';
     }
 
-    // Validar que la cuenta origen tenga saldo suficiente
     if (fromAccountExists) {
       const fromAccount = accounts.find((acc) => acc.accountNumber === form.fromAccountNumber);
       if (fromAccount && Number(form.amount) > fromAccount.balance) {
@@ -114,7 +180,6 @@ export const Transfers = () => {
       }
     }
 
-    // Validar descripción (opcional pero si la incluye, máximo 200 caracteres)
     if (form.description && form.description.length > 200) {
       errors.description = 'La descripción no puede exceder 200 caracteres';
     }
@@ -124,7 +189,7 @@ export const Transfers = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const errors = validateTransfer();
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
@@ -197,7 +262,7 @@ export const Transfers = () => {
           type='search'
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder='Buscar por cuenta, tipo o monto'
+          placeholder='Buscar por ID, cuenta o monto'
           className='w-full max-w-lg rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
         />
       </div>
@@ -207,26 +272,56 @@ export const Transfers = () => {
           <table className='min-w-full border-collapse text-left'>
             <thead className='bg-slate-50 text-sm text-slate-600'>
               <tr>
-                <th className='px-5 py-4'>Tipo</th>
+                <th className='px-5 py-4'>ID transacción</th>
                 <th className='px-5 py-4'>Origen</th>
                 <th className='px-5 py-4'>Destino</th>
                 <th className='px-5 py-4'>Monto</th>
                 <th className='px-5 py-4'>Fecha</th>
+                <th className='px-5 py-4'>Estado</th>
+                {!isAdmin && <th className='px-5 py-4'>Acciones</th>}
               </tr>
             </thead>
             <tbody>
               {filteredTransactions.map((transaction) => (
                 <tr key={transaction._id ?? `${transaction.date}-${transaction.amount}`} className='border-t border-gray-100 hover:bg-slate-50'>
-                  <td className='px-5 py-4'>{transaction.type}</td>
+                  <td className='px-5 py-4'>
+                    <span
+                      className='font-mono text-xs text-slate-500 cursor-pointer hover:text-main-blue'
+                      title={transaction._id}
+                      onClick={() => navigator.clipboard?.writeText(transaction._id).then(() => showSuccess('ID copiado'))}
+                    >
+                      {String(transaction._id ?? '').slice(-8)}
+                    </span>
+                  </td>
                   <td className='px-5 py-4'>{transaction.originAccount?.accountNumber ?? '—'}</td>
                   <td className='px-5 py-4'>{transaction.destinationAccount?.accountNumber ?? '—'}</td>
                   <td className='px-5 py-4'>{formatMoney(transaction.amount)}</td>
                   <td className='px-5 py-4'>{formatDateTime(transaction.date)}</td>
+                  <td className='px-5 py-4'>
+                    <span className='inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700'>
+                      {getReversalStatusLabel(transaction)}
+                    </span>
+                  </td>
+                  {!isAdmin && (
+                    <td className='px-5 py-4'>
+                      {canRequestReversal(transaction) ? (
+                        <button
+                          type='button'
+                          onClick={() => openReversalModal(transaction)}
+                          className='rounded-full border border-amber-300 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-700 transition hover:bg-amber-100'
+                        >
+                          Revertir
+                        </button>
+                      ) : (
+                        <span className='text-xs text-gray-400'>—</span>
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
               {filteredTransactions.length === 0 && (
                 <tr>
-                  <td colSpan='5' className='px-5 py-8 text-center text-sm text-gray-500'>
+                  <td colSpan={isAdmin ? 6 : 7} className='px-5 py-8 text-center text-sm text-gray-500'>
                     No hay transferencias registradas.
                   </td>
                 </tr>
@@ -236,6 +331,7 @@ export const Transfers = () => {
         </div>
       </div>
 
+      {/* Modal nueva transferencia */}
       {transferModalOpen && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4'>
           <div className='w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl'>
@@ -352,6 +448,73 @@ export const Transfers = () => {
                 </button>
                 <button type='submit' className='rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
                   Transferir
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal solicitud de reversión */}
+      {reversalModalOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4'>
+          <div className='w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl'>
+            <div className='flex items-center justify-between gap-4'>
+              <div>
+                <p className='text-sm text-gray-500'>Solicitud de reversión</p>
+                <h2 className='text-2xl font-semibold text-slate-900'>Revertir transferencia</h2>
+              </div>
+              <button
+                type='button'
+                onClick={() => setReversalModalOpen(false)}
+                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+              >
+                Cerrar
+              </button>
+            </div>
+
+            <form onSubmit={handleReversalSubmit} className='mt-6 space-y-4'>
+              <div>
+                <p className='text-sm font-medium text-slate-700'>ID de transacción</p>
+                <p className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-100 px-4 py-3 font-mono text-sm text-slate-500'>
+                  {reversalForm.transactionId}
+                </p>
+                <p className='mt-1 text-xs text-gray-400'>El ID se completó automáticamente.</p>
+              </div>
+
+              <label className='block'>
+                <span className='text-sm font-medium text-slate-700'>
+                  Motivo <span className='text-red-500'>*</span>
+                </span>
+                <select
+                  value={reversalForm.reason}
+                  onChange={(event) => setReversalForm((current) => ({ ...current, reason: event.target.value }))}
+                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  required
+                >
+                  <option value=''>Selecciona un motivo...</option>
+                  <option value='Error de transferencia'>Error de transferencia</option>
+                  <option value='Transferencia duplicada'>Transferencia duplicada</option>
+                  <option value='Transferencia no autorizada'>Transferencia no autorizada</option>
+                  <option value='Cambio de opinión'>Cambio de opinión</option>
+                  <option value='Otro'>Otro</option>
+                </select>
+              </label>
+
+              <div className='flex justify-end gap-3 pt-2'>
+                <button
+                  type='button'
+                  onClick={() => setReversalModalOpen(false)}
+                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                >
+                  Cancelar
+                </button>
+                <button
+                  type='submit'
+                  disabled={reversalLoading}
+                  className='rounded-full bg-amber-600 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
+                >
+                  {reversalLoading ? 'Enviando...' : 'Enviar solicitud'}
                 </button>
               </div>
             </form>

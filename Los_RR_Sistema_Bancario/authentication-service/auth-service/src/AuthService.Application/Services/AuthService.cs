@@ -47,6 +47,9 @@ public class AuthService : IAuthService
         if (user.IsDisabled)
             return new AuthResponseDto { Success = false, Message = "Cuenta deshabilitada. Contacte al banco para más información." };
 
+        if (!user.EmailConfirmed)
+            return new AuthResponseDto { Success = false, Message = "Debes verificar tu correo electrónico antes de iniciar sesión. Revisa tu bandeja de entrada." };
+
         if (!_passwordHashService.VerifyPassword(dto.Password, user.PasswordHash))
         {
             user.FailedLoginAttempts++;
@@ -122,6 +125,11 @@ public class AuthService : IAuthService
             _ => RoleConstants.RoleIds[RoleConstants.Client]
         };
 
+        var validAccountTypes = new[] { "ahorro", "monetaria", "corriente" };
+        var finalAccountType = validAccountTypes.Contains(dto.AccountType?.ToLower()?.Trim())
+            ? dto.AccountType.ToLower().Trim()
+            : "ahorro";
+
         var verificationToken = Guid.NewGuid().ToString("N");
 
         var newUser = new User
@@ -134,6 +142,7 @@ public class AuthService : IAuthService
             EmailConfirmed = false,
             VerificationToken = verificationToken,
             Role = dto.Role?.ToUpper() ?? RoleConstants.Client,
+            AccountType = finalAccountType,
             CreatedAt = DateTime.UtcNow,
             UserRoles = new List<UserRole>
             {
@@ -145,7 +154,7 @@ public class AuthService : IAuthService
         {
             await _users.AddAsync(newUser);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return new AuthResponseDto { Success = false, Message = "Error interno del servidor al guardar el usuario" };
         }

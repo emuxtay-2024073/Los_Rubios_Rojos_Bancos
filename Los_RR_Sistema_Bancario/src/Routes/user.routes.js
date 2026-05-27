@@ -42,8 +42,8 @@ router.get('/:id', requireRole('admin'), getUserById);
 // Cambiar rol de usuario (Admin)
 router.put('/:id/role', requireRole('admin'), changeUserRole);
 
-// Desactivar cuenta (Admin)
-router.put('/:id/deactivate', requireRole('admin'), deactivateAccount);
+// Desactivar cuenta (Admin o propio usuario)
+router.put('/:id/deactivate', deactivateAccount);
 
 // Reactivar cuenta (Admin)
 router.put('/:id/reactivate', requireRole('admin'), reactivateAccount);

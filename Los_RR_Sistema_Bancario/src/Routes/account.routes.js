@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { 
-    createAccount, 
+    createAccount,
+    updateAccountType,
     getAccounts, 
     getAccountDetails,
     getAccountHistory,
@@ -70,6 +71,47 @@ router.use(validateJWT);
  *         description: Permiso denegado
  */
 router.post('/create', requireRole('admin', 'cliente'), createAccount);
+
+/**
+ * @swagger
+ * /accounts/{accountId}/update-type:
+ *   put:
+ *     summary: Actualizar el tipo de cuenta bancaria
+ *     tags: [Cuentas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: accountId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de la cuenta a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newType
+ *             properties:
+ *               newType:
+ *                 type: string
+ *                 enum: ["ahorro", "monetaria", "corriente"]
+ *                 description: Nuevo tipo de cuenta
+ *                 example: "monetaria"
+ *     responses:
+ *       200:
+ *         description: Tipo de cuenta actualizado exitosamente
+ *       400:
+ *         description: Datos inválidos o cuenta duplicada
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: Permiso denegado
+ */
+router.put('/:accountId/update-type', updateAccountType);
 
 /**
  * @swagger

@@ -94,8 +94,8 @@ export const AppRoutes = () => {
         <Route
           path='reversals'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
-              <RoleBasedPage adminElement={<AdminReversalsView />} clientElement={<Reversals />} />
+            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+              <AdminReversalsView />
             </RoleGuard>
           }
         />

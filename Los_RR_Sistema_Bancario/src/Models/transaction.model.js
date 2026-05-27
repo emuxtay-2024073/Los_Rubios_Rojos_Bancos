@@ -27,11 +27,13 @@ const transactionSchema = new mongoose.Schema({
         min: 0
     },
     originAccount: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account',
         index: true
     },
     destinationAccount: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Account',
         index: true
     },
     date: {
@@ -68,6 +70,12 @@ const transactionSchema = new mongoose.Schema({
     exchangeRate: {
         type: Number,
         default: 1 // 1 si es misma moneda
+    },
+    status: {
+        type: String,
+        enum: ['PENDING', 'COMPLETADO', 'REVERTIDA', 'CANCELADO'],
+        default: 'COMPLETADO',
+        index: true
     }
 }, { timestamps: true });
 

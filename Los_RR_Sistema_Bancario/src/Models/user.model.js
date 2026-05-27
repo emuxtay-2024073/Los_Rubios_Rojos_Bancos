@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
     password: { 
         type: String, 
         required: true, 
-        minlength: 6 
+        minlength: 6,
+        select: false
     },
     role: { 
         type: String, 
@@ -66,6 +67,16 @@ const userSchema = new mongoose.Schema({
     lockedUntil: {
         type: Date,
         default: null
+    },
+    emailVerified: {
+        type: Boolean,
+        default: false,
+        index: true
+    },
+    emailVerificationToken: {
+        type: String,
+        default: null,
+        select: false
     }
 }, { timestamps: true });
 
@@ -124,3 +135,4 @@ userSchema.methods.recordSuccessfulLogin = async function() {
 
 export const User = mongoose.model("User", userSchema);
 
+ 

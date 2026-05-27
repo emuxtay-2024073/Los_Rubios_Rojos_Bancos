@@ -25,7 +25,8 @@ public class TokenGeneratorService : ITokenGeneratorService
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim(ClaimTypes.Name, user.Username),
-            new Claim("role", user.MainRole)
+            new Claim("role", user.MainRole),
+            new Claim("accountType", user.AccountType ?? "ahorro")
         };
 
         // Agregar roles adicionales si existen

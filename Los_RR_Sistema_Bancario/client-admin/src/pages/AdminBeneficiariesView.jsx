@@ -77,10 +77,10 @@ export const AdminBeneficiariesView = () => {
             {filteredBeneficiaries.length > 0 ? (
               filteredBeneficiaries.map((b) => (
                 <tr key={b._id}>
-                  <td>{b.alias || 'Sin alias'}</td>
+                  <td>{b.name || 'Sin alias'}</td>
                   <td className="mono">{b.accountNumber}</td>
                   <td>{b.bankName || 'N/A'}</td>
-                  <td>{b.ownerName || 'N/A'}</td>
+                  <td>{b.ownerName || b.userId || 'N/A'}</td>
                   <td>{b.isFavorite ? '⭐ Sí' : 'No'}</td>
                   <td>{new Date(b.createdAt).toLocaleDateString()}</td>
                 </tr>

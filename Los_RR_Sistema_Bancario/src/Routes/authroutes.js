@@ -1,7 +1,8 @@
 ﻿import { Router } from 'express';
-import { register, login } from '../Controllers/authController.js';
+import { register, login, verifyEmail } from '../Controllers/authController.js';
 import { getAllUsers } from '../Controllers/userManagement.controller.js';
 import { validateJWT, requireRole } from '../Middleware/validate-jwt.js';
+import { loginRateLimiter } from '../Middleware/rateLimiter.js';
 
 const router = Router();
 
@@ -78,7 +79,10 @@ router.post('/register', register);
  *       401:
  *         description: Credenciales inválidas
  */
-router.post('/login', login);
+router.post('/login', loginRateLimiter, login);
+
+// Verificar email mediante token
+router.get('/verify-email', verifyEmail);
 
 // Obtener todos los usuarios (Admin)
 router.get('/users', validateJWT, requireRole('admin'), getAllUsers);

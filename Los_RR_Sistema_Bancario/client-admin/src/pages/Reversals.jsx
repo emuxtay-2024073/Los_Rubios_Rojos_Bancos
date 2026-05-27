@@ -59,7 +59,9 @@ export const Reversals = () => {
       setModalOpen(false);
       loadData();
     } catch (error) {
-      showError(error?.response?.data?.message || 'No se pudo crear la solicitud');
+      const responseData = error?.response?.data;
+      const message = responseData?.waitMessage || responseData?.message || 'No se pudo crear la solicitud';
+      showError(message);
     }
   };
 

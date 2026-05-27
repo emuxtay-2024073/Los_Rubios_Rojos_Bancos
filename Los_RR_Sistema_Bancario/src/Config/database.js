@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
-import { Role } from "../models/role.model.js"; 
+import dotenv from "dotenv";
+import { Role } from "../Models/role.model.js";
+
+dotenv.config();
 
 export const connectDB = async () => {
     try {
-        // Conectar a MongoDB local
-        await mongoose.connect("mongodb://127.0.0.1:27017/sistema_bancario", {});
+        const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/sistema_bancario";
+        await mongoose.connect(uri);
 
-        console.log("¡Base de datos local conectada!");
+        console.log("¡Base de datos conectada!");
 
-        // Crear roles por defecto (sin error si ya existen)
         const roles = ["User", "Admin"];
         for (const roleName of roles) {
             await Role.updateOne(
@@ -20,7 +22,7 @@ export const connectDB = async () => {
         console.log("Roles inicializados correctamente");
 
     } catch (error) {
-        console.log("Error al conectar a la base de datos:", error.message);
-        process.exit(1); 
+        console.error("Error al conectar a la base de datos:", error.message);
+        process.exit(1);
     }
 };
