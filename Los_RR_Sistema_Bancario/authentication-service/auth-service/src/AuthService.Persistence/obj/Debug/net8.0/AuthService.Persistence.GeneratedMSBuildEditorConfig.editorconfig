@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AuthService.Persistence
-build_property.ProjectDir = C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\
+build_property.ProjectDir = C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Persistence\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
