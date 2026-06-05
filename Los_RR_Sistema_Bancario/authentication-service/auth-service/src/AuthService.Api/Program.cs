@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,8 @@ using AuthService.Application.Settings;
 using AuthService.Domain.Interfaces;
 using AuthService.Persistence.Data;
 using AuthService.Persistence.Repositories;
+using AuthService.Domain.Constants;
+using AuthService.Domain.Entities;
 
 // Deshabilitar el remapeo automático de claims de JWT al formato largo de Microsoft.
 // Sin esto, el claim "role" se convierte a "http://schemas.microsoft.com/.../role"
@@ -338,18 +341,32 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var dbLogger = services.GetRequiredService<ILogger<Program>>();
 
-    try
-    {
-        var context = services.GetRequiredService<ApplicationDbContext>();
-        
-        dbLogger.LogInformation("Verificando migraciones pendientes...");
+        try
+        {
+            var context = services.GetRequiredService<ApplicationDbContext>();
+            
+            dbLogger.LogInformation("Verificando migraciones pendientes...");
  
-        context.Database.Migrate(); 
-        
-        dbLogger.LogInformation("Base de datos inicializada correctamente");
+            context.Database.Migrate(); 
+            
+            dbLogger.LogInformation("Base de datos inicializada correctamente");
 
-        var rolesCount = context.Role.Count();
-        dbLogger.LogInformation("Roles en BD: {Count}", rolesCount);
+            // Seed de roles si aún no existen
+            var rolesCount = context.Role.Count();
+            dbLogger.LogInformation("Roles en BD: {Count}", rolesCount);
+            if (rolesCount == 0)
+            {
+                var rolesToAdd = RoleConstants.RoleIds.Select(kv => new Role
+                {
+                    Id = kv.Value,
+                    Name = kv.Key,
+                    Description = kv.Key
+                }).ToList();
+
+                context.Role.AddRange(rolesToAdd);
+                context.SaveChanges();
+                dbLogger.LogInformation("Se sembraron {Count} roles.", rolesToAdd.Count);
+            }
     }
     catch (Exception ex)
     {
