@@ -16,11 +16,17 @@ public class EmailService : IEmailService
         _smtpSettings = smtpSettings.Value;
     }
 
-    public async Task SendEmailAsync(string to, string subject, string body)
+    public async Task SendEmailAsync(string to, string subject, string body, string? htmlBody = null, string? devLink = null)
     {
         if (!_smtpSettings.Enabled)
         {
-            throw new InvalidOperationException("SMTP está deshabilitado. Configure SMTP_ENABLED=true o SmtpSettings__Enabled=true en la configuración.");
+            if (_smtpSettings.UseFallback)
+            {
+                Console.WriteLine($"[EMAIL BANCARIO DEV] SMTP deshabilitado. Enlace generado para {to}: {devLink ?? body}");
+                return;
+            }
+
+            throw new InvalidOperationException("SMTP esta deshabilitado. Configure SMTP_ENABLED=true o SmtpSettings__Enabled=true en la configuracion.");
         }
 
         if (string.IsNullOrWhiteSpace(_smtpSettings.Host) ||
@@ -29,6 +35,12 @@ public class EmailService : IEmailService
             string.IsNullOrWhiteSpace(_smtpSettings.Password) ||
             string.IsNullOrWhiteSpace(_smtpSettings.FromEmail))
         {
+            if (_smtpSettings.UseFallback)
+            {
+                Console.WriteLine($"[EMAIL BANCARIO DEV] SMTP incompleto. Enlace generado para {to}: {devLink ?? body}");
+                return;
+            }
+
             throw new InvalidOperationException("SmtpSettings incompletos. Verifique Host, Port, Username, Password y FromEmail.");
         }
 
@@ -49,7 +61,11 @@ public class EmailService : IEmailService
 
         message.To.Add(MailboxAddress.Parse(to));
         message.Subject = subject;
-        message.Body = new BodyBuilder { TextBody = body }.ToMessageBody();
+        message.Body = new BodyBuilder
+        {
+            TextBody = body,
+            HtmlBody = htmlBody
+        }.ToMessageBody();
 
         using var smtp = new SmtpClient();
 
