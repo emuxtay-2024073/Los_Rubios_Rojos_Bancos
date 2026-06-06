@@ -42,10 +42,22 @@ public class AuthController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
+        // Captura fallos de model binding/validación automática del [ApiController]
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(new
+            {
+                success = false,
+                message = "Datos inválidos",
+                errors = ModelState
+            });
+        }
+
         var result = await _auth.Register(dto);
 
         return result.Success ? Ok(result) : BadRequest(result);
     }
+
 
     [HttpPost("refresh")]
     [AllowAnonymous]

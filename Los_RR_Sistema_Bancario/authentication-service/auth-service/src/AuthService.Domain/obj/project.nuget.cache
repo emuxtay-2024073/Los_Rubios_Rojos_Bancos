@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "o80brw7Nlrg=",
+  "dgSpecHash": "7ktOitr0Siw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\muxta\\Downloads\\Presentación\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Informatica\\Desktop\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Informatica\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.24\\microsoft.netcore.app.ref.8.0.24.nupkg.sha512",
+    "C:\\Users\\Informatica\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.24\\microsoft.windowsdesktop.app.ref.8.0.24.nupkg.sha512",
+    "C:\\Users\\Informatica\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.24\\microsoft.aspnetcore.app.ref.8.0.24.nupkg.sha512"
+  ],
   "logs": []
 }

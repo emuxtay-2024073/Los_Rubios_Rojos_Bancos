@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { isEmailValid, isValidPassword, normalizeEmail } from '../Helpers/validators.js';
 import { createAuditLog } from '../Services/log.service.js';
+import { sendVerificationEmail } from '../Services/email.service.js';
 
 const DEFAULT_ROLE = 'Cliente';
 const AUTH_ROLES = ['Cliente', 'Admin'];
@@ -90,8 +91,12 @@ export const register = async (req, res) => {
             ip: req.ip,
         });
 
+        const emailResult = await sendVerificationEmail(user, verificationToken);
+
         res.status(201).json({
             success: true,
+            emailVerificationRequired: true,
+            verificationUrl: emailResult?.skipped ? emailResult.devLink : undefined,
             message: "Usuario registrado correctamente. Revisa tu correo electrónico para verificar tu cuenta antes de iniciar sesión.",
             user: {
                 id: user._id,
