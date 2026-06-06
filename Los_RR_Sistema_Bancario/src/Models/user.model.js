@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema({
     },
     role: { 
         type: String, 
-        enum: ['Cliente', 'Admin'],
-        default: 'Cliente',
+        enum: ['USER', 'ADMIN', 'SUPER_ADMIN'],
+        default: 'USER',
         index: true
     },
     isActive: {
@@ -134,5 +134,6 @@ userSchema.methods.recordSuccessfulLogin = async function() {
 };
 
 export const User = mongoose.model("User", userSchema);
+export const MongoDBUser = User; // Alias para migraciones
 
  

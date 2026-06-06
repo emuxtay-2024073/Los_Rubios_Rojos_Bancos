@@ -1,5 +1,6 @@
 import { Beneficiary } from "../Models/beneficiary.model.js";
 import { Account } from "../Models/account.model.js";
+import { isAdmin } from "../Helpers/roleHelpers.js";
  
 /**
  * CONTROLADOR DE BENEFICIARIOS
@@ -119,12 +120,11 @@ export const addBeneficiary = async (req, res) => {
 export const getBeneficiaries = async (req, res) => {
   try {
     const userId = req.user.id;
-    const roles = Array.isArray(req.user.roles) ? req.user.roles : [];
-    const isAdmin = roles.some((role) => String(role).toLowerCase() === "admin");
+    const userIsAdmin = isAdmin(req.user);
     const { favorite } = req.query;
  
     const query = {};
-    if (!isAdmin) {
+    if (!userIsAdmin) {
       query.userId = userId;
     }
  

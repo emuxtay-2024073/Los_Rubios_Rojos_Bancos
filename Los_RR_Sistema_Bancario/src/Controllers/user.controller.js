@@ -1,11 +1,11 @@
 import { User } from "../Models/user.model.js";
 import { isEmailValid, isValidPassword, isNonEmptyString, normalizeEmail } from "../Helpers/validators.js";
 
-const AUTH_ROLES = ["Cliente", "Admin"];
+const AUTH_ROLES = ["USER", "ADMIN", "SUPER_ADMIN"];
 
 export const createUser = async (req, res) => {
     try {
-        const { username, email, password, role } = req.body;
+        const { username, email, password } = req.body;
         const normalizedEmail = normalizeEmail(email);
 
         if (!isNonEmptyString(username) || !isNonEmptyString(email) || !isNonEmptyString(password)) {
@@ -48,7 +48,7 @@ export const createUser = async (req, res) => {
             username: username.trim(),
             email: normalizedEmail,
             password,
-            role: AUTH_ROLES.includes(role) ? role : "Cliente",
+            role: "USER",
             isActive: true,
         });
 
@@ -85,6 +85,88 @@ export const getUsers = async (req, res) => {
         res.status(500).json({
             success: false,
             message: "Error al obtener usuarios",
+        });
+    }
+};
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find().select("-password -__v");
+        res.json({ success: true, users });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener usuarios",
+        });
+    }
+};
+
+export const getUserById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findById(id).select("-password -__v");
+        
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Usuario no encontrado",
+            });
+        }
+
+        res.json({ success: true, user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Error al obtener usuario",
+        });
+    }
+};
+
+export const changeUserRole = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { newRole } = req.body;
+
+        // Validar que el nuevo rol sea válido
+        if (!AUTH_ROLES.includes(newRole)) {
+            return res.status(400).json({
+                success: false,
+                message: `Rol inválido. Roles permitidos: ${AUTH_ROLES.join(", ")}`,
+            });
+        }
+
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "Usuario no encontrado",
+            });
+        }
+
+        // Prevenir que se cambie el rol del SUPER_ADMIN a otro
+        if (user.role === "SUPER_ADMIN" && newRole !== "SUPER_ADMIN") {
+            return res.status(403).json({
+                success: false,
+                message: "No se puede cambiar el rol del Super Admin",
+            });
+        }
+
+        const oldRole = user.role;
+        user.role = newRole;
+        await user.save();
+
+        res.json({
+            success: true,
+            message: `Rol del usuario cambió de ${oldRole} a ${newRole}`,
+            user: await user.lean().select("-password -__v"),
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Error al cambiar el rol del usuario",
         });
     }
 };

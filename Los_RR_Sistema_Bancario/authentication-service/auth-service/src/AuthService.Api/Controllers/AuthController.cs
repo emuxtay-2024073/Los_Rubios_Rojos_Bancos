@@ -92,7 +92,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpGet("users")]
-    [Authorize(Roles = "ADMIN")]
+    [Authorize(Roles = "ADMIN,SUPER_ADMIN")]
     public async Task<IActionResult> GetAllUsers()
     {
         var users = await _userRepository.GetAllAsync();

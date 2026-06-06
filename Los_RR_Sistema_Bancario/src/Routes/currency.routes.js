@@ -135,7 +135,7 @@ router.post('/convert', validateJWT, convertCurrency);
  *       201:
  *         description: Tasa de cambio guardada exitosamente
  */
-router.post('/rates', validateJWT, requireRole('admin'), addExchangeRate);
+router.post('/rates', validateJWT, requireRole('ADMIN', 'SUPER_ADMIN'), addExchangeRate);
 
 /**
  * @swagger
@@ -213,6 +213,6 @@ router.get('/history', validateJWT, getConversionHistory);
  *       200:
  *         description: Tasa desactivada
  */
-router.delete('/rates/:rateId', validateJWT, requireRole('admin'), deactivateExchangeRate);
+router.delete('/rates/:rateId', validateJWT, requireRole('ADMIN', 'SUPER_ADMIN'), deactivateExchangeRate);
 
 export default router;

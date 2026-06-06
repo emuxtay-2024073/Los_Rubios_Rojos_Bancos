@@ -237,9 +237,12 @@ export const getUsers = async () => {
           user.id?.toString() ||
           user._id?.toString();
         if (!key) return acc;
+
+        const existing = acc[key] || {};
         acc[key] = {
-          ...acc[key],
+          ...existing,
           ...user,
+          _id: existing._id || user._id,
         };
         return acc;
       }, {})

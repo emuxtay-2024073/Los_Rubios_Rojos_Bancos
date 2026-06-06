@@ -70,7 +70,7 @@ router.use(validateJWT);
  *       403:
  *         description: Permiso denegado
  */
-router.post('/create', requireRole('admin', 'cliente'), createAccount);
+router.post('/create', requireRole('USER', 'ADMIN', 'SUPER_ADMIN'), createAccount);
 
 /**
  * @swagger
@@ -158,7 +158,7 @@ router.get('/', getAccounts);
  *       403:
  *         description: Permiso denegado
  */
-router.get('/disable-requests', requireRole('admin'), getDisableAccountRequests);
+router.get('/disable-requests', requireRole('ADMIN', 'SUPER_ADMIN'), getDisableAccountRequests);
 
 /**
  * @swagger
@@ -195,7 +195,7 @@ router.get('/disable-requests', requireRole('admin'), getDisableAccountRequests)
  *       403:
  *         description: Permiso denegado
  */
-router.post('/disable-requests/:requestId/approve', requireRole('admin'), approveDisableAccountRequest);
+router.post('/disable-requests/:requestId/approve', requireRole('ADMIN', 'SUPER_ADMIN'), approveDisableAccountRequest);
 
 /**
  * @swagger
@@ -232,7 +232,7 @@ router.post('/disable-requests/:requestId/approve', requireRole('admin'), approv
  *       403:
  *         description: Permiso denegado
  */
-router.post('/disable-requests/:requestId/reject', requireRole('admin'), rejectDisableAccountRequest);
+router.post('/disable-requests/:requestId/reject', requireRole('ADMIN', 'SUPER_ADMIN'), rejectDisableAccountRequest);
 
 /**
  * @swagger
@@ -298,9 +298,9 @@ router.post('/disable-requests/:requestId/reject', requireRole('admin'), rejectD
  *       404:
  *         description: Cuenta no encontrada
  */
-router.get('/reactivate-requests', requireRole('admin'), getReactivateAccountRequests);
-router.post('/reactivate-requests/:requestId/approve', requireRole('admin'), approveReactivateRequest);
-router.post('/reactivate-requests/:requestId/reject', requireRole('admin'), rejectReactivateRequest);
+router.get('/reactivate-requests', requireRole('ADMIN', 'SUPER_ADMIN'), getReactivateAccountRequests);
+router.post('/reactivate-requests/:requestId/approve', requireRole('ADMIN', 'SUPER_ADMIN'), approveReactivateRequest);
+router.post('/reactivate-requests/:requestId/reject', requireRole('ADMIN', 'SUPER_ADMIN'), rejectReactivateRequest);
  
 router.get('/:accountId/history', getAccountHistory);
 
@@ -373,105 +373,6 @@ router.get('/:accountId', getAccountDetails);
  */
 router.post('/:accountId/disable-request', requestDisableAccount);
 router.post('/:accountId/reactivate-request', requestReactivateAccount);
-
-/**
- * @swagger
- * /accounts/disable-requests:
- *   get:
- *     summary: Listar solicitudes de deshabilitación de cuentas (ADMIN)
- *     tags: [Cuentas]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: query
- *         name: status
- *         schema:
- *           type: string
- *           enum: [PENDING, APPROVED, REJECTED, CANCELLED]
- *         description: Filtrar por estado de la solicitud
- *     responses:
- *       200:
- *         description: Lista de solicitudes de deshabilitación
- *       401:
- *         description: No autorizado
- *       403:
- *         description: Permiso denegado
- */
-router.get('/disable-requests', requireRole('admin'), getDisableAccountRequests);
-
-/**
- * @swagger
- * /accounts/disable-requests/{requestId}/approve:
- *   post:
- *     summary: Aprobar solicitud de deshabilitación de cuenta (ADMIN)
- *     tags: [Cuentas]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: requestId
- *         required: true
- *         schema:
- *           type: string
- *         description: ID de la solicitud
- *     requestBody:
- *       required: false
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               responseReason:
- *                 type: string
- *                 example: "Solicitud aprobada por cumplimiento de requisitos"
- *     responses:
- *       200:
- *         description: Solicitud aprobada y cuenta deshabilitada
- *       400:
- *         description: Estado inválido o solicitud no pendiente
- *       401:
- *         description: No autorizado
- *       403:
- *         description: Permiso denegado
- */
-router.post('/disable-requests/:requestId/approve', requireRole('admin'), approveDisableAccountRequest);
-
-/**
- * @swagger
- * /accounts/disable-requests/{requestId}/reject:
- *   post:
- *     summary: Rechazar solicitud de deshabilitación de cuenta (ADMIN)
- *     tags: [Cuentas]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: requestId
- *         required: true
- *         schema:
- *           type: string
- *         description: ID de la solicitud
- *     requestBody:
- *       required: false
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               responseReason:
- *                 type: string
- *                 example: "Solicitud rechazada por datos incompletos"
- *     responses:
- *       200:
- *         description: Solicitud rechazada
- *       400:
- *         description: Estado inválido o solicitud no pendiente
- *       401:
- *         description: No autorizado
- *       403:
- *         description: Permiso denegado
- */
-router.post('/disable-requests/:requestId/reject', requireRole('admin'), rejectDisableAccountRequest);
 
 /**
  * @swagger

@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using AuthService.Api.Extensions;
 using AuthService.Api.Middlewares;
+using AuthService.Application.Interfaces;
 using AuthService.Application.Settings;
 using AuthService.Domain.Interfaces;
 using AuthService.Persistence.Data;
@@ -366,6 +367,43 @@ using (var scope = app.Services.CreateScope())
                 context.Role.AddRange(rolesToAdd);
                 context.SaveChanges();
                 dbLogger.LogInformation("Se sembraron {Count} roles.", rolesToAdd.Count);
+            }
+
+            // Seed inicial SUPERADMIN en PostgreSQL si no existe
+            var superAdminEmail = Environment.GetEnvironmentVariable("SUPER_ADMIN_EMAIL") ?? "superadmin@banco.com";
+            var superAdminPassword = Environment.GetEnvironmentVariable("SUPER_ADMIN_PASSWORD") ?? "SuperAdmin123!";
+
+            var existingSuperAdmin = context.User
+                .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+                .FirstOrDefault(u => u.Email == superAdminEmail ||
+                                     u.Role == RoleConstants.SuperAdmin ||
+                                     u.UserRoles.Any(ur => ur.RoleId == RoleConstants.RoleIds[RoleConstants.SuperAdmin]));
+
+            if (existingSuperAdmin == null)
+            {
+                var passwordHashService = services.GetRequiredService<IPasswordHashService>();
+                var newSuperAdmin = new User
+                {
+                    Email = superAdminEmail,
+                    Username = "superadmin",
+                    PasswordHash = passwordHashService.HashPassword(superAdminPassword),
+                    EmailConfirmed = true,
+                    IsActive = true,
+                    Role = RoleConstants.SuperAdmin,
+                    AccountType = "corriente",
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    UserRoles = new List<UserRole>
+                    {
+                        new UserRole { RoleId = RoleConstants.RoleIds[RoleConstants.SuperAdmin] }
+                    }
+                };
+
+                context.User.Add(newSuperAdmin);
+                context.SaveChanges();
+                dbLogger.LogInformation("Se creó el SUPERADMIN en PostgreSQL: {Email}", superAdminEmail);
+                dbLogger.LogInformation("Contraseña inicial: {Password}", superAdminPassword);
             }
     }
     catch (Exception ex)

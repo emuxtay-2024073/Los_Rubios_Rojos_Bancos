@@ -3,6 +3,7 @@ import { Transaction } from "../Models/transaction.model.js";
 import { ExchangeRate } from "../Models/exchangeRate.model.js";
 import { DisableAccountRequest } from "../Models/disableAccountRequest.model.js";
 import { ReactivateAccountRequest } from "../Models/reactivateAccountRequest.model.js";
+import { isAdmin } from "../Helpers/roleHelpers.js";
 import axios from 'axios';
  
 const generarNumeroCuenta = () => "ACC" + Math.floor(100000 + Math.random() * 900000);
@@ -84,7 +85,7 @@ export const createAccount = async (req, res) => {
             });
         }
  
-        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+        if (!isAdmin(req.user)) {
             return res.status(403).json({
                 message: "Solo los administradores pueden crear cuentas bancarias.",
                 error: "INSUFFICIENT_PERMISSIONS"
@@ -159,8 +160,8 @@ export const updateAccountType = async (req, res) => {
             return res.status(400).json({ message: `La cuenta ya es de tipo ${newType}` });
         }
  
-        const isAdmin = req.user?.roles?.some(role => role.toLowerCase() === 'admin');
-        if (!isAdmin && account.userId !== req.user.id) {
+        const userIsAdmin = isAdmin(req.user);
+        if (!userIsAdmin && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso para actualizar esta cuenta" });
         }
  
@@ -195,19 +196,19 @@ export const updateAccountType = async (req, res) => {
  
 export const getAccounts = async (req, res) => {
     try {
-        const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
+        const userIsAdmin = isAdmin(req.user);
         const { accountNumber } = req.query;
         let query = {};
  
         if (accountNumber) {
             query.accountNumber = accountNumber;
-        } else if (!isAdmin) {
+        } else if (!userIsAdmin) {
             query.userId = req.user.id;
         }
  
         let accounts = await Account.find(query).sort({ createdAt: -1 });
  
-        if (!accountNumber && !isAdmin && accounts.length === 0) {
+        if (!accountNumber && !userIsAdmin && accounts.length === 0) {
             const newAccount = await createDefaultAccountForClient(req.user.id, req.user.accountType);
             accounts = [newAccount];
         }
@@ -230,8 +231,8 @@ export const getAccountDetails = async (req, res) => {
             return res.status(404).json({ message: "Cuenta no encontrada" });
         }
  
-        const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
-        if (!isAdmin && account.userId !== req.user.id) {
+        const userIsAdmin = isAdmin(req.user);
+        if (!userIsAdmin && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso para ver esta cuenta" });
         }
  
@@ -253,8 +254,8 @@ export const getAccountHistory = async (req, res) => {
             return res.status(404).json({ message: "Cuenta no encontrada" });
         }
  
-        const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
-        if (!isAdmin && account.userId !== req.user.id) {
+        const userIsAdmin = isAdmin(req.user);
+        if (!userIsAdmin && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso sobre esta cuenta" });
         }
  
@@ -358,8 +359,8 @@ export const requestDisableAccount = async (req, res) => {
  
 export const getDisableAccountRequests = async (req, res) => {
     try {
-        const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
-        if (!isAdmin) {
+        const userIsAdmin = isAdmin(req.user);
+        if (!userIsAdmin) {
             return res.status(403).json({ message: "Solo administradores pueden ver solicitudes de deshabilitación" });
         }
  
@@ -386,7 +387,7 @@ export const getDisableAccountRequests = async (req, res) => {
  
 export const approveDisableAccountRequest = async (req, res) => {
     try {
-        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+        if (!isAdmin(req.user)) {
             return res.status(403).json({ message: "Solo administradores pueden aprobar solicitudes" });
         }
  
@@ -432,7 +433,7 @@ export const approveDisableAccountRequest = async (req, res) => {
  
 export const rejectDisableAccountRequest = async (req, res) => {
     try {
-        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+        if (!isAdmin(req.user)) {
             return res.status(403).json({ message: "Solo administradores pueden rechazar solicitudes" });
         }
  
@@ -474,7 +475,7 @@ export const deposit = async (req, res) => {
         const account = await findAccountByIdOrNumber(accountId);
         if (!account) return res.status(404).json({ message: "Cuenta no encontrada" });
  
-        if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && account.userId !== req.user.id) {
+if (!isAdmin(req.user) && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso sobre esta cuenta" });
         }
  
@@ -530,7 +531,7 @@ export const withdraw = async (req, res) => {
         const account = await findAccountByIdOrNumber(accountId);
         if (!account) return res.status(404).json({ message: "Cuenta no encontrada" });
  
-        if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && account.userId !== req.user.id) {
+if (!isAdmin(req.user) && account.userId !== req.user.id) {
             return res.status(403).json({ message: "No tienes permiso sobre esta cuenta" });
         }
  
@@ -653,7 +654,7 @@ export const requestReactivateAccount = async (req, res) => {
  
 export const getReactivateAccountRequests = async (req, res) => {
     try {
-        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+        if (!isAdmin(req.user)) {
             return res.status(403).json({ message: "Solo administradores pueden ver solicitudes de habilitación" });
         }
  
@@ -680,7 +681,7 @@ export const getReactivateAccountRequests = async (req, res) => {
  
 export const approveReactivateRequest = async (req, res) => {
     try {
-        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+        if (!isAdmin(req.user)) {
             return res.status(403).json({ message: "Solo administradores pueden aprobar solicitudes" });
         }
  
@@ -716,7 +717,7 @@ export const approveReactivateRequest = async (req, res) => {
  
 export const rejectReactivateRequest = async (req, res) => {
     try {
-        if (!req.user?.roles?.some(role => role.toLowerCase() === 'admin')) {
+        if (!isAdmin(req.user)) {
             return res.status(403).json({ message: "Solo administradores pueden rechazar solicitudes" });
         }
  

@@ -24,8 +24,8 @@ router.get("/", getUsers);
 router.use(validateJWT);
 
 // IMPORTANTE: Rutas específicas ANTES de rutas parametrizadas
-// Obtener todos los usuarios (Admin)
-router.get('/admin/all', requireRole('admin'), getAllUsers);
+// Obtener todos los usuarios (Admin o SUPER_ADMIN)
+router.get('/admin/all', requireRole('ADMIN', 'SUPER_ADMIN'), getAllUsers);
 
 // Obtener perfil propio
 router.get("/profile", getMyProfile);
@@ -36,16 +36,16 @@ router.put("/profile", updateProfile);
 // Cambiar contraseña
 router.put("/change-password", changePassword);
 
-// Obtener usuario por ID (Admin) - DESPUÉS de rutas específicas
-router.get('/:id', requireRole('admin'), getUserById);
+// Obtener usuario por ID (Admin o SUPER_ADMIN) - DESPUÉS de rutas específicas
+router.get('/:id', requireRole('ADMIN', 'SUPER_ADMIN'), getUserById);
 
-// Cambiar rol de usuario (Admin)
-router.put('/:id/role', requireRole('admin'), changeUserRole);
+// Cambiar rol de usuario (solo SUPER_ADMIN)
+router.put('/:id/role', requireRole('SUPER_ADMIN'), changeUserRole);
 
 // Desactivar cuenta (Admin o propio usuario)
 router.put('/:id/deactivate', deactivateAccount);
 
-// Reactivar cuenta (Admin)
-router.put('/:id/reactivate', requireRole('admin'), reactivateAccount);
+// Reactivar cuenta (Admin o SUPER_ADMIN)
+router.put('/:id/reactivate', requireRole('ADMIN', 'SUPER_ADMIN'), reactivateAccount);
 
 export default router;

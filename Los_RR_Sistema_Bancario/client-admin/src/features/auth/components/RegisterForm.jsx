@@ -14,10 +14,9 @@ export const RegisterForm = ({ onLogin }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: { role: 'user', accountType: 'ahorro' } });
+  } = useForm({ defaultValues: { accountType: 'ahorro' } });
 
   const password = watch('password', '');
-  const selectedRole = watch('role', 'user');
   const selectedAccountType = watch('accountType', 'ahorro');
 
   const onSubmit = async (data) => {
@@ -30,9 +29,8 @@ export const RegisterForm = ({ onLogin }) => {
       phoneNumber: data.phoneNumber,
       dpi: data.dpi,
       password: data.password,
-      role: data.role === 'admin' ? 'Admin' : 'Cliente',
+      role: 'USER',
       accountType: data.accountType || 'ahorro',
-      secretKey: data.role === 'admin' ? data.secretKey || '' : '',
     };
 
     const res = await registerUser(payload);
@@ -191,8 +189,7 @@ export const RegisterForm = ({ onLogin }) => {
         )}
       </div>
 
-      {selectedRole === 'user' && (
-        <div>
+      <div>
           <label htmlFor='accountType' className='block text-sm font-semibold text-[#002D62] mb-2'>
             Tipo de cuenta
           </label>
@@ -208,41 +205,7 @@ export const RegisterForm = ({ onLogin }) => {
           </select>
           {errors.accountType && <p className='text-red-600 text-xs mt-2'>{errors.accountType.message}</p>}
         </div>
-      )}
-
-      <div>
-        <select
-          id='role'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('role', {
-            required: 'El rol es obligatorio',
-          })}
-        >
-          <option value='user'>Usuario</option>
-          <option value='admin'>Administrador</option>
-        </select>
-        {errors.role && <p className='text-red-600 text-xs mt-2'>{errors.role.message}</p>}
-      </div>
-
-      {selectedRole === 'admin' && (
-        <div>
-          <label htmlFor='secretKey' className='block text-sm font-semibold text-[#002D62] mb-2'>
-            Clave secreta de administrador
-          </label>
-          <input
-            type='password'
-            id='secretKey'
-            className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-            {...register('secretKey', {
-              required: 'La clave secreta es obligatoria para el registro de administrador',
-              validate: (value) => value === 'CLAVE_ADMIN0101' || 'La clave secreta es inválida',
-            })}
-          />
-          {errors.secretKey && (
-            <p className='text-red-600 text-xs mt-2'>{errors.secretKey.message}</p>
-          )}
-        </div>
-      )}
+      
 
       {localError && (
         <div className='flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3'>
