@@ -1,11 +1,11 @@
 ﻿import { Router } from 'express';
-import { register, login, verifyEmail } from '../Controllers/authController.js';
+import { register, login, verifyEmail, refreshToken } from '../Controllers/authController.js';
 import { getAllUsers } from '../Controllers/userManagement.controller.js';
 import { validateJWT, requireRole } from '../Middleware/validate-jwt.js';
 import { loginRateLimiter } from '../Middleware/rateLimiter.js';
-
+ 
 const router = Router();
-
+ 
 /**
  * @swagger
  * /api/auth/register:
@@ -29,9 +29,6 @@ const router = Router();
  *               password:
  *                 type: string
  *                 example: "password123"
- *               role:
- *                 type: string
- *                 example: "Cliente"
  *     responses:
  *       201:
  *         description: Usuario registrado exitosamente
@@ -39,7 +36,7 @@ const router = Router();
  *         description: Datos inválidos o email ya registrado
  */
 router.post('/register', register);
-
+ 
 /**
  * @swagger
  * /api/auth/login:
@@ -47,7 +44,7 @@ router.post('/register', register);
  *     summary: Iniciar sesión de usuario
  *     tags: [Autenticación]
  *     description: Obtén tu token JWT aquí. Luego copia el token y usa el botón "Authorize" arriba para acceder a otros endpoints.
- *     security: [] 
+ *     security: []
  *     requestBody:
  *       required: true
  *       content:
@@ -64,27 +61,40 @@ router.post('/register', register);
  *     responses:
  *       200:
  *         description: Inicio de sesión exitoso, retorna token JWT
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                 token:
- *                   type: string
- *                   description: Token JWT - copia este valor y úsalo en el botón Authorize
- *                 user:
- *                   type: object
  *       401:
  *         description: Credenciales inválidas
  */
 router.post('/login', loginRateLimiter, login);
-
+ 
+/**
+ * @swagger
+ * /api/auth/refresh:
+ *   post:
+ *     summary: Renovar access token usando refresh token
+ *     tags: [Autenticación]
+ *     security: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Token renovado exitosamente
+ *       401:
+ *         description: Refresh token inválido o expirado
+ */
+router.post('/refresh', refreshToken);
+ 
 // Verificar email mediante token
 router.get('/verify-email', verifyEmail);
-
+ 
 // Obtener todos los usuarios (Admin)
-router.get('/users', validateJWT, requireRole('admin'), getAllUsers);
-
+router.get('/users', validateJWT, requireRole('ADMIN', 'SUPER_ADMIN'), getAllUsers);
+ 
 export default router;
+ 

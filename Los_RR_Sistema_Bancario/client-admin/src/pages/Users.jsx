@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useAuthStore } from '../features/auth/store/authStore.js';
 import {
   deactivateUser,
   getUsers,
@@ -9,7 +10,7 @@ import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { showError, showSuccess } from '../shared/utils/toast.js';
 import { formatDateTime, toTitleCase } from '../shared/utils/banking.js';
 
-const roleOptions = ['Cliente', 'Admin'];
+const roleOptions = ['USER', 'ADMIN', 'SUPER_ADMIN'];
 
 export const Users = () => {
   const [users, setUsers] = useState([]);
@@ -58,10 +59,13 @@ export const Users = () => {
       await updateUserRole(userId, newRole);
       showSuccess('Rol actualizado');
       loadUsers();
-    } catch {
-      showError('No se pudo actualizar el rol');
+    } catch (err) {
+      showError(err?.message || 'No se pudo actualizar el rol');
     }
   };
+
+  const currentRole = useAuthStore((state) => state.user?.role?.toUpperCase());
+  const isSuperAdmin = currentRole === 'SUPER_ADMIN';
 
   const handleToggleState = async (user) => {
     try {
@@ -154,17 +158,21 @@ export const Users = () => {
                   <td className='px-5 py-4'>{formatDateTime(user.createdAt)}</td>
                   <td className='px-5 py-4'>
                     <div className='flex flex-wrap gap-2'>
-                      <select
-                        value={user.role}
-                        onChange={(event) => handleRoleChange(user._id, event.target.value)}
-                        className='rounded-3xl border border-gray-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
-                      >
-                        {roleOptions.map((role) => (
-                          <option key={role} value={role}>
-                            {role}
-                          </option>
-                        ))}
-                      </select>
+                      {isSuperAdmin ? (
+                        <select
+                          value={user.role}
+                          onChange={(event) => handleRoleChange(user._id, event.target.value)}
+                          className='rounded-3xl border border-gray-200 bg-white px-3 py-2 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                        >
+                          {roleOptions.map((role) => (
+                            <option key={role} value={role}>
+                              {role}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <span className='px-3 py-2 text-sm'>{user.role}</span>
+                      )}
                       <button
                         type='button'
                         onClick={() => handleToggleState(user)}

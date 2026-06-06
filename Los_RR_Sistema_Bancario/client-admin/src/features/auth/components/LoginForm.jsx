@@ -18,6 +18,9 @@ export const LoginForm = ({ onForgot, onRegister }) => {
     if (!err) return null;
     const lowerError = err.toLowerCase();
     
+    if (lowerError.includes('verificar') || lowerError.includes('correo electrónico')) {
+      return 'Debes verificar tu correo electrónico antes de iniciar sesión. Revisa tu bandeja de entrada.';
+    }
     if (lowerError.includes('no encontrado') || lowerError.includes('no existe') || lowerError.includes('invalid')) {
       return 'Correo o contraseña inválidos. Intenta de nuevo.';
     }

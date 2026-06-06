@@ -1,6 +1,17 @@
+import mongoose from "mongoose";
 import { User } from "../Models/user.model.js";
+import PostgresUser from "../Models/user.model.postgres.js";
 import bcrypt from "bcryptjs";
 import { createAuditLog } from "../Services/log.service.js";
+
+const normalizeRole = (r) => String(r || '').toUpperCase().replace(/[-_\s]/g, '');
+
+const isAdminRole = (r) => {
+  const n = normalizeRole(r);
+  return n === 'ADMIN' || n === 'SUPERADMIN';
+};
+
+const isSuperAdminRole = (r) => normalizeRole(r) === 'SUPERADMIN';
 
 /**
  * CONTROLADOR DE GESTIÓN DE USUARIOS MEJORADO
@@ -221,7 +232,8 @@ export const changePassword = async (req, res) => {
  */
 export const getUserById = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    const allowed = req.user.roles.some(role => isAdminRole(role));
+    if (!allowed) {
       return res.status(403).json({
         message: "Solo administradores pueden ver datos de otros usuarios",
       });
@@ -258,9 +270,8 @@ export const getUserById = async (req, res) => {
  */
 export const getAllUsers = async (req, res) => {
   try {
-    // Validar que sea admin
-    const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
-    if (!isAdmin) {
+    const allowed = req.user.roles.some(role => isAdminRole(role));
+    if (!allowed) {
       return res.status(403).json({
         message: "Solo administradores pueden listar usuarios",
       });
@@ -315,54 +326,107 @@ export const getAllUsers = async (req, res) => {
  */
 export const changeUserRole = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    // Solo SUPER_ADMIN puede cambiar roles
+    const isSuper = req.user.roles.some(role => isSuperAdminRole(role));
+    if (!isSuper) {
       return res.status(403).json({
-        message: "Solo administradores pueden cambiar roles",
+        message: "Solo SUPER_ADMIN puede cambiar roles",
       });
     }
 
     const { id } = req.params;
     const { newRole } = req.body;
 
-    const validRoles = ["Cliente", "Admin"];
+    const isMongoUser = mongoose.Types.ObjectId.isValid(id);
+    const isPostgresUser = typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
 
-    if (!newRole || !validRoles.includes(newRole)) {
-      return res.status(400).json({
-        message: `El rol debe ser uno de: ${validRoles.join(", ")}`,
-      });
+    if (!id || (!isMongoUser && !isPostgresUser)) {
+      return res.status(400).json({ message: "ID de usuario inválido" });
     }
 
-    const user = await User.findByIdAndUpdate(
-      id,
-      { role: newRole },
-      { returnDocument: 'after' }
-    ).select("-password");
-
-    if (!user) {
-      return res.status(404).json({
-        message: "Usuario no encontrado",
-      });
+    if (!newRole) {
+      return res.status(400).json({ message: "El campo newRole es requerido" });
     }
 
-    await createAuditLog({
-      userId: req.user.id,
-      username: req.user.email || null,
-      email: req.user.email || null,
-      action: 'user.changeRole',
-      entityType: 'User',
-      entityId: user._id.toString(),
-      ip: req.ip,
-      meta: {
-        newRole,
-        changedBy: req.user.id,
-      },
-    });
+    // Normalizar newRole a valores canónicos
+    const nr = normalizeRole(newRole);
+    let canonicalNewRole = null;
+    if (nr === 'SUPERADMIN') canonicalNewRole = 'SUPER_ADMIN';
+    else if (nr === 'ADMIN') canonicalNewRole = 'ADMIN';
+    else if (nr === 'USER' || nr === 'CLIENTE' || nr === 'USUARIO') canonicalNewRole = 'USER';
+    else {
+      return res.status(400).json({ message: "Rol inválido. Valores permitidos: USER, ADMIN, SUPER_ADMIN" });
+    }
 
-    res.json({
-      success: true,
-      message: "Rol actualizado exitosamente",
-      user,
-    });
+    let targetUser;
+    let returned;
+
+    if (isMongoUser) {
+      targetUser = await User.findById(id).select('+role');
+      if (!targetUser) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+      const targetIsSuper = isSuperAdminRole(targetUser.role);
+      const demotingSuper = targetIsSuper && canonicalNewRole !== 'SUPER_ADMIN';
+      if (demotingSuper) {
+        const superCount = await User.countDocuments({ role: { $regex: /^super[_\s-]?admin$/i } });
+        if (superCount <= 1) {
+          return res.status(400).json({ message: 'No se puede remover el último SUPER_ADMIN del sistema' });
+        }
+      }
+
+      targetUser.role = canonicalNewRole;
+      await targetUser.save();
+
+      await createAuditLog({
+        userId: req.user.id,
+        username: req.user.email || null,
+        email: req.user.email || null,
+        action: 'user.changeRole',
+        entityType: 'User',
+        entityId: targetUser._id.toString(),
+        ip: req.ip,
+        meta: {
+          newRole: canonicalNewRole,
+          changedBy: req.user.id,
+        },
+      });
+
+      returned = await User.findById(targetUser._id).select('-password -__v');
+    } else {
+      targetUser = await PostgresUser.findByPk(id);
+      if (!targetUser) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+      const targetIsSuper = isSuperAdminRole(targetUser.role);
+      const demotingSuper = targetIsSuper && canonicalNewRole !== 'SUPER_ADMIN';
+      if (demotingSuper) {
+        const superCount = await PostgresUser.count({ where: { role: 'SUPER_ADMIN' } });
+        if (superCount <= 1) {
+          return res.status(400).json({ message: 'No se puede remover el último SUPER_ADMIN del sistema' });
+        }
+      }
+
+      targetUser.role = canonicalNewRole;
+      await targetUser.save();
+
+      await createAuditLog({
+        userId: req.user.id,
+        username: req.user.email || null,
+        email: req.user.email || null,
+        action: 'user.changeRole',
+        entityType: 'User',
+        entityId: targetUser.id,
+        ip: req.ip,
+        meta: {
+          newRole: canonicalNewRole,
+          changedBy: req.user.id,
+        },
+      });
+
+      returned = targetUser.toJSON();
+      delete returned.password;
+    }
+
+    res.json({ success: true, message: 'Rol actualizado exitosamente', user: returned });
   } catch (error) {
     console.error("Error al cambiar rol:", error);
     res.status(500).json({
@@ -395,10 +459,10 @@ export const deactivateAccount = async (req, res) => {
     }
 
     // Verificar permisos
-    const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
+    const userIsAdmin = req.user.roles?.some(role => isAdminRole(role)) || isAdminRole(req.user.role);
     const isOwnAccount = id === requesterId;
 
-    if (!isAdmin && !isOwnAccount) {
+    if (!userIsAdmin && !isOwnAccount) {
       return res.status(403).json({
         message: "No tienes permiso para desactivar esta cuenta",
       });
@@ -469,7 +533,7 @@ export const deactivateAccount = async (req, res) => {
  */
 export const reactivateAccount = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!(req.user.roles?.some(role => isAdminRole(role)) || isAdminRole(req.user.role))) {
       return res.status(403).json({
         message: "Solo administradores pueden reactivar cuentas",
       });

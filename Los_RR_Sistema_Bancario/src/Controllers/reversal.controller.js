@@ -1,6 +1,7 @@
 import { ReversalRequest } from "../Models/reversalRequest.model.js";
 import { Transaction } from "../Models/transaction.model.js";
 import { Account } from "../Models/account.model.js";
+import { isAdmin } from "../Helpers/roleHelpers.js";
  
 /**
  * CONTROLADOR DE REVERSIONES DE TRANSFERENCIAS
@@ -208,7 +209,7 @@ export const getUserReversals = async (req, res) => {
  */
 export const getPendingReversals = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!isAdmin(req.user)) {
       return res.status(403).json({ message: "Solo administradores pueden ver reversiones pendientes" });
     }
  
@@ -234,7 +235,7 @@ export const approveReversal = async (req, res) => {
   try {
     const { reversalId } = req.params;
  
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!isAdmin(req.user)) {
       return res.status(403).json({ message: "Solo administradores pueden aprobar reversiones" });
     }
  
@@ -316,7 +317,7 @@ export const rejectReversal = async (req, res) => {
     const { reversalId } = req.params;
     const { reason } = req.body;
  
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!isAdmin(req.user)) {
       return res.status(403).json({ message: "Solo administradores pueden rechazar reversiones" });
     }
  

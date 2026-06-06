@@ -83,7 +83,7 @@ router.get('/', getUserLimits);
  *       403:
  *         description: Solo administradores pueden hacer esto
  */
-router.post('/user', requireRole('admin'), setUserLimits);
+router.post('/user', requireRole('ADMIN', 'SUPER_ADMIN'), setUserLimits);
 
 /**
  * @swagger
@@ -121,7 +121,7 @@ router.post('/user', requireRole('admin'), setUserLimits);
  *       201:
  *         description: Límites por defecto establecidos
  */
-router.post('/default', requireRole('admin'), setDefaultLimits);
+router.post('/default', requireRole('ADMIN', 'SUPER_ADMIN'), setDefaultLimits);
 
 /**
  * @swagger
@@ -141,8 +141,8 @@ router.post('/default', requireRole('admin'), setDefaultLimits);
  *       200:
  *         description: Límite eliminado exitosamente
  */
-router.get('/all', requireRole('admin'), getAllLimits);
+router.get('/all', requireRole('ADMIN', 'SUPER_ADMIN'), getAllLimits);
 
-router.delete('/:limitId', requireRole('admin'), removeLimitForUser);
+router.delete('/:limitId', requireRole('ADMIN', 'SUPER_ADMIN'), removeLimitForUser);
 
 export default router;

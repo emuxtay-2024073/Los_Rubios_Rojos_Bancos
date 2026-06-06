@@ -25,15 +25,12 @@ import { Deposits } from '../../pages/Deposits.jsx';
 import { useAuthStore } from '../../features/auth/store/authStore.js';
 
 const RoleBasedPage = ({ adminElement, clientElement }) => {
-  const role = useAuthStore((state) => state.user?.role?.toUpperCase());
-  const isAdmin = role === 'ADMIN' || role === 'ADMIN_ROLE';
-
+  const isAdmin = useAuthStore((state) => state.isAdmin);
   return isAdmin ? adminElement : clientElement;
 };
 
 const DashboardIndex = () => {
-  const role = useAuthStore((state) => state.user?.role?.toUpperCase());
-  const isAdmin = role === 'ADMIN' || role === 'ADMIN_ROLE';
+  const isAdmin = useAuthStore((state) => state.isAdmin);
   return isAdmin ? <Dashboard /> : <Accounts />;
 };
 
@@ -54,7 +51,7 @@ export const AppRoutes = () => {
         <Route
           index
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN', 'USER']}>
               <DashboardIndex />
             </RoleGuard>
           }
@@ -62,7 +59,7 @@ export const AppRoutes = () => {
         <Route
           path='accounts'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN', 'USER']}>
               <RoleBasedPage adminElement={<AdminAccountsView />} clientElement={<Accounts />} />
             </RoleGuard>
           }
@@ -70,7 +67,7 @@ export const AppRoutes = () => {
         <Route
           path='beneficiaries'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN', 'USER']}>
               <RoleBasedPage adminElement={<AdminBeneficiariesView />} clientElement={<Beneficiaries />} />
             </RoleGuard>
           }
@@ -78,7 +75,7 @@ export const AppRoutes = () => {
         <Route
           path='transactions'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN', 'USER', 'CLIENTE']}>
               <RoleBasedPage adminElement={<AdminTransfersView />} clientElement={<Transfers />} />
             </RoleGuard>
           }
@@ -86,7 +83,7 @@ export const AppRoutes = () => {
         <Route
           path='limits'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
               <AdminLimitsView />
             </RoleGuard>
           }
@@ -94,7 +91,7 @@ export const AppRoutes = () => {
         <Route
           path='reversals'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
               <AdminReversalsView />
             </RoleGuard>
           }
@@ -102,7 +99,7 @@ export const AppRoutes = () => {
         <Route
           path='currency'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN', 'USER']}>
               <RoleBasedPage adminElement={<AdminCurrencyView />} clientElement={<Currency />} />
             </RoleGuard>
           }
@@ -110,7 +107,7 @@ export const AppRoutes = () => {
         <Route
           path='deposits'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE', 'CLIENTE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN', 'USER']}>
               <RoleBasedPage adminElement={<AdminDepositsView />} clientElement={<Deposits />} />
             </RoleGuard>
           }
@@ -118,7 +115,7 @@ export const AppRoutes = () => {
         <Route
           path='disable-requests'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
               <AdminDisableRequestsView />
             </RoleGuard>
           }
@@ -126,7 +123,7 @@ export const AppRoutes = () => {
         <Route
           path='reactivate-requests'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
               <AdminReactivationRequests />
             </RoleGuard>
           }
@@ -134,7 +131,7 @@ export const AppRoutes = () => {
         <Route
           path='users'
           element={
-            <RoleGuard allowedRoles={['ADMIN', 'ADMIN_ROLE']}>
+            <RoleGuard allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
               <AdminUsersView />
             </RoleGuard>
           }

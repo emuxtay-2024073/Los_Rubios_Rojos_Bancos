@@ -5,6 +5,7 @@ import { User } from "../Models/user.model.js";
 import { TransactionLimit } from "../Models/transactionLimit.model.js";
 import { isValidObjectId, isPositiveAmount } from "../Helpers/validators.js";
 import { createAuditLog } from "../services/log.service.js";
+import { isAdmin } from "../Helpers/roleHelpers.js";
  
 /**
  * Busca una cuenta por su accountNumber (ej: "ACC644113") o por su ObjectId de MongoDB.
@@ -102,7 +103,7 @@ const calculateTransferUsage = async (accountIds, start, end) => {
 // =====================================================
 export const getTransactions = async (req, res) => {
   try {
-    const isAdmin = req.user.roles.some(role => role.toLowerCase() === 'admin');
+    const userIsAdmin = isAdmin(req.user);
     const { type, startDate, endDate, minAmount, maxAmount, accountId, direction, search } = req.query;
  
     const query = {};
@@ -268,12 +269,12 @@ export const transfer = async (req, res) => {
     if (mongoose.isValidObjectId(toAccount.userId)) {
       destinationUser = await User.findById(toAccount.userId);
     }
-    if (destinationUser && destinationUser.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (destinationUser && (destinationUser.roles?.some(role => role.toLowerCase() === 'admin') || destinationUser.role === 'ADMIN' || destinationUser.role === 'SUPER_ADMIN')) {
       return res.status(400).json({ message: "No se puede transferir a una cuenta de administrador" });
     }
  
     // Verificar que la cuenta origen pertenece al usuario autenticado
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin') && fromAccount.userId !== req.user.id) {
+    if (!isAdmin(req.user) && fromAccount.userId !== req.user.id) {
       return res.status(403).json({ message: "No tienes permiso sobre la cuenta origen" });
     }
  

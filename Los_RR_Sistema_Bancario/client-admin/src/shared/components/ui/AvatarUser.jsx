@@ -70,11 +70,13 @@ export const AvatarUser = () => {
               </Link>
             </li>
 
-            <li>
-              <Link to='/dashboard/users' className='block w-full p-2 rounded-md hover:bg-gray-100'>
-                Usuarios
-              </Link>
-            </li>
+            {user?.role?.toString().toUpperCase() === 'SUPER_ADMIN' && (
+              <li>
+                <Link to='/dashboard/users' className='block w-full p-2 rounded-md hover:bg-gray-100'>
+                  Usuarios
+                </Link>
+              </li>
+            )}
 
             <li>
               <Link to='/dashboard/accounts' className='block w-full p-2 rounded-md hover:bg-gray-100'>

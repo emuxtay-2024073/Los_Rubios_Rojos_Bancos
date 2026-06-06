@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
-import { getUsers, deactivateUser, reactivateUser } from '../services/adminApi.js';
+import { getUsers, deactivateUser, reactivateUser, updateUserRole } from '../services/adminApi.js';
+import { useAuthStore } from '../features/auth/store/authStore.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { formatDateTime } from '../shared/utils/banking.js';
 import { showSuccess, showError } from '../shared/utils/toast.js';
@@ -14,6 +15,12 @@ export const AdminUsersView = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [deactivatePassword, setDeactivatePassword] = useState('');
   const [processingId, setProcessingId] = useState(null);
+  const [newRole, setNewRole] = useState('');
+  const currentUser = useAuthStore((state) => state.user);
+  const isSuperAdmin = currentUser?.role === 'SUPER_ADMIN';
+
+  const getUserId = (user) => user?._id || user?.id;
+  const hasUserId = (user) => Boolean(getUserId(user));
 
   useEffect(() => {
     loadUsers();
@@ -57,9 +64,14 @@ export const AdminUsersView = () => {
 
 
 
-  const handleDeactivate = async (userId) => {
+  const handleDeactivate = async (user) => {
+    const userId = getUserId(user);
     if (!deactivatePassword) {
       showError('Debes ingresar la contraseña para desactivar la cuenta');
+      return;
+    }
+    if (!userId) {
+      showError('ID de usuario inválido');
       return;
     }
     if (window.confirm('¿Seguro que deseas desactivar esta cuenta? Esta acción requiere confirmación.')) {
@@ -79,7 +91,12 @@ export const AdminUsersView = () => {
     }
   };
 
-  const handleReactivate = async (userId) => {
+  const handleReactivate = async (user) => {
+    const userId = getUserId(user);
+    if (!userId) {
+      showError('ID de usuario inválido');
+      return;
+    }
     try {
       setProcessingId(userId);
       await reactivateUser(userId);
@@ -87,6 +104,32 @@ export const AdminUsersView = () => {
       loadUsers();
     } catch (err) {
       showError('Error al reactivar cuenta');
+      console.error(err);
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
+  const handleChangeRole = async (user) => {
+    const userId = getUserId(user);
+    if (!userId) {
+      showError('ID de usuario inválido');
+      return;
+    }
+    if (!newRole || newRole === selectedUser.role) {
+      showError('Selecciona un rol diferente al actual');
+      return;
+    }
+
+    try {
+      setProcessingId(userId);
+      await updateUserRole(userId, newRole);
+      showSuccess(`Rol actualizado a ${newRole}`);
+      loadUsers();
+      setSelectedUser(null);
+      setNewRole('');
+    } catch (err) {
+      showError(err?.response?.data?.message || 'Error al cambiar rol');
       console.error(err);
     } finally {
       setProcessingId(null);
@@ -193,6 +236,7 @@ export const AdminUsersView = () => {
                       onClick={() => {
                         setSelectedUser(user);
                         setDeactivatePassword('');
+                        setNewRole(user.role || '');
                       }}
                     >
                       Gestionar
@@ -250,7 +294,35 @@ export const AdminUsersView = () => {
                 <strong>{formatDateTime(selectedUser.createdAt)}</strong>
               </div>
 
+              {isSuperAdmin && (
+                <div className="detail-row">
+                  <span>Cambiar Rol:</span>
+                  <select
+                    value={newRole}
+                    onChange={(e) => setNewRole(e.target.value)}
+                    disabled={processingId === getUserId(selectedUser)}
+                    className="form-control"
+                  >
+                    <option value="">Seleccionar nuevo rol...</option>
+                    <option value="USER">USER</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                  </select>
+                </div>
+              )}
+
               <div className="modal-actions">
+                {isSuperAdmin && newRole && newRole !== selectedUser.role && hasUserId(selectedUser) && (
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => handleChangeRole(selectedUser)}
+                    disabled={processingId === getUserId(selectedUser)}
+                    style={{ marginBottom: '10px' }}
+                  >
+                    {processingId === getUserId(selectedUser) ? 'Actualizando...' : 'Actualizar Rol'}
+                  </button>
+                )}
+
                 {selectedUser.isActive !== false ? (
                   <>
                     <div className="form-group">
@@ -260,24 +332,24 @@ export const AdminUsersView = () => {
                         placeholder="Ingrese la contraseña..."
                         value={deactivatePassword}
                         onChange={(e) => setDeactivatePassword(e.target.value)}
-                        disabled={processingId === selectedUser._id}
+                        disabled={processingId === getUserId(selectedUser)}
                       />
                     </div>
                     <button
                       className="btn btn-danger"
-                      onClick={() => handleDeactivate(selectedUser._id)}
-                      disabled={processingId === selectedUser._id || !deactivatePassword}
+                      onClick={() => handleDeactivate(selectedUser)}
+                      disabled={!hasUserId(selectedUser) || processingId === getUserId(selectedUser) || !deactivatePassword}
                     >
-                      {processingId === selectedUser._id ? 'Procesando...' : 'Desactivar Cuenta'}
+                      {processingId === getUserId(selectedUser) ? 'Procesando...' : 'Desactivar Cuenta'}
                     </button>
                   </>
                 ) : (
                   <button
                     className="btn btn-success"
-                    onClick={() => handleReactivate(selectedUser._id)}
-                    disabled={processingId === selectedUser._id}
+                    onClick={() => handleReactivate(selectedUser)}
+                    disabled={!hasUserId(selectedUser) || processingId === getUserId(selectedUser)}
                   >
-                    {processingId === selectedUser._id ? 'Procesando...' : 'Reactivar Cuenta'}
+                    {processingId === getUserId(selectedUser) ? 'Procesando...' : 'Reactivar Cuenta'}
                   </button>
                 )}
               </div>

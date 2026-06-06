@@ -1,4 +1,5 @@
 import { ExchangeRate, CurrencyConversion } from "../Models/exchangeRate.model.js";
+import { isAdmin } from "../Helpers/roleHelpers.js";
 
 /**
  * CONTROLADOR DE CONVERSIÓN DE DIVISAS
@@ -242,7 +243,7 @@ export const convertCurrency = async (req, res) => {
  */
 export const addExchangeRate = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!isAdmin(req.user)) {
       return res.status(403).json({
         message: "Solo administradores pueden agregar tasas de cambio",
       });
@@ -374,7 +375,7 @@ export const getAllExchangeRates = async (req, res) => {
     const { currency, isActive } = req.query;
     let query = {};
 
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!isAdmin(req.user)) {
       query.isActive = true; // Clientes solo ven tasas activas
     } else if (isActive !== undefined) {
       query.isActive = isActive === "true";
@@ -413,7 +414,7 @@ export const getAllExchangeRates = async (req, res) => {
  */
 export const deactivateExchangeRate = async (req, res) => {
   try {
-    if (!req.user.roles.some(role => role.toLowerCase() === 'admin')) {
+    if (!isAdmin(req.user)) {
       return res.status(403).json({
         message: "Solo administradores pueden desactivar tasas",
       });

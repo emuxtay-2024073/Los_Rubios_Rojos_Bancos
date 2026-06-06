@@ -20,7 +20,7 @@ export const Sidebar = () => {
   const { user } = useAuthStore();
   const userRole = user?.role;
   const role = userRole?.toString().toUpperCase();
-  const isAdmin = role === 'ADMIN' || role === 'ADMIN_ROLE';
+  const isAdmin = role === 'ADMIN' || role === 'SUPER_ADMIN';
 
   const items = [
     ...(isAdmin ? [{ label: 'Dashboard', to: '/dashboard', icon: HomeIcon }] : []),
@@ -35,7 +35,8 @@ export const Sidebar = () => {
           { label: 'Límites', to: '/dashboard/limits', icon: ShieldCheckIcon },
           { label: 'Solicitudes de deshabilitación', to: '/dashboard/disable-requests', icon: DocumentArrowDownIcon },
           { label: 'Solicitudes de habilitación', to: '/dashboard/reactivate-requests', icon: DocumentArrowUpIcon },
-          { label: 'Usuarios', to: '/dashboard/users', icon: UserGroupIcon },
+          // Mostrar enlace a gestión de usuarios SOLO para SUPER_ADMIN
+          ...(role === 'SUPER_ADMIN' ? [{ label: 'Usuarios', to: '/dashboard/users', icon: UserGroupIcon }] : []),
         ]
       : []),
   ];
