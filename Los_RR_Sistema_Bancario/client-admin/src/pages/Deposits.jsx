@@ -96,13 +96,13 @@ export const Deposits = () => {
   return (
     <div className='space-y-8'>
       <div>
-        <p className='text-sm text-gray-500'>Operaciones de efectivo</p>
-        <h1 className='text-3xl font-bold text-main-blue'>Retiros y depósitos</h1>
+        <p className='text-sm text-[#64748B]'>Operaciones de efectivo</p>
+        <h1 className='text-3xl font-bold text-[#2563EB]'>Retiros y depósitos</h1>
       </div>
 
       <div className='grid gap-6 lg:grid-cols-3'>
-        <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Cuenta</p>
+        <div className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
+          <p className='text-sm text-[#64748B]'>Cuenta</p>
           <div className='mt-3'>
             {showAccountSelector ? (
               <select
@@ -111,7 +111,7 @@ export const Deposits = () => {
                   const acc = accounts.find((a) => a._id === e.target.value);
                   setSelectedAccount(acc || null);
                 }}
-                className='w-full rounded-2xl border px-3 py-2'
+                className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
               >
                 <option value=''>Selecciona cuenta</option>
                 {accounts.map((acc) => (
@@ -121,87 +121,87 @@ export const Deposits = () => {
                 ))}
               </select>
             ) : (
-              <div className='rounded-2xl border border-gray-200 bg-slate-50 px-4 py-3'>
-                <p className='text-sm text-gray-500'>Cuenta asignada</p>
-                <p className='mt-2 font-semibold'>{selectedAccount?.accountNumber ?? 'Sin cuenta disponible'}</p>
-                <p className='mt-1 text-sm text-gray-500'>{selectedAccount?.type ?? '-'}</p>
+              <div className='rounded-2xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3'>
+                <p className='text-sm text-[#64748B]'>Cuenta asignada</p>
+                <p className='mt-2 font-semibold text-[#1E293B]'>{selectedAccount?.accountNumber ?? 'Sin cuenta disponible'}</p>
+                <p className='mt-1 text-sm text-[#64748B]'>{selectedAccount?.type ?? '-'}</p>
               </div>
             )}
           </div>
 
           {selectedAccount && (
             <div className='mt-4'>
-              <p className='text-sm text-gray-500'>Saldo actual</p>
-              <p className='text-xl font-semibold'>{formatMoney(selectedAccount.balance)}</p>
-              <p className='mt-2 text-sm text-gray-500'>Moneda: {selectedAccount.currency || 'GTQ'}</p>
+              <p className='text-sm text-[#64748B]'>Saldo actual</p>
+              <p className='text-xl font-semibold text-[#1E293B]'>{formatMoney(selectedAccount.balance)}</p>
+              <p className='mt-2 text-sm text-[#64748B]'>Moneda: {selectedAccount.currency || 'GTQ'}</p>
             </div>
           )}
         </div>
 
-        <form onSubmit={handleDeposit} className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm space-y-3'>
-          <p className='text-sm text-gray-500'>Depósito</p>
+        <form onSubmit={handleDeposit} className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm space-y-3'>
+          <p className='text-sm text-[#64748B]'>Depósito</p>
           <div>
-            <input type='number' placeholder='Monto' value={amount} onChange={(e) => setAmount(e.target.value)} className='w-full rounded-2xl border px-3 py-2' />
+            <input type='number' placeholder='Monto' value={amount} onChange={(e) => setAmount(e.target.value)} className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
           </div>
           <div>
-            <input type='text' placeholder='Moneda (ej: GTQ, USD)' value={currency} onChange={(e) => setCurrency(e.target.value.toUpperCase())} className='w-full rounded-2xl border px-3 py-2' />
+            <input type='text' placeholder='Moneda (ej: GTQ, USD)' value={currency} onChange={(e) => setCurrency(e.target.value.toUpperCase())} className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
           </div>
           <div>
-            <input type='text' placeholder='Descripción (opcional)' value={description} onChange={(e) => setDescription(e.target.value)} className='w-full rounded-2xl border px-3 py-2' />
+            <input type='text' placeholder='Descripción (opcional)' value={description} onChange={(e) => setDescription(e.target.value)} className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
           </div>
           <div className='flex justify-end gap-3'>
-            <button type='submit' className='rounded-full bg-emerald-600 px-4 py-2 text-white'>Depositar</button>
+            <button type='submit' className='rounded-full bg-[#10B981] px-4 py-2 text-white'>Depositar</button>
           </div>
         </form>
 
-        <form onSubmit={handleWithdraw} className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm space-y-3'>
-          <p className='text-sm text-gray-500'>Retiro</p>
+        <form onSubmit={handleWithdraw} className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm space-y-3'>
+          <p className='text-sm text-[#64748B]'>Retiro</p>
           <div>
-            <input type='number' placeholder='Monto' value={amount} onChange={(e) => setAmount(e.target.value)} className='w-full rounded-2xl border px-3 py-2' />
+            <input type='number' placeholder='Monto' value={amount} onChange={(e) => setAmount(e.target.value)} className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
           </div>
           <div>
-            <input type='text' placeholder='Moneda (ej: GTQ, USD)' value={currency} onChange={(e) => setCurrency(e.target.value.toUpperCase())} className='w-full rounded-2xl border px-3 py-2' />
+            <input type='text' placeholder='Moneda (ej: GTQ, USD)' value={currency} onChange={(e) => setCurrency(e.target.value.toUpperCase())} className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
           </div>
           <div>
-            <input type='text' placeholder='Descripción (opcional)' value={description} onChange={(e) => setDescription(e.target.value)} className='w-full rounded-2xl border px-3 py-2' />
+            <input type='text' placeholder='Descripción (opcional)' value={description} onChange={(e) => setDescription(e.target.value)} className='w-full rounded-2xl border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
           </div>
           <div className='flex justify-end gap-3'>
-            <button type='submit' className='rounded-full bg-amber-600 px-4 py-2 text-white'>Retirar</button>
+            <button type='submit' className='rounded-full bg-[#F59E0B] px-4 py-2 text-white'>Retirar</button>
           </div>
         </form>
       </div>
 
-      <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+      <div className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
         <div className='flex items-center justify-between mb-4'>
-          <p className='text-sm text-gray-500'>Historial de depósitos y retiros</p>
+          <p className='text-sm text-[#64748B]'>Historial de depósitos y retiros</p>
           <div className='flex gap-2'>
-            <select value={filters.type} onChange={(e) => setFilters((s) => ({ ...s, type: e.target.value }))} className='rounded-md border px-3 py-2'>
+            <select value={filters.type} onChange={(e) => setFilters((s) => ({ ...s, type: e.target.value }))} className='rounded-md border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none'>
               <option value='ALL'>Todos</option>
               <option value='DEPOSITO'>Depósitos</option>
               <option value='RETIRO'>Retiros</option>
             </select>
-            <input type='text' placeholder='Buscar descripción' value={filters.search} onChange={(e) => setFilters((s) => ({ ...s, search: e.target.value }))} className='rounded-md border px-3 py-2' />
-            <button onClick={() => selectedAccount && loadHistory(selectedAccount._id)} className='rounded-full bg-main-blue px-4 py-2 text-white'>Filtrar</button>
+            <input type='text' placeholder='Buscar descripción' value={filters.search} onChange={(e) => setFilters((s) => ({ ...s, search: e.target.value }))} className='rounded-md border border-[#E2E8F0] px-3 py-2 text-[#1E293B] focus:border-[#2563EB] focus:outline-none' />
+            <button onClick={() => selectedAccount && loadHistory(selectedAccount._id)} className='rounded-full bg-[#2563EB] px-4 py-2 text-white'>Filtrar</button>
           </div>
         </div>
 
         {historyLoading ? (
-          <p className='text-sm text-gray-500'>Cargando historial...</p>
+          <p className='text-sm text-[#64748B]'>Cargando historial...</p>
         ) : history.length === 0 ? (
-          <p className='text-sm text-gray-500'>No ha habido movimientos en esta cuenta.</p>
+          <p className='text-sm text-[#64748B]'>No ha habido movimientos en esta cuenta.</p>
         ) : (
           <div className='space-y-3'>
             {history.map((t) => (
-              <div key={t._id} className='rounded-2xl bg-slate-50 p-4'>
+              <div key={t._id} className='rounded-2xl bg-[rgba(248,250,252,0.8)] p-4'>
                 <div className='flex items-center justify-between'>
-                  <div className='font-semibold'>{t.type}</div>
-                  <div className='text-sm text-gray-500'>{formatDateTime(t.createdAt)}</div>
+                  <div className='font-semibold text-[#1E293B]'>{t.type}</div>
+                  <div className='text-sm text-[#64748B]'>{formatDateTime(t.createdAt)}</div>
                 </div>
-                <div className='mt-2 text-sm'>Monto: {formatMoney(t.amount)}</div>
-                <div className='text-sm'>Origen: {t.originAccount?.accountNumber ?? '-'}</div>
-                <div className='text-sm'>Destino: {t.destinationAccount?.accountNumber ?? '-'}</div>
-                <div className='text-sm'>Descripción: {t.description ?? '-'}</div>
-                <div className='text-sm'>Tipo detalle: {t.type === 'DEPOSITO' ? 'Depósito propio' : t.type === 'RETIRO' ? 'Retiro' : 'Transferencia'}</div>
+                <div className='mt-2 text-sm text-[#1E293B]'>Monto: {formatMoney(t.amount)}</div>
+                <div className='text-sm text-[#1E293B]'>Origen: {t.originAccount?.accountNumber ?? '-'}</div>
+                <div className='text-sm text-[#1E293B]'>Destino: {t.destinationAccount?.accountNumber ?? '-'}</div>
+                <div className='text-sm text-[#1E293B]'>Descripción: {t.description ?? '-'}</div>
+                <div className='text-sm text-[#1E293B]'>Tipo detalle: {t.type === 'DEPOSITO' ? 'Depósito propio' : t.type === 'RETIRO' ? 'Retiro' : 'Transferencia'}</div>
               </div>
             ))}
           </div>

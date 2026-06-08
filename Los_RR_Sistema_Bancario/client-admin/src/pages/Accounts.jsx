@@ -156,12 +156,12 @@ export const Accounts = () => {
     <div className='space-y-8'>
       <div className='flex flex-col gap-4 md:flex-row md:justify-between md:items-end'>
         <div>
-          <p className='text-sm text-gray-500'>{isAdmin ? 'Gestión de cuentas' : 'Resumen de tu cuenta'}</p>
-          <h1 className='text-3xl font-bold text-main-blue'>{isAdmin ? 'Cuentas' : 'Cuenta'}</h1>
+          <p className='text-sm text-[#64748B]'>{isAdmin ? 'Gestión de cuentas' : 'Resumen de tu cuenta'}</p>
+          <h1 className='text-3xl font-bold text-[#2563EB]'>{isAdmin ? 'Cuentas' : 'Cuenta'}</h1>
           {isAdmin ? (
-            <p className='mt-2 text-sm text-gray-500'>Vista de sólo lectura para administradores. Aquí puedes ver datos y filtrar cuentas.</p>
+            <p className='mt-2 text-sm text-[#64748B]'>Vista de sólo lectura para administradores. Aquí puedes ver datos y filtrar cuentas.</p>
           ) : (
-            <p className='mt-2 text-sm text-gray-500'>Aquí puedes ver tu cuenta, saldo e historial.</p>
+            <p className='mt-2 text-sm text-[#64748B]'>Aquí puedes ver tu cuenta, saldo e historial.</p>
           )}
         </div>
       </div>
@@ -174,7 +174,7 @@ export const Accounts = () => {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder='Buscar por número, tipo o saldo'
-              className='w-full max-w-lg rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+              className='w-full max-w-lg rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
             />
           </div>
 
@@ -182,20 +182,20 @@ export const Accounts = () => {
             {filteredAccounts.map((account) => (
               <article
                 key={account._id ?? account.accountNumber}
-                className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm hover:border-main-blue hover:shadow-md'
+                className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-6 shadow-sm hover:border-[#2563EB] hover:shadow-md'
                 onClick={() => handleOpenAccountDetails(account)}
               >
                 <div className='flex items-start justify-between gap-4'>
                   <div>
-                    <h2 className='text-xl font-semibold text-slate-900'>{account.accountNumber}</h2>
-                    <p className='mt-2 text-sm text-gray-500'>{toTitleCase(account.type)}</p>
+                    <h2 className='text-xl font-semibold text-[#1E293B]'>{account.accountNumber}</h2>
+                    <p className='mt-2 text-sm text-[#64748B]'>{toTitleCase(account.type)}</p>
                   </div>
-                  <span className='rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700'>
+                  <span className='rounded-full bg-[rgba(226,232,240,0.5)] px-3 py-1 text-sm font-semibold text-[#1E293B]'>
                     {formatMoney(account.balance)}
                   </span>
                 </div>
-                <p className='mt-4 text-sm text-slate-600'>Creada {formatDateTime(account.createdAt)}</p>
-                <p className='mt-5 text-sm font-medium text-main-blue'>Toca para ver movimientos</p>
+                <p className='mt-4 text-sm text-[#64748B]'>Creada {formatDateTime(account.createdAt)}</p>
+                <p className='mt-5 text-sm font-medium text-[#2563EB]'>Toca para ver movimientos</p>
                 {!account.isActive && String(currentUserId) === String(account.userId || account.user?._id || account.user?.id || '') && !isAdmin && (
                   <div className='mt-4'>
                     <button
@@ -215,7 +215,7 @@ export const Accounts = () => {
               </article>
             ))}
             {filteredAccounts.length === 0 && (
-              <div className='rounded-3xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500 shadow-sm col-span-full'>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-8 text-center text-sm text-[#64748B] shadow-sm col-span-full'>
                 No se encontró ninguna cuenta.
               </div>
             )}
@@ -223,28 +223,28 @@ export const Accounts = () => {
         </>
       ) : selectedAccount ? (
         <>
-          <div className='rounded-3xl border border-gray-200 bg-white p-8 shadow-sm'>
+          <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-8 shadow-sm'>
             <div className='flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between'>
               <div>
-                <p className='text-sm text-gray-500'>Tu cuenta</p>
-                <h2 className='text-4xl font-semibold text-slate-900'>{getAccountLabel(selectedAccount)}</h2>
-                <p className='mt-3 text-base uppercase tracking-[0.16em] text-main-blue'>{toTitleCase(selectedAccount.type)}</p>
+                <p className='text-sm text-[#64748B]'>Tu cuenta</p>
+                <h2 className='text-4xl font-semibold text-[#1E293B]'>{getAccountLabel(selectedAccount)}</h2>
+                <p className='mt-3 text-base uppercase tracking-[0.16em] text-[#2563EB]'>{toTitleCase(selectedAccount.type)}</p>
               </div>
-              <div className='rounded-3xl bg-slate-50 p-6 text-center'>
-                <p className='text-sm text-gray-500'>Saldo disponible</p>
-                <p className='mt-3 text-5xl font-bold text-slate-900'>{formatMoney(selectedAccount.balance)}</p>
-                <p className='mt-1 text-sm text-gray-500'>{selectedAccount.currency || 'GTQ'}</p>
+              <div className='rounded-3xl bg-[rgba(248,250,252,0.8)] p-6 text-center'>
+                <p className='text-sm text-[#64748B]'>Saldo disponible</p>
+                <p className='mt-3 text-5xl font-bold text-[#1E293B]'>{formatMoney(selectedAccount.balance)}</p>
+                <p className='mt-1 text-sm text-[#64748B]'>{selectedAccount.currency || 'GTQ'}</p>
               </div>
             </div>
 
             <div className='mt-8 grid gap-4 sm:grid-cols-2'>
-              <div className='rounded-3xl border border-gray-100 bg-slate-50 p-5'>
-                <p className='text-sm text-gray-500'>Creada</p>
-                <p className='mt-2 text-lg font-semibold text-slate-900'>{formatDateTime(selectedAccount.createdAt)}</p>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.6)] bg-[rgba(248,250,252,0.8)] p-5'>
+                <p className='text-sm text-[#64748B]'>Creada</p>
+                <p className='mt-2 text-lg font-semibold text-[#1E293B]'>{formatDateTime(selectedAccount.createdAt)}</p>
               </div>
-              <div className='rounded-3xl border border-gray-100 bg-slate-50 p-5'>
-                <p className='text-sm text-gray-500'>Estado</p>
-                <p className='mt-2 text-lg font-semibold text-slate-900'>{selectedAccount.isActive ? 'Activa' : 'Suspendida'}</p>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.6)] bg-[rgba(248,250,252,0.8)] p-5'>
+                <p className='text-sm text-[#64748B]'>Estado</p>
+                <p className='mt-2 text-lg font-semibold text-[#1E293B]'>{selectedAccount.isActive ? 'Activa' : 'Suspendida'}</p>
               </div>
             </div>
 
@@ -268,39 +268,39 @@ export const Accounts = () => {
 
           </div>
 
-          <div className='mt-8 rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+          <div className='mt-8 rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-6 shadow-sm'>
             <div className='flex items-center justify-between'>
               <div>
-                <p className='text-sm text-gray-500'>Movimientos de la cuenta</p>
-                <h2 className='text-xl font-semibold text-slate-900'>{selectedAccount.accountNumber}</h2>
+                <p className='text-sm text-[#64748B]'>Movimientos de la cuenta</p>
+                <h2 className='text-xl font-semibold text-[#1E293B]'>{selectedAccount.accountNumber}</h2>
               </div>
             </div>
 
             <div className='mt-6 space-y-4'>
-              <div className='rounded-3xl border border-gray-200 bg-slate-50 p-4'>
-                <p className='text-sm text-gray-500'>Saldo actual</p>
-                <p className='text-lg font-semibold text-slate-900'>{formatMoney(selectedAccount.balance)}</p>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-[rgba(248,250,252,0.8)] p-4'>
+                <p className='text-sm text-[#64748B]'>Saldo actual</p>
+                <p className='text-lg font-semibold text-[#1E293B]'>{formatMoney(selectedAccount.balance)}</p>
               </div>
 
-              <div className='rounded-3xl border border-gray-200 bg-white p-4'>
-                <p className='mb-4 text-sm font-medium text-slate-900'>Movimientos</p>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-4'>
+                <p className='mb-4 text-sm font-medium text-[#1E293B]'>Movimientos</p>
 
                 {historyLoading ? (
-                  <p className='text-sm text-gray-500'>Cargando movimientos...</p>
+                  <p className='text-sm text-[#64748B]'>Cargando movimientos...</p>
                 ) : history.length === 0 ? (
-                  <p className='text-sm text-gray-500'>No ha habido movimientos en esta cuenta.</p>
+                  <p className='text-sm text-[#64748B]'>No ha habido movimientos en esta cuenta.</p>
                 ) : (
                   <div className='space-y-3'>
                     {history.map((transaction) => (
-                      <div key={transaction._id ?? `${transaction.createdAt}-${transaction.amount}`} className='rounded-3xl border border-slate-200 bg-slate-50 p-4'>
+                      <div key={transaction._id ?? `${transaction.createdAt}-${transaction.amount}`} className='rounded-3xl border border-[rgba(226,232,240,0.6)] bg-[rgba(248,250,252,0.8)] p-4'>
                         <div className='flex flex-wrap items-center justify-between gap-3'>
-                          <span className='text-sm font-semibold text-slate-900'>{transaction.type ?? 'Movimiento'}</span>
-                          <span className='text-sm text-gray-500'>{formatDateTime(transaction.createdAt)}</span>
+                          <span className='text-sm font-semibold text-[#1E293B]'>{transaction.type ?? 'Movimiento'}</span>
+                          <span className='text-sm text-[#64748B]'>{formatDateTime(transaction.createdAt)}</span>
                         </div>
-                        <p className='mt-2 text-sm text-gray-600'>Monto: {formatMoney(transaction.amount)}</p>
-                        <p className='text-sm text-gray-600'>Origen: {transaction.originAccount?.accountNumber ?? 'N/A'}</p>
-                        <p className='text-sm text-gray-600'>Destino: {transaction.destinationAccount?.accountNumber ?? 'N/A'}</p>
-                        <p className='text-sm text-gray-600'>Descripción: {transaction.description ?? '-'}</p>
+                        <p className='mt-2 text-sm text-[#64748B]'>Monto: {formatMoney(transaction.amount)}</p>
+                        <p className='text-sm text-[#64748B]'>Origen: {transaction.originAccount?.accountNumber ?? 'N/A'}</p>
+                        <p className='text-sm text-[#64748B]'>Destino: {transaction.destinationAccount?.accountNumber ?? 'N/A'}</p>
+                        <p className='text-sm text-[#64748B]'>Descripción: {transaction.description ?? '-'}</p>
                       </div>
                     ))}
                   </div>
@@ -322,7 +322,7 @@ export const Accounts = () => {
           </div>
         </>
       ) : (
-        <div className='rounded-3xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500 shadow-sm'>
+        <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-8 text-center text-sm text-[#64748B] shadow-sm'>
           No se encontró ninguna cuenta.
         </div>
       )}
@@ -332,39 +332,39 @@ export const Accounts = () => {
           <div className='w-full max-w-3xl rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>Movimientos de la cuenta</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>{selectedAccount.accountNumber}</h2>
+                <p className='text-sm text-[#64748B]'>Movimientos de la cuenta</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>{selectedAccount.accountNumber}</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setAccountDetailsOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(248,250,252,0.8)]'
               >
                 Cerrar
               </button>
             </div>
             <div className='mt-6 space-y-4'>
-              <div className='rounded-3xl border border-gray-200 bg-slate-50 p-4'>
-                <p className='text-sm text-gray-500'>Saldo actual</p>
-                <p className='text-lg font-semibold text-slate-900'>{formatMoney(selectedAccount.balance)}</p>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-[rgba(248,250,252,0.8)] p-4'>
+                <p className='text-sm text-[#64748B]'>Saldo actual</p>
+                <p className='text-lg font-semibold text-[#1E293B]'>{formatMoney(selectedAccount.balance)}</p>
               </div>
-              <div className='rounded-3xl border border-gray-200 bg-white p-4'>
+              <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-4'>
                 <div className='space-y-3'>
                   {historyLoading ? (
-                    <p className='text-sm text-gray-500'>Cargando movimientos...</p>
+                    <p className='text-sm text-[#64748B]'>Cargando movimientos...</p>
                   ) : history.length === 0 ? (
-                    <p className='text-sm text-gray-500'>No ha habido movimientos en esta cuenta.</p>
+                    <p className='text-sm text-[#64748B]'>No ha habido movimientos en esta cuenta.</p>
                   ) : (
                     history.map((transaction) => (
-                      <div key={transaction._id ?? `${transaction.createdAt}-${transaction.amount}`} className='rounded-3xl border border-slate-200 bg-slate-50 p-4'>
+                      <div key={transaction._id ?? `${transaction.createdAt}-${transaction.amount}`} className='rounded-3xl border border-[rgba(226,232,240,0.6)] bg-[rgba(248,250,252,0.8)] p-4'>
                         <div className='flex flex-wrap items-center justify-between gap-3'>
-                          <span className='text-sm font-semibold text-slate-900'>{transaction.type ?? 'Movimiento'}</span>
-                          <span className='text-sm text-gray-500'>{formatDateTime(transaction.createdAt)}</span>
+                          <span className='text-sm font-semibold text-[#1E293B]'>{transaction.type ?? 'Movimiento'}</span>
+                          <span className='text-sm text-[#64748B]'>{formatDateTime(transaction.createdAt)}</span>
                         </div>
-                        <p className='mt-2 text-sm text-gray-600'>Monto: {formatMoney(transaction.amount)}</p>
-                        <p className='text-sm text-gray-600'>Origen: {transaction.originAccount?.accountNumber ?? 'N/A'}</p>
-                        <p className='text-sm text-gray-600'>Destino: {transaction.destinationAccount?.accountNumber ?? 'N/A'}</p>
-                        <p className='text-sm text-gray-600'>Descripción: {transaction.description ?? '-'}</p>
+                        <p className='mt-2 text-sm text-[#64748B]'>Monto: {formatMoney(transaction.amount)}</p>
+                        <p className='text-sm text-[#64748B]'>Origen: {transaction.originAccount?.accountNumber ?? 'N/A'}</p>
+                        <p className='text-sm text-[#64748B]'>Destino: {transaction.destinationAccount?.accountNumber ?? 'N/A'}</p>
+                        <p className='text-sm text-[#64748B]'>Descripción: {transaction.description ?? '-'}</p>
                       </div>
                     ))
                   )}
@@ -380,38 +380,38 @@ export const Accounts = () => {
           <div className='w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>{actionType === 'deposit' ? 'Depósito' : 'Retiro'}</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>{activeAccount.accountNumber}</h2>
+                <p className='text-sm text-[#64748B]'>{actionType === 'deposit' ? 'Depósito' : 'Retiro'}</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>{activeAccount.accountNumber}</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setActionModalOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(248,250,252,0.8)]'
               >
                 Cerrar
               </button>
             </div>
             <form onSubmit={handleActionSubmit} className='mt-6 grid gap-4'>
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>Monto</span>
+                <span className='text-sm font-medium text-[#1E293B]'>Monto</span>
                 <input
                   type='number'
                   min='0.01'
                   step='0.01'
                   value={form.amount}
                   onChange={(event) => setForm({ ...form, amount: event.target.value })}
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-3xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                 />
               </label>
               <div className='flex justify-end gap-3 pt-2'>
                 <button
                   type='button'
                   onClick={() => setActionModalOpen(false)}
-                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                  className='rounded-full border border-[#E2E8F0] bg-white px-5 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-[rgba(248,250,252,0.8)]'
                 >
                   Cancelar
                 </button>
-                <button type='submit' className='rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
+                <button type='submit' className='rounded-full bg-[#2563EB] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
                   {actionType === 'deposit' ? 'Depositar' : 'Retirar'}
                 </button>
               </div>
@@ -425,13 +425,13 @@ export const Accounts = () => {
           <div className='w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>Solicitud de deshabilitación</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>{selectedAccount.accountNumber}</h2>
+                <p className='text-sm text-[#64748B]'>Solicitud de deshabilitación</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>{selectedAccount.accountNumber}</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setDisableModalOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(248,250,252,0.8)]'
               >
                 Cerrar
               </button>
@@ -458,13 +458,13 @@ export const Accounts = () => {
               className='mt-6 grid gap-4'
             >
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>Motivo de la deshabilitación</span>
+                <span className='text-sm font-medium text-[#1E293B]'>Motivo de la deshabilitación</span>
                 <textarea
                   value={disableReason}
                   onChange={(ev) => setDisableReason(ev.target.value)}
                   rows={4}
                   placeholder='Describe por qué deseas deshabilitar esta cuenta...'
-                  className='mt-2 w-full rounded-xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                 />
               </label>
 
@@ -472,14 +472,14 @@ export const Accounts = () => {
                 <button
                   type='button'
                   onClick={() => setDisableModalOpen(false)}
-                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                  className='rounded-full border border-[#E2E8F0] bg-white px-5 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-[rgba(248,250,252,0.8)]'
                 >
                   Cancelar
                 </button>
                 <button
                   type='submit'
                   disabled={disableProcessing}
-                  className='rounded-full bg-red-600 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
+                  className='rounded-full bg-[#EF4444] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
                 >
                   {disableProcessing ? 'Enviando...' : 'Enviar solicitud'}
                 </button>
@@ -494,13 +494,13 @@ export const Accounts = () => {
           <div className='w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>Solicitud de habilitación</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>{selectedAccount.accountNumber}</h2>
+                <p className='text-sm text-[#64748B]'>Solicitud de habilitación</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>{selectedAccount.accountNumber}</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setReactivateModalOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(248,250,252,0.8)]'
               >
                 Cerrar
               </button>
@@ -529,24 +529,24 @@ export const Accounts = () => {
               className='mt-6 grid gap-4'
             >
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>DPI</span>
+                <span className='text-sm font-medium text-[#1E293B]'>DPI</span>
                 <input
                   type='text'
                   value={reactivateDpi}
                   onChange={(ev) => setReactivateDpi(ev.target.value)}
                   placeholder='Ingrese su DPI (solo dígitos)'
-                  className='mt-2 w-full rounded-xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                 />
               </label>
 
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>Descripción</span>
+                <span className='text-sm font-medium text-[#1E293B]'>Descripción</span>
                 <textarea
                   value={reactivateDescription}
                   onChange={(ev) => setReactivateDescription(ev.target.value)}
                   rows={4}
                   placeholder='Explique por qué necesita reactivar la cuenta...'
-                  className='mt-2 w-full rounded-xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                 />
               </label>
 
@@ -554,14 +554,14 @@ export const Accounts = () => {
                 <button
                   type='button'
                   onClick={() => setReactivateModalOpen(false)}
-                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                  className='rounded-full border border-[#E2E8F0] bg-white px-5 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-[rgba(248,250,252,0.8)]'
                 >
                   Cancelar
                 </button>
                 <button
                   type='submit'
                   disabled={reactivateProcessing}
-                  className='rounded-full bg-green-600 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
+                  className='rounded-full bg-[#10B981] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
                 >
                   {reactivateProcessing ? 'Enviando...' : 'Enviar solicitud'}
                 </button>

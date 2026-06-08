@@ -129,21 +129,21 @@ export const Limits = () => {
     <div className='space-y-8'>
       <div className='flex flex-col gap-4 md:flex-row md:justify-between md:items-end'>
         <div>
-          <p className='text-sm text-gray-500'>Control operativo</p>
-          <h1 className='text-3xl font-bold text-main-blue'>Límites</h1>
+          <p className='text-sm text-[#64748B]'>Control operativo</p>
+          <h1 className='text-3xl font-bold text-[#2563EB]'>Límites</h1>
         </div>
         <div className='flex flex-wrap gap-3'>
           <button
             type='button'
             onClick={() => openModal('default')}
-            className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+            className='rounded-full bg-[#2563EB] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
           >
             + Límite por defecto
           </button>
           <button
             type='button'
             onClick={() => openModal('user')}
-            className='rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+            className='rounded-full bg-[#0F172A] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
           >
             + Límite por usuario
           </button>
@@ -151,13 +151,13 @@ export const Limits = () => {
       </div>
 
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
-        <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Límites totales</p>
-          <p className='mt-2 text-3xl font-semibold text-slate-900'>{limits.length}</p>
+        <article className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
+          <p className='text-sm text-[#64748B]'>Límites totales</p>
+          <p className='mt-2 text-3xl font-semibold text-[#1E293B]'>{limits.length}</p>
         </article>
-        <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Límites vigentes</p>
-          <p className='mt-2 text-3xl font-semibold text-slate-900'>{currentLimits.length}</p>
+        <article className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
+          <p className='text-sm text-[#64748B]'>Límites vigentes</p>
+          <p className='mt-2 text-3xl font-semibold text-[#1E293B]'>{currentLimits.length}</p>
         </article>
       </div>
 
@@ -167,19 +167,19 @@ export const Limits = () => {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder='Buscar por cuenta, tipo o transacción'
-          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          className='w-full rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
         />
         <input
           type='text'
           value={filterAccountNumber}
           onChange={(event) => setFilterAccountNumber(event.target.value)}
           placeholder='Filtrar por número de cuenta'
-          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          className='w-full rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
         />
         <select
           value={filterAccountType}
           onChange={(event) => setFilterAccountType(event.target.value)}
-          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          className='w-full rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
         >
           <option value=''>Todas las cuentas</option>
           {accountTypes.map((type) => (
@@ -191,7 +191,7 @@ export const Limits = () => {
         <select
           value={filterTransactionType}
           onChange={(event) => setFilterTransactionType(event.target.value)}
-          className='w-full rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          className='w-full rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
         >
           <option value=''>Todas las transacciones</option>
           {transactionTypes.map((type) => (
@@ -202,10 +202,10 @@ export const Limits = () => {
         </select>
       </div>
 
-      <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+      <div className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
         <div className='overflow-x-auto'>
           <table className='min-w-full border-collapse text-left'>
-            <thead className='bg-slate-50 text-sm text-slate-600'>
+            <thead className='bg-[#0F172A] text-sm text-white'>
               <tr>
                 <th className='px-5 py-4'>Cuenta</th>
                 <th className='px-5 py-4'>Tipo cuenta</th>
@@ -217,24 +217,24 @@ export const Limits = () => {
             </thead>
             <tbody>
               {filteredLimits.map((limit) => (
-                <tr key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='border-t border-gray-100 hover:bg-slate-50'>
-                  <td className='px-5 py-4'>{limit.accountNumber ?? 'General'}</td>
-                  <td className='px-5 py-4'>{limit.accountType || 'General'}</td>
-                  <td className='px-5 py-4'>{limit.transactionType || 'General'}</td>
+                <tr key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='border-t border-[rgba(226,232,240,0.6)] hover:bg-[rgba(37,99,235,0.04)]'>
+                  <td className='px-5 py-4 text-[#1E293B]'>{limit.accountNumber ?? 'General'}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{limit.accountType || 'General'}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{limit.transactionType || 'General'}</td>
                   <td className='px-5 py-4'>
-                    <div className='text-sm text-slate-700'>
+                    <div className='text-sm text-[#1E293B]'>
                       <p>{formatMoney(limit.maxPerTransaction)} por operación</p>
                       <p>{formatMoney(limit.maxDailyTotal)} diario</p>
                       <p>{formatMoney(limit.maxMonthlyTotal)} mensual</p>
                       <p>{limit.maxDailyCount} movimientos diarios</p>
                     </div>
                   </td>
-                  <td className='px-5 py-4'>{formatDateTime(limit.createdAt)}</td>
+                  <td className='px-5 py-4 text-[#64748B]'>{formatDateTime(limit.createdAt)}</td>
                   <td className='px-5 py-4'>
                     <button
                       type='button'
                       onClick={() => handleDelete(limit)}
-                      className='rounded-full bg-accent px-4 py-2 text-sm font-medium text-white transition hover:opacity-90'
+                      className='rounded-full bg-[#06B6D4] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90'
                     >
                       Eliminar
                     </button>
@@ -243,7 +243,7 @@ export const Limits = () => {
               ))}
               {filteredLimits.length === 0 && (
                 <tr>
-                  <td colSpan='6' className='px-5 py-8 text-center text-sm text-gray-500'>
+                  <td colSpan='6' className='px-5 py-8 text-center text-sm text-[#64748B]'>
                     No hay límites registrados.
                   </td>
                 </tr>
