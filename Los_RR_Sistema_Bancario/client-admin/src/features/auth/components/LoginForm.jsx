@@ -1,4 +1,9 @@
 import { useForm } from 'react-hook-form';
+import {
+  EnvelopeIcon,
+  EyeIcon,
+  LockClosedIcon,
+} from '@heroicons/react/24/outline';
 import { useAuthStore } from '../store/authStore.js';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -47,70 +52,84 @@ export const LoginForm = ({ onForgot, onRegister }) => {
   const displayError = getErrorMessage(error);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
-      <div>
-        <label htmlFor='email' className='block text-sm font-semibold text-[var(--text-primary)] mb-2'>
+    <form onSubmit={handleSubmit(onSubmit)} className='auth-form'>
+      <div className='auth-field-group'>
+        <label htmlFor='email' className='auth-field-label'>
           Correo electrónico
         </label>
-        <input
-          type='email'
-          id='email'
-          placeholder='usuario@banco.com'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none'
-          {...register('email', {
-            required: 'Correo electrónico obligatorio',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Ingresa un correo electrónico válido (ejemplo: usuario@banco.com)',
-            },
-          })}
-        />
-        {errors.email && <p className='text-red-600 text-xs mt-2'>{errors.email.message}</p>}
+        <div className='auth-input-shell'>
+          <EnvelopeIcon className='auth-input-icon' />
+          <input
+            type='email'
+            id='email'
+            autoComplete='email'
+            placeholder='usuario@banco.com'
+            className='auth-input'
+            {...register('email', {
+              required: 'Correo electrónico obligatorio',
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: 'Ingresa un correo electrónico válido (ejemplo: usuario@banco.com)',
+              },
+            })}
+          />
+        </div>
+        {errors.email && <p className='auth-field-error'>{errors.email.message}</p>}
       </div>
 
-      <div>
-        <label htmlFor='password' className='block text-sm font-semibold text-[var(--text-primary)] mb-2'>
+      <div className='auth-field-group'>
+        <label htmlFor='password' className='auth-field-label'>
           Contraseña
         </label>
-        <input
-          type='password'
-          id='password'
-          placeholder='* * * * * * *'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none'
-          {...register('password', {
-            required: 'Contraseña obligatoria',
-            minLength: {
-              value: 8,
-              message: 'La contraseña debe tener al menos 8 caracteres',
-            },
-          })}
-        />
+        <div className='auth-input-shell'>
+          <LockClosedIcon className='auth-input-icon' />
+          <input
+            type='password'
+            id='password'
+            autoComplete='current-password'
+            placeholder='* * * * * * *'
+            className='auth-input auth-input--icon-right'
+            {...register('password', {
+              required: 'Contraseña obligatoria',
+              minLength: {
+                value: 8,
+                message: 'La contraseña debe tener al menos 8 caracteres',
+              },
+            })}
+          />
+          <EyeIcon className='auth-input-icon auth-input-icon--right' />
+        </div>
 
-        {errors.password && <p className='text-red-600 text-xs mt-2'>{errors.password.message}</p>}
+        {errors.password && <p className='auth-field-error'>{errors.password.message}</p>}
       </div>
-      {displayError && <p className='text-red-600 text-sm text-center bg-red-50/60 rounded-xl px-3 py-2'>{displayError}</p>}
+
+      <div className='auth-form-meta'>
+        <label htmlFor='rememberMe' className='auth-check'>
+          <input id='rememberMe' type='checkbox' />
+          <span>Recordarme</span>
+        </label>
+        <button type='button' onClick={onForgot} className='auth-link'>
+          ¿Olvidaste tu contraseña?
+        </button>
+      </div>
+
+      {displayError && <p className='auth-status auth-status--error'>{displayError}</p>}
+
       <button
         type='submit'
         disabled={loading}
-        className='w-full rounded-2xl btn-primary text-sm font-semibold shadow-[0_14px_32px_rgba(198,167,94,0.25)] transition duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-60'
+        className='auth-submit'
       >
+        <LockClosedIcon className='auth-submit__icon' />
         {loading ? 'Iniciando...' : 'Ingresar'}
       </button>
-      <div className='flex flex-col gap-3 text-center text-sm'>
-        <button
-          type='button'
-          onClick={onForgot}
-          className='text-main-blue transition hover:text-secondary hover:underline'
-        >
-          ¿Olvidaste tu contraseña?
-        </button>
-        <p className='text-slate-600'>
+
+      <p className='auth-switch'>
           ¿No tienes cuenta?{' '}
-          <button type='button' onClick={onRegister} className='text-main-blue font-semibold transition hover:text-secondary hover:underline'>
+          <button type='button' onClick={onRegister} className='auth-link'>
             Regístrate
           </button>
-        </p>
-      </div>
+      </p>
     </form>
   );
 };

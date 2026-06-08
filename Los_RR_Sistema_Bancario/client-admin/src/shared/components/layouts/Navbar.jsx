@@ -21,15 +21,15 @@ export const Navbar = () => {
           <img
             src={imgLogo}
             alt='Bancos RR Logo'
-            className='h-10 md:h-12 w-auto object-contain'
+            className='h-11 md:h-13 w-auto rounded-2xl object-contain shadow-sm'
           />
           <div className='min-w-0'>
-            <Typography variant='h5' className='header-title text-[#1E293B]'>
-              Sistema Administrativo
+            <Typography variant='h5' className='header-title text-[#7A0019]'>
+              Rubios Rojos Bank Virtual
             </Typography>
             <div className='mt-2 flex flex-wrap items-center gap-5 text-sm text-[#64748B]'>
               <span className='font-medium'>Hola, {firstName}</span>
-              <span className='inline-flex items-center gap-2 text-[#64748B]'>
+              <span className='inline-flex items-center gap-2 text-[#6B7280]'>
                 <CalendarDaysIcon className='h-4 w-4' />
                 {today}
               </span>
