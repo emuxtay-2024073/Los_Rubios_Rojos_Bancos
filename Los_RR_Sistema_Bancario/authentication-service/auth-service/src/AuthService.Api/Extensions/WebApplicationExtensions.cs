@@ -79,7 +79,7 @@ public static class WebApplicationExtensions
                             new UserRole { RoleId = RoleConstants.RoleIds[RoleConstants.SuperAdmin] }
                         }
                     };
-
+// lucian púto
                     context.User.Add(newSuperAdmin);
                     context.SaveChanges();
                     dbLogger.LogInformation("Se creó el SUPERADMIN en PostgreSQL: {Email}", superAdminEmail);
