@@ -14,10 +14,10 @@ export const StatCard = ({
       <CardContent>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <p className="text-sm font-medium text-[#64748B]">
+            <p className="text-sm font-medium text-[#6B7280]">
               {title}
             </p>
-            <p className="text-3xl font-bold text-[#1E293B] mt-2">
+            <p className="text-3xl font-bold text-[#2B1117] mt-2">
               {value}
             </p>
             {change && (
@@ -30,8 +30,8 @@ export const StatCard = ({
             )}
           </div>
           {Icon && (
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(37,99,235,0.1)]">
-              <Icon className="h-7 w-7 text-[#2563EB]" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(122,0,25,0.1)]">
+              <Icon className="h-7 w-7 text-[#7A0019]" />
             </div>
           )}
         </div>

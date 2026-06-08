@@ -17,7 +17,6 @@ export const RegisterForm = ({ onLogin }) => {
   } = useForm({ defaultValues: { accountType: 'ahorro' } });
 
   const password = watch('password', '');
-  const selectedAccountType = watch('accountType', 'ahorro');
 
   const onSubmit = async (data) => {
     setSuccessMessage('');
@@ -59,143 +58,159 @@ export const RegisterForm = ({ onLogin }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
-      <div>
-        <label htmlFor='username' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          Nombre de usuario
-        </label>
-        <input
-          type='text'
-          id='username'
-          placeholder='analista123'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('username', {
-            required: 'Nombre de usuario obligatorio',
-            minLength: {
-              value: 3,
-              message: 'El nombre de usuario debe tener al menos 3 caracteres',
-            },
-            pattern: {
-              value: /^[a-zA-Z0-9_-]+$/,
-              message: 'Solo se permiten letras, números, guiones y guiones bajos',
-            },
-          })}
-        />
-        {errors.username && <p className='text-red-600 text-xs mt-2'>{errors.username.message}</p>}
-      </div>
-
-      <div>
-        <label htmlFor='email' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          Correo electrónico
-        </label>
-        <input
-          type='email'
-          id='email'
-          placeholder='analista@banco.com'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('email', {
-            required: 'Correo electrónico obligatorio',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: 'Ingresa un correo electrónico válido',
-            },
-          })}
-        />
-        {errors.email && <p className='text-red-600 text-xs mt-2'>{errors.email.message}</p>}
-      </div>
-
-      <div>
-        <label htmlFor='phoneNumber' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          Teléfono
-        </label>
-        <input
-          type='tel'
-          id='phoneNumber'
-          placeholder='+502 7000 0000'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('phoneNumber', {
-            required: 'Teléfono obligatorio',
-            pattern: {
-              value: /^[+]?([0-9]{1,3})?[\s.-]?[(]?[0-9]{3}[)]?[\s.-]?[0-9]{3,4}[\s.-]?[0-9]{4}$/,
-              message: 'Ingresa un número de teléfono válido (ej: +502 7000 0000)',
-            },
-          })}
-        />
-        {errors.phoneNumber && (
-          <p className='text-red-600 text-xs mt-2'>{errors.phoneNumber.message}</p>
-        )}
-      </div>
-
-      <div>
-        <label htmlFor='dpi' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          DPI
-        </label>
-        <input
-          type='text'
-          id='dpi'
-          placeholder='1234567890101'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('dpi', {
-            required: 'DPI obligatorio',
-            pattern: {
-              value: /^[0-9]{13,15}$/,
-              message: 'DPI inválido (debe contener 13-15 dígitos)',
-            },
-          })}
-        />
-        {errors.dpi && <p className='text-red-600 text-xs mt-2'>{errors.dpi.message}</p>}
-      </div>
-
-      <div>
-        <label htmlFor='password' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          Contraseña
-        </label>
-        <input
-          type='password'
-          id='password'
-          placeholder='* * * * * * *'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('password', {
-            required: 'Contraseña obligatoria',
-            minLength: {
-              value: 8,
-              message: 'Mínimo 8 caracteres',
-            },
-            pattern: {
-              value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-              message: 'Debe incluir mayúscula, número y símbolo (!@#$%^&*)',
-            },
-          })}
-        />
-        {errors.password && <p className='text-red-600 text-xs mt-2'>{errors.password.message}</p>}
-      </div>
-
-      <div>
-        <label htmlFor='confirmPassword' className='block text-sm font-semibold text-[#002D62] mb-2'>
-          Confirmar contraseña
-        </label>
-        <input
-          type='password'
-          id='confirmPassword'
-          placeholder='* * * * * * *'
-          className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
-          {...register('confirmPassword', {
-            required: 'Debes confirmar la contraseña',
-            validate: (value) => value === password || 'Las contraseñas no coinciden',
-          })}
-        />
-        {errors.confirmPassword && (
-          <p className='text-red-600 text-xs mt-2'>{errors.confirmPassword.message}</p>
-        )}
-      </div>
-
-      <div>
-          <label htmlFor='accountType' className='block text-sm font-semibold text-[#002D62] mb-2'>
-            Tipo de cuenta
+    <form onSubmit={handleSubmit(onSubmit)} className='auth-form'>
+      <div className='auth-form-grid'>
+        <div className='auth-field-group'>
+          <label htmlFor='username' className='auth-field-label'>
+            Nombre de usuario
           </label>
+          <div className='auth-input-shell auth-input-shell--plain'>
+            <input
+              type='text'
+              id='username'
+              autoComplete='username'
+              placeholder='analista123'
+              className='auth-input'
+              {...register('username', {
+                required: 'Nombre de usuario obligatorio',
+                minLength: {
+                  value: 3,
+                  message: 'El nombre de usuario debe tener al menos 3 caracteres',
+                },
+                pattern: {
+                  value: /^[a-zA-Z0-9_-]+$/,
+                  message: 'Solo se permiten letras, números, guiones y guiones bajos',
+                },
+              })}
+            />
+          </div>
+          {errors.username && <p className='auth-field-error'>{errors.username.message}</p>}
+        </div>
+
+        <div className='auth-field-group'>
+          <label htmlFor='email' className='auth-field-label'>
+            Correo electrónico
+          </label>
+          <div className='auth-input-shell auth-input-shell--plain'>
+            <input
+              type='email'
+              id='email'
+              autoComplete='email'
+              placeholder='analista@banco.com'
+              className='auth-input'
+              {...register('email', {
+                required: 'Correo electrónico obligatorio',
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: 'Ingresa un correo electrónico válido',
+                },
+              })}
+            />
+          </div>
+          {errors.email && <p className='auth-field-error'>{errors.email.message}</p>}
+        </div>
+
+        <div className='auth-field-group'>
+          <label htmlFor='phoneNumber' className='auth-field-label'>
+            Teléfono
+          </label>
+          <div className='auth-input-shell auth-input-shell--plain'>
+            <input
+              type='tel'
+              id='phoneNumber'
+              autoComplete='tel'
+              placeholder='+502 7000 0000'
+              className='auth-input'
+              {...register('phoneNumber', {
+                required: 'Teléfono obligatorio',
+                pattern: {
+                  value: /^[+]?([0-9]{1,3})?[\s.-]?[(]?[0-9]{3}[)]?[\s.-]?[0-9]{3,4}[\s.-]?[0-9]{4}$/,
+                  message: 'Ingresa un número de teléfono válido (ej: +502 7000 0000)',
+                },
+              })}
+            />
+          </div>
+          {errors.phoneNumber && <p className='auth-field-error'>{errors.phoneNumber.message}</p>}
+        </div>
+
+        <div className='auth-field-group'>
+          <label htmlFor='dpi' className='auth-field-label'>
+            DPI
+          </label>
+          <div className='auth-input-shell auth-input-shell--plain'>
+            <input
+              type='text'
+              id='dpi'
+              placeholder='1234567890101'
+              className='auth-input'
+              {...register('dpi', {
+                required: 'DPI obligatorio',
+                pattern: {
+                  value: /^[0-9]{13,15}$/,
+                  message: 'DPI inválido (debe contener 13-15 dígitos)',
+                },
+              })}
+            />
+          </div>
+          {errors.dpi && <p className='auth-field-error'>{errors.dpi.message}</p>}
+        </div>
+
+        <div className='auth-field-group'>
+          <label htmlFor='password' className='auth-field-label'>
+            Contraseña
+          </label>
+          <div className='auth-input-shell auth-input-shell--plain'>
+            <input
+              type='password'
+              id='password'
+              autoComplete='new-password'
+              placeholder='* * * * * * *'
+              className='auth-input'
+              {...register('password', {
+                required: 'Contraseña obligatoria',
+                minLength: {
+                  value: 8,
+                  message: 'Mínimo 8 caracteres',
+                },
+                pattern: {
+                  value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+                  message: 'Debe incluir mayúscula, número y símbolo (!@#$%^&*)',
+                },
+              })}
+            />
+          </div>
+          {errors.password && <p className='auth-field-error'>{errors.password.message}</p>}
+        </div>
+
+        <div className='auth-field-group'>
+          <label htmlFor='confirmPassword' className='auth-field-label'>
+            Confirmar contraseña
+          </label>
+          <div className='auth-input-shell auth-input-shell--plain'>
+            <input
+              type='password'
+              id='confirmPassword'
+              autoComplete='new-password'
+              placeholder='* * * * * * *'
+              className='auth-input'
+              {...register('confirmPassword', {
+                required: 'Debes confirmar la contraseña',
+                validate: (value) => value === password || 'Las contraseñas no coinciden',
+              })}
+            />
+          </div>
+          {errors.confirmPassword && <p className='auth-field-error'>{errors.confirmPassword.message}</p>}
+        </div>
+      </div>
+
+      <div className='auth-field-group'>
+        <label htmlFor='accountType' className='auth-field-label'>
+          Tipo de cuenta
+        </label>
+        <div className='auth-input-shell auth-input-shell--plain'>
           <select
             id='accountType'
-            className='w-full rounded-2xl border border-slate-300/90 bg-surface px-4 py-3 text-sm text-slate-900 shadow-sm transition duration-200 focus:border-main-blue focus:ring-2 focus:ring-main-blue/20 outline-none'
+            className='auth-input auth-select'
             {...register('accountType', {
               required: 'El tipo de cuenta es obligatorio',
             })}
@@ -203,38 +218,36 @@ export const RegisterForm = ({ onLogin }) => {
             <option value='ahorro'>Cuenta de Ahorro</option>
             <option value='monetaria'>Cuenta Monetaria</option>
           </select>
-          {errors.accountType && <p className='text-red-600 text-xs mt-2'>{errors.accountType.message}</p>}
         </div>
-      
+        {errors.accountType && <p className='auth-field-error'>{errors.accountType.message}</p>}
+      </div>
 
       {localError && (
-        <div className='flex items-start gap-3 rounded-2xl border border-red-200 bg-red-50 px-4 py-3'>
-          <span className='mt-0.5 text-red-500'>✕</span>
-          <p className='text-sm text-red-700'>{localError}</p>
+        <div className='auth-status auth-status--error'>
+          <p>{localError}</p>
         </div>
       )}
 
       {successMessage && (
-        <div className='flex items-start gap-3 rounded-2xl border border-green-200 bg-green-50 px-4 py-3'>
-          <span className='mt-0.5 text-green-500'>✓</span>
-          <p className='text-sm text-green-700'>{successMessage}</p>
+        <div className='auth-status auth-status--success'>
+          <p>{successMessage}</p>
         </div>
       )}
 
       <button
         type='submit'
         disabled={loading}
-        className='w-full rounded-2xl bg-main-blue px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_32px_rgba(0,45,98,0.18)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_42px_rgba(0,45,98,0.22)] disabled:cursor-not-allowed disabled:opacity-60'
+        className='auth-submit'
       >
         {loading ? 'Registrando...' : 'Crear acceso'}
       </button>
 
-      <p className='text-center text-sm text-slate-600'>
+      <p className='auth-switch'>
         ¿Ya tienes una cuenta?{' '}
         <button
           type='button'
           onClick={onLogin}
-          className='text-main-blue font-semibold transition hover:text-secondary hover:underline'
+          className='auth-link'
         >
           Inicia sesión
         </button>

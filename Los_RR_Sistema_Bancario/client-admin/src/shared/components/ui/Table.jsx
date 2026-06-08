@@ -7,9 +7,9 @@ export const Table = ({
 }) => {
   return (
     <div className={`overflow-x-auto ${className}`}>
-      <table className="w-full border-collapse bg-white rounded-2xl shadow-[0_2px_12px_rgba(15,23,42,0.04)]">
+      <table className="w-full border-collapse bg-white rounded-2xl shadow-[0_8px_24px_rgba(74,0,17,0.06)]">
         <thead>
-          <tr className="bg-[#0F172A] text-white">
+          <tr className="bg-[#7A0019] text-white">
             {columns.map((column) => (
               <th 
                 key={column.key} 
@@ -24,7 +24,7 @@ export const Table = ({
           {data.map((row, rowIndex) => (
             <tr 
               key={rowIndex}
-              className="border-b border-[rgba(226,232,240,0.6)] hover:bg-[rgba(37,99,235,0.04)] transition-colors duration-200"
+              className="border-b border-[rgba(229,224,216,0.8)] hover:bg-[rgba(122,0,25,0.04)] transition-colors duration-200"
             >
               {columns.map((column) => (
                 <td 

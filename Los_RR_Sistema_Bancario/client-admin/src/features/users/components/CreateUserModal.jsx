@@ -37,7 +37,7 @@ export const CreateUserModal = ({ isOpen, onClose, onCreate, loading, error }) =
         <div
           className='p-5 sm:p-6 text-white sticky top-0 z-10'
           style={{
-            background: 'linear-gradient(90deg, var(--main-blue, #1f4e97) 0%, #1956a3 100%)',
+            background: 'linear-gradient(90deg, #7A0019 0%, #A0001C 100%)',
           }}
         >
           <h2 className='text-xl sm:text-2xl font-bold'>Nuevo Usuario</h2>
@@ -186,7 +186,7 @@ export const CreateUserModal = ({ isOpen, onClose, onCreate, loading, error }) =
               disabled={loading}
               className='w-full sm:w-auto px-5 py-2 rounded-lg text-white font-medium transition shadow disabled:opacity-60'
               style={{
-                background: 'linear-gradient(90deg, var(--main-blue, #1f4e97) 0%, #1956a3 100%)',
+                background: 'linear-gradient(90deg, #7A0019 0%, #A0001C 100%)',
                 border: 'none',
               }}
             >

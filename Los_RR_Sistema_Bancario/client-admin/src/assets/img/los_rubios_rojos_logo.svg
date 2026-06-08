@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
-  <rect width="256" height="256" rx="40" fill="#F5EEDA" />
-  <circle cx="128" cy="128" r="92" fill="#FFFFFF" />
-  <path d="M96 68h20c22 0 36 12 36 32 0 12-6 20-14 24 10 4 16 12 16 26 0 20-14 32-36 32h-20V68z" fill="#002D62" />
-  <path d="M104 92h12c10 0 16 4 16 12s-6 12-16 12h-12V92z" fill="#005691" />
-  <path d="M104 156h12c10 0 16 4 16 12s-6 12-16 12h-12v-24z" fill="#005691" />
-  <path d="M92 60l32-12 32 12-8 20-24-9-24 9z" fill="#C9A063" opacity="0.95" />
-  <circle cx="160" cy="72" r="9" fill="#C9A063" />
+  <rect width="256" height="256" rx="40" fill="#7A0019" />
+  <circle cx="128" cy="128" r="92" fill="#FFFFFF" opacity="0.98" />
+  <path d="M96 68h20c22 0 36 12 36 32 0 12-6 20-14 24 10 4 16 12 16 26 0 20-14 32-36 32h-20V68z" fill="#7A0019" />
+  <path d="M104 92h12c10 0 16 4 16 12s-6 12-16 12h-12V92z" fill="#A0001C" />
+  <path d="M104 156h12c10 0 16 4 16 12s-6 12-16 12h-12v-24z" fill="#A0001C" />
+  <path d="M92 60l32-12 32 12-8 20-24-9-24 9z" fill="#D6A94A" opacity="0.98" />
+  <circle cx="160" cy="72" r="9" fill="#D6A94A" />
 </svg>

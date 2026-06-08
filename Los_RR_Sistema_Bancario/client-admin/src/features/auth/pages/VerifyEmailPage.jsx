@@ -25,7 +25,7 @@ export const VerifyEmailPage = () => {
       return (
         <div
           className='mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-sm'
-          style={{ backgroundColor: 'rgba(0, 45, 98, 0.1)', color: '#002D62' }}
+          style={{ backgroundColor: 'rgba(122, 0, 25, 0.1)', color: '#7A0019' }}
         >
           <span className='text-5xl'>✅</span>
         </div>
@@ -36,7 +36,7 @@ export const VerifyEmailPage = () => {
       return (
         <div
           className='mb-6 flex h-24 w-24 items-center justify-center rounded-full shadow-sm'
-          style={{ backgroundColor: 'rgba(194, 183, 163, 0.14)', color: '#005691', border: '1px solid rgba(0, 45, 98, 0.12)' }}
+          style={{ backgroundColor: 'rgba(214, 169, 74, 0.18)', color: '#7A0019', border: '1px solid rgba(122, 0, 25, 0.12)' }}
         >
           <div className='h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-t-transparent' />
         </div>

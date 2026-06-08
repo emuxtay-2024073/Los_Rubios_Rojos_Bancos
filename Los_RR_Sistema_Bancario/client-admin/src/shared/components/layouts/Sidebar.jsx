@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../../../features/auth/store/authStore.js';
+import imgLogo from '../../../assets/img/los_rubios_rojos_logo.svg';
 import {
   HomeIcon,
   WalletIcon,
@@ -49,10 +50,13 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className='sticky top-24 flex w-72 h-[calc(100vh-96px)] flex-col rounded-[24px] bg-[#0F172A] p-6 shadow-[0_12px_40px_rgba(15,23,42,0.12)] overflow-y-auto animate-slideIn'>
-      <div className='mb-8'>
-        <h2 className='text-3xl font-bold tracking-tight text-[#06B6D4]'>Bancos RR</h2>
-        <p className='mt-2 text-sm text-white/70'>Sistema Administrativo</p>
+    <aside className='sticky top-24 flex w-72 h-[calc(100vh-96px)] flex-col rounded-[24px] bg-[linear-gradient(180deg,#7A0019_0%,#520011_100%)] p-6 shadow-[0_18px_45px_rgba(74,0,17,0.24)] overflow-y-auto animate-slideIn'>
+      <div className='mb-8 flex items-center gap-3'>
+        <img src={imgLogo} alt='Rubios Rojos' className='h-14 w-14 rounded-2xl border border-white/15 bg-white/95 p-1 shadow-lg' />
+        <div>
+          <h2 className='text-xl font-bold tracking-tight text-[#F3D486]'>Rubios Rojos</h2>
+          <p className='mt-1 text-sm text-white/72'>Sistema Administrativo</p>
+        </div>
       </div>
 
       <ul className='space-y-2'>
@@ -66,7 +70,7 @@ export const Sidebar = () => {
                 className={`sidebar-menu-link sidebar-item${active ? ' active' : ''}`}
                 style={active ? { fontWeight: 700 } : {}}
               >
-                {Icon && <Icon className={`h-5 w-5 ${active ? 'text-[#06B6D4]' : 'text-white/80'}`} />}
+                {Icon && <Icon className={`h-5 w-5 ${active ? 'text-[#F3D486]' : 'text-white/80'}`} />}
                 <span>{item.label}</span>
               </Link>
             </li>
@@ -77,7 +81,7 @@ export const Sidebar = () => {
       <div className='mt-auto border-t border-white/10 pt-6'>
         <p className='mb-4 text-xs uppercase tracking-[0.2em] text-white/50'>Usuario conectado</p>
         <div className='flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 transition-all hover:bg-white/10'>
-          <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-[#06B6D4]'>
+          <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-[#F3D486]'>
             <UserCircleIcon className='h-6 w-6' />
           </div>
           <div>
