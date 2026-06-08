@@ -127,8 +127,9 @@ public class AuthService : IAuthService
         };
 
         var validAccountTypes = new[] { "ahorro", "monetaria", "corriente" };
-        var finalAccountType = validAccountTypes.Contains(dto.AccountType?.ToLower()?.Trim())
-            ? dto.AccountType.ToLower().Trim()
+        var requestAccountType = dto.AccountType?.ToLower()?.Trim() ?? string.Empty;
+        var finalAccountType = validAccountTypes.Contains(requestAccountType)
+            ? requestAccountType
             : "ahorro";
 
         var verificationToken = Guid.NewGuid().ToString("N");
