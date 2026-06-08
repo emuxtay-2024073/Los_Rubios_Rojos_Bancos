@@ -6,39 +6,23 @@ import {
   ArrowDownTrayIcon,
   ArrowsRightLeftIcon,
   UsersIcon,
-  ArrowUturnLeftIcon,
   CurrencyDollarIcon,
-  ShieldCheckIcon,
-  DocumentArrowDownIcon,
-  DocumentArrowUpIcon,
-  UserGroupIcon,
   UserCircleIcon,
+  DocumentTextIcon,
 } from '@heroicons/react/24/outline';
 
-export const Sidebar = () => {
+export const ClientSidebar = () => {
   const location = useLocation();
   const { user } = useAuthStore();
-  const userRole = user?.role;
-  const role = userRole?.toString().toUpperCase();
-  const isAdmin = role === 'ADMIN' || role === 'SUPER_ADMIN';
 
   const items = [
-    ...(isAdmin ? [{ label: 'Dashboard', to: '/dashboard', icon: HomeIcon }] : []),
-    { label: isAdmin ? 'Cuentas' : 'Cuenta', to: '/dashboard/accounts', icon: WalletIcon },
-    { label: 'Retiros y depósitos', to: '/dashboard/deposits', icon: ArrowDownTrayIcon },
-    { label: 'Beneficiarios', to: '/dashboard/beneficiaries', icon: UsersIcon },
+    { label: 'Mi Panel', to: '/dashboard', icon: HomeIcon },
+    { label: 'Mis Cuentas', to: '/dashboard/accounts', icon: WalletIcon },
+    { label: 'Depósitos', to: '/dashboard/deposits', icon: ArrowDownTrayIcon },
     { label: 'Transferencias', to: '/dashboard/transactions', icon: ArrowsRightLeftIcon },
-    ...(isAdmin ? [{ label: 'Reversiones', to: '/dashboard/reversals', icon: ArrowUturnLeftIcon }] : []),
+    { label: 'Beneficiarios', to: '/dashboard/beneficiaries', icon: UsersIcon },
     { label: 'Divisas', to: '/dashboard/currency', icon: CurrencyDollarIcon },
-    ...(isAdmin
-      ? [
-          { label: 'Límites', to: '/dashboard/limits', icon: ShieldCheckIcon },
-          { label: 'Solicitudes de deshabilitación', to: '/dashboard/disable-requests', icon: DocumentArrowDownIcon },
-          { label: 'Solicitudes de habilitación', to: '/dashboard/reactivate-requests', icon: DocumentArrowUpIcon },
-          // Mostrar enlace a gestión de usuarios SOLO para SUPER_ADMIN
-          ...(role === 'SUPER_ADMIN' ? [{ label: 'Usuarios', to: '/dashboard/users', icon: UserGroupIcon }] : []),
-        ]
-      : []),
+    { label: 'Historial', to: '/dashboard/history', icon: DocumentTextIcon },
   ];
 
   const isActive = (itemTo) => {
@@ -52,7 +36,7 @@ export const Sidebar = () => {
     <aside className='sticky top-24 flex w-72 h-[calc(100vh-96px)] flex-col rounded-[24px] bg-[#0F172A] p-6 shadow-[0_12px_40px_rgba(15,23,42,0.12)] overflow-y-auto animate-slideIn'>
       <div className='mb-8'>
         <h2 className='text-3xl font-bold tracking-tight text-[#06B6D4]'>Bancos RR</h2>
-        <p className='mt-2 text-sm text-white/70'>Sistema Administrativo</p>
+        <p className='mt-2 text-sm text-white/70'>Panel de Cliente</p>
       </div>
 
       <ul className='space-y-2'>
@@ -75,14 +59,14 @@ export const Sidebar = () => {
       </ul>
 
       <div className='mt-auto border-t border-white/10 pt-6'>
-        <p className='mb-4 text-xs uppercase tracking-[0.2em] text-white/50'>Usuario conectado</p>
+        <p className='mb-4 text-xs uppercase tracking-[0.2em] text-white/50'>Mi perfil</p>
         <div className='flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-3 transition-all hover:bg-white/10'>
           <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-[#06B6D4]'>
             <UserCircleIcon className='h-6 w-6' />
           </div>
           <div>
-            <p className='text-sm font-semibold text-white'>{user?.username ?? 'Administrador'}</p>
-            <p className='text-xs text-white/70'>{role ?? 'ADMINISTRADOR'}</p>
+            <p className='text-sm font-semibold text-white'>{user?.firstName || user?.username || 'Cliente'}</p>
+            <p className='text-xs text-white/70'>Cliente</p>
           </div>
         </div>
       </div>

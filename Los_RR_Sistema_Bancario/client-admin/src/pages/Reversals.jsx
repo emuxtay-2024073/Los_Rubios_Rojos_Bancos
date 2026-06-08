@@ -81,27 +81,27 @@ export const Reversals = () => {
     <div className='space-y-8'>
       <div className='flex flex-col gap-4 md:flex-row md:justify-between md:items-end'>
         <div>
-          <p className='text-sm text-gray-500'>Solicitudes de reversión</p>
-          <h1 className='text-3xl font-bold text-main-blue'>Reversiones</h1>
-          <p className='mt-2 text-sm text-gray-500'>Envía solicitudes de reversión de transferencias realizadas en las últimas 24 horas.</p>
+          <p className='text-sm text-[#64748B]'>Solicitudes de reversión</p>
+          <h1 className='text-3xl font-bold text-[#2563EB]'>Reversiones</h1>
+          <p className='mt-2 text-sm text-[#64748B]'>Envía solicitudes de reversión de transferencias realizadas en las últimas 24 horas.</p>
         </div>
         <button
           type='button'
           onClick={() => setModalOpen(true)}
-          className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+          className='rounded-full bg-[#2563EB] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
         >
           Nueva solicitud
         </button>
       </div>
 
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
-        <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Mis solicitudes</p>
-          <p className='mt-2 text-3xl font-semibold text-slate-900'>{reversals.length}</p>
+        <article className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
+          <p className='text-sm text-[#64748B]'>Mis solicitudes</p>
+          <p className='mt-2 text-3xl font-semibold text-[#1E293B]'>{reversals.length}</p>
         </article>
-        <article className='rounded-3xl border border-accent bg-surface-soft p-6 shadow-sm'>
-          <p className='text-sm text-amber-700'>Pendientes</p>
-          <p className='mt-2 text-3xl font-semibold text-amber-800'>{pendingCount}</p>
+        <article className='rounded-3xl border border-[#06B6D4] bg-[rgba(6,182,212,0.08)] p-6 shadow-sm'>
+          <p className='text-sm text-[#F59E0B]'>Pendientes</p>
+          <p className='mt-2 text-3xl font-semibold text-[#B45309]'>{pendingCount}</p>
         </article>
       </div>
 
@@ -111,14 +111,14 @@ export const Reversals = () => {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder='Buscar por transacción, motivo o estado'
-          className='w-full max-w-lg rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          className='w-full max-w-lg rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
         />
       </div>
 
-      <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+      <div className='rounded-3xl border border-[#E2E8F0] bg-white p-6 shadow-sm'>
         <div className='overflow-x-auto'>
           <table className='min-w-full border-collapse text-left'>
-            <thead className='bg-slate-50 text-sm text-slate-600'>
+            <thead className='bg-[#0F172A] text-sm text-white'>
               <tr>
                 <th className='px-5 py-4'>Transacción</th>
                 <th className='px-5 py-4'>Monto</th>
@@ -130,23 +130,23 @@ export const Reversals = () => {
             </thead>
             <tbody>
               {filteredReversals.map((reversal) => (
-                <tr key={reversal._id ?? reversal.transactionId} className='border-t border-gray-100 hover:bg-slate-50'>
-                  <td className='px-5 py-4'>{String(reversal.transactionId?._id ?? reversal.transactionId ?? '').slice(-8)}</td>
-                  <td className='px-5 py-4'>{formatMoney(reversal.transactionId?.amount)}</td>
-                  <td className='px-5 py-4'>{reversal.reason || 'Sin motivo'}</td>
+                <tr key={reversal._id ?? reversal.transactionId} className='border-t border-[rgba(226,232,240,0.6)] hover:bg-[rgba(37,99,235,0.04)]'>
+                  <td className='px-5 py-4 text-[#1E293B]'>{String(reversal.transactionId?._id ?? reversal.transactionId ?? '').slice(-8)}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{formatMoney(reversal.transactionId?.amount)}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{reversal.reason || 'Sin motivo'}</td>
                   <td className='px-5 py-4'>
-                    <span className='rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-700'>
+                    <span className='rounded-full bg-[rgba(226,232,240,0.5)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#1E293B]'>
                       {reversal.status}
                     </span>
                   </td>
-                  <td className='px-5 py-4'>{formatDateTime(reversal.createdAt)}</td>
+                  <td className='px-5 py-4 text-[#64748B]'>{formatDateTime(reversal.createdAt)}</td>
                   <td className='px-5 py-4'>
                     <div className='flex flex-wrap gap-2'>
                       {reversal.status === 'PENDING' && (
                         <button
                           type='button'
                           onClick={() => handleAction(reversal, 'cancel')}
-                          className='rounded-full border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100'
+                          className='rounded-full border border-[#E2E8F0] px-3 py-2 text-xs font-semibold text-[#1E293B] hover:bg-[rgba(226,232,240,0.5)]'
                         >
                           Cancelar
                         </button>
@@ -157,7 +157,7 @@ export const Reversals = () => {
               ))}
               {filteredReversals.length === 0 && (
                 <tr>
-                  <td colSpan='6' className='px-5 py-8 text-center text-sm text-gray-500'>
+                  <td colSpan='6' className='px-5 py-8 text-center text-sm text-[#64748B]'>
                     No hay solicitudes de reversión.
                   </td>
                 </tr>
@@ -172,13 +172,13 @@ export const Reversals = () => {
           <div className='w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>Nueva solicitud</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>Solicitar reversión</h2>
+                <p className='text-sm text-[#64748B]'>Nueva solicitud</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>Solicitar reversión</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setModalOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(226,232,240,0.5)]'
               >
                 Cerrar
               </button>
@@ -186,23 +186,23 @@ export const Reversals = () => {
 
             <form onSubmit={handleRequest} className='mt-6 space-y-4'>
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>ID de transacción</span>
+                <span className='text-sm font-medium text-[#1E293B]'>ID de transacción</span>
                 <input
                   type='text'
                   value={form.transactionId}
                   onChange={(event) => setForm((current) => ({ ...current, transactionId: event.target.value }))}
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-3xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                   required
                 />
               </label>
 
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>Motivo</span>
+                <span className='text-sm font-medium text-[#1E293B]'>Motivo</span>
                 <textarea
                   value={form.reason}
                   onChange={(event) => setForm((current) => ({ ...current, reason: event.target.value }))}
                   rows='4'
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-3xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                   required
                 />
               </label>
@@ -211,13 +211,13 @@ export const Reversals = () => {
                 <button
                   type='button'
                   onClick={() => setModalOpen(false)}
-                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                  className='rounded-full border border-[#E2E8F0] bg-white px-5 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-[rgba(226,232,240,0.5)]'
                 >
                   Cancelar
                 </button>
                 <button
                   type='submit'
-                  className='rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+                  className='rounded-full bg-[#2563EB] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'
                 >
                   Enviar solicitud
                 </button>

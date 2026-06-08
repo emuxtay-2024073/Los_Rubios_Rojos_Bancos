@@ -15,8 +15,8 @@ export const Navbar = () => {
   });
 
   return (
-    <nav className='app-header sticky top-0 z-50'>
-      <div className='max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-50 px-6 py-4'>
+    <nav className='app-header sticky top-0 z-50 animate-fadeIn'>
+      <div className='max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4 px-6 py-4'>
         <div className='flex min-w-0 flex-1 items-start gap-4'>
           <img
             src={imgLogo}
@@ -24,12 +24,12 @@ export const Navbar = () => {
             className='h-10 md:h-12 w-auto object-contain'
           />
           <div className='min-w-0'>
-            <Typography variant='h5' className='header-title text-[var(--text-primary)]'>
-              Administración Bancaria
+            <Typography variant='h5' className='header-title text-[#1E293B]'>
+              Sistema Administrativo
             </Typography>
-            <div className='mt-2 flex flex-wrap items-center gap-5 text-sm text-[#7b8190]'>
-              <span>Hola, {firstName}</span>
-              <span className='inline-flex items-center gap-2'>
+            <div className='mt-2 flex flex-wrap items-center gap-5 text-sm text-[#64748B]'>
+              <span className='font-medium'>Hola, {firstName}</span>
+              <span className='inline-flex items-center gap-2 text-[#64748B]'>
                 <CalendarDaysIcon className='h-4 w-4' />
                 {today}
               </span>

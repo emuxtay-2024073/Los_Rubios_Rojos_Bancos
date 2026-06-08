@@ -233,17 +233,17 @@ export const Transfers = () => {
     <div className='space-y-8'>
       <div className='flex flex-col gap-4 md:flex-row md:justify-between md:items-end'>
         <div>
-          <p className='text-sm text-gray-500'>Movimientos entre cuentas</p>
-          <h1 className='text-3xl font-bold text-main-blue'>Transferencias</h1>
+          <p className='text-sm text-[#64748B]'>Movimientos entre cuentas</p>
+          <h1 className='text-3xl font-bold text-[#2563EB]'>Transferencias</h1>
           {isAdmin && (
-            <p className='mt-2 text-sm text-gray-500'>Vista de sólo lectura para administradores. Puedes filtrar y revisar transferencias, pero no crear nuevas desde aquí.</p>
+            <p className='mt-2 text-sm text-[#64748B]'>Vista de sólo lectura para administradores. Puedes filtrar y revisar transferencias, pero no crear nuevas desde aquí.</p>
           )}
         </div>
         {!isAdmin && (
           <button
             type='button'
             onClick={openTransferForm}
-            className='rounded-full bg-main-blue px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
+            className='rounded-full bg-[#2563EB] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90'
           >
             + Nueva transferencia
           </button>
@@ -251,9 +251,9 @@ export const Transfers = () => {
       </div>
 
       <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
-        <article className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
-          <p className='text-sm text-gray-500'>Transferencias totales</p>
-          <p className='mt-2 text-3xl font-semibold text-slate-900'>{transferTransactions.length}</p>
+        <article className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-6 shadow-sm'>
+          <p className='text-sm text-[#64748B]'>Transferencias totales</p>
+          <p className='mt-2 text-3xl font-semibold text-[#1E293B]'>{transferTransactions.length}</p>
         </article>
       </div>
 
@@ -263,14 +263,14 @@ export const Transfers = () => {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder='Buscar por ID, cuenta o monto'
-          className='w-full max-w-lg rounded-3xl border border-gray-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:border-main-blue focus:outline-none'
+          className='w-full max-w-lg rounded-3xl border border-[#E2E8F0] bg-white px-4 py-3 text-sm text-[#1E293B] shadow-sm focus:border-[#2563EB] focus:outline-none'
         />
       </div>
 
-      <div className='rounded-3xl border border-gray-200 bg-white p-6 shadow-sm'>
+      <div className='rounded-3xl border border-[rgba(226,232,240,0.8)] bg-white p-6 shadow-sm'>
         <div className='overflow-x-auto'>
           <table className='min-w-full border-collapse text-left'>
-            <thead className='bg-slate-50 text-sm text-slate-600'>
+            <thead className='bg-[#0F172A] text-sm text-white'>
               <tr>
                 <th className='px-5 py-4'>ID transacción</th>
                 <th className='px-5 py-4'>Origen</th>
@@ -283,22 +283,22 @@ export const Transfers = () => {
             </thead>
             <tbody>
               {filteredTransactions.map((transaction) => (
-                <tr key={transaction._id ?? `${transaction.date}-${transaction.amount}`} className='border-t border-gray-100 hover:bg-slate-50'>
+                <tr key={transaction._id ?? `${transaction.date}-${transaction.amount}`} className='border-t border-[rgba(226,232,240,0.6)] hover:bg-[rgba(37,99,235,0.04)]'>
                   <td className='px-5 py-4'>
                     <span
-                      className='font-mono text-xs text-slate-500 cursor-pointer hover:text-main-blue'
+                      className='font-mono text-xs text-[#64748B] cursor-pointer hover:text-[#2563EB]'
                       title={transaction._id}
                       onClick={() => navigator.clipboard?.writeText(transaction._id).then(() => showSuccess('ID copiado'))}
                     >
                       {String(transaction._id ?? '').slice(-8)}
                     </span>
                   </td>
-                  <td className='px-5 py-4'>{transaction.originAccount?.accountNumber ?? '—'}</td>
-                  <td className='px-5 py-4'>{transaction.destinationAccount?.accountNumber ?? '—'}</td>
-                  <td className='px-5 py-4'>{formatMoney(transaction.amount)}</td>
-                  <td className='px-5 py-4'>{formatDateTime(transaction.date)}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{transaction.originAccount?.accountNumber ?? '—'}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{transaction.destinationAccount?.accountNumber ?? '—'}</td>
+                  <td className='px-5 py-4 text-[#1E293B]'>{formatMoney(transaction.amount)}</td>
+                  <td className='px-5 py-4 text-[#64748B]'>{formatDateTime(transaction.date)}</td>
                   <td className='px-5 py-4'>
-                    <span className='inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700'>
+                    <span className='inline-flex rounded-full bg-[rgba(226,232,240,0.5)] px-3 py-1 text-xs font-semibold text-[#1E293B]'>
                       {getReversalStatusLabel(transaction)}
                     </span>
                   </td>
@@ -321,7 +321,7 @@ export const Transfers = () => {
               ))}
               {filteredTransactions.length === 0 && (
                 <tr>
-                  <td colSpan={isAdmin ? 6 : 7} className='px-5 py-8 text-center text-sm text-gray-500'>
+                  <td colSpan={isAdmin ? 6 : 7} className='px-5 py-8 text-center text-sm text-[#64748B]'>
                     No hay transferencias registradas.
                   </td>
                 </tr>
@@ -337,21 +337,21 @@ export const Transfers = () => {
           <div className='w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>Formulario de transferencia</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>Nueva transferencia</h2>
+                <p className='text-sm text-[#64748B]'>Formulario de transferencia</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>Nueva transferencia</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setTransferModalOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(248,250,252,0.8)]'
               >
                 Cerrar
               </button>
             </div>
             <form onSubmit={handleSubmit} className='mt-6 grid gap-4 sm:grid-cols-2'>
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>
-                  Cuenta origen <span className='text-red-500'>*</span>
+                <span className='text-sm font-medium text-[#1E293B]'>
+                  Cuenta origen <span className='text-[#EF4444]'>*</span>
                 </span>
                 <input
                   type='text'
@@ -364,17 +364,17 @@ export const Transfers = () => {
                     setForm({ ...form, fromAccountNumber: event.target.value });
                     setValidationErrors({ ...validationErrors, fromAccountNumber: '' });
                   }}
-                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none ${
-                    validationErrors.fromAccountNumber ? 'border-red-500' : 'border-gray-200'
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none ${
+                    validationErrors.fromAccountNumber ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 {validationErrors.fromAccountNumber && (
-                  <p className='mt-1 text-xs text-red-500'>{validationErrors.fromAccountNumber}</p>
+                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.fromAccountNumber}</p>
                 )}
               </label>
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>
-                  Cuenta destino <span className='text-red-500'>*</span>
+                <span className='text-sm font-medium text-[#1E293B]'>
+                  Cuenta destino <span className='text-[#EF4444]'>*</span>
                 </span>
                 <input
                   type='text'
@@ -384,17 +384,17 @@ export const Transfers = () => {
                     setForm({ ...form, toAccountNumber: event.target.value });
                     setValidationErrors({ ...validationErrors, toAccountNumber: '' });
                   }}
-                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none ${
-                    validationErrors.toAccountNumber ? 'border-red-500' : 'border-gray-200'
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none ${
+                    validationErrors.toAccountNumber ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 {validationErrors.toAccountNumber && (
-                  <p className='mt-1 text-xs text-red-500'>{validationErrors.toAccountNumber}</p>
+                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.toAccountNumber}</p>
                 )}
               </label>
               <label className='block sm:col-span-2'>
-                <span className='text-sm font-medium text-slate-700'>
-                  Monto <span className='text-red-500'>*</span>
+                <span className='text-sm font-medium text-[#1E293B]'>
+                  Monto <span className='text-[#EF4444]'>*</span>
                 </span>
                 <input
                   type='number'
@@ -406,17 +406,17 @@ export const Transfers = () => {
                     setForm({ ...form, amount: event.target.value });
                     setValidationErrors({ ...validationErrors, amount: '' });
                   }}
-                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none ${
-                    validationErrors.amount ? 'border-red-500' : 'border-gray-200'
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none ${
+                    validationErrors.amount ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 {validationErrors.amount && (
-                  <p className='mt-1 text-xs text-red-500'>{validationErrors.amount}</p>
+                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.amount}</p>
                 )}
               </label>
               <label className='block sm:col-span-2'>
-                <span className='text-sm font-medium text-slate-700'>
-                  Descripción <span className='text-gray-400'>(opcional)</span>
+                <span className='text-sm font-medium text-[#1E293B]'>
+                  Descripción <span className='text-[#64748B]'>(opcional)</span>
                 </span>
                 <textarea
                   placeholder='Describe el motivo de la transferencia'
@@ -427,26 +427,26 @@ export const Transfers = () => {
                   }}
                   maxLength={200}
                   rows={3}
-                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-slate-900 bg-slate-50 focus:border-main-blue focus:outline-none resize-none ${
-                    validationErrors.description ? 'border-red-500' : 'border-gray-200'
+                  className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none resize-none ${
+                    validationErrors.description ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
                   }`}
                 />
-                <p className='mt-1 text-xs text-gray-400'>
+                <p className='mt-1 text-xs text-[#64748B]'>
                   {form.description.length}/200
                 </p>
                 {validationErrors.description && (
-                  <p className='mt-1 text-xs text-red-500'>{validationErrors.description}</p>
+                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.description}</p>
                 )}
               </label>
               <div className='sm:col-span-2 flex justify-end gap-3 pt-2'>
                 <button
                   type='button'
                   onClick={() => setTransferModalOpen(false)}
-                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                  className='rounded-full border border-[#E2E8F0] bg-white px-5 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-[rgba(248,250,252,0.8)]'
                 >
                   Cancelar
                 </button>
-                <button type='submit' className='rounded-full bg-main-blue px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
+                <button type='submit' className='rounded-full bg-[#2563EB] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90'>
                   Transferir
                 </button>
               </div>
@@ -461,13 +461,13 @@ export const Transfers = () => {
           <div className='w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl'>
             <div className='flex items-center justify-between gap-4'>
               <div>
-                <p className='text-sm text-gray-500'>Solicitud de reversión</p>
-                <h2 className='text-2xl font-semibold text-slate-900'>Revertir transferencia</h2>
+                <p className='text-sm text-[#64748B]'>Solicitud de reversión</p>
+                <h2 className='text-2xl font-semibold text-[#1E293B]'>Revertir transferencia</h2>
               </div>
               <button
                 type='button'
                 onClick={() => setReversalModalOpen(false)}
-                className='rounded-full border border-slate-200 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100'
+                className='rounded-full border border-[#E2E8F0] px-4 py-2 text-sm text-[#1E293B] hover:bg-[rgba(248,250,252,0.8)]'
               >
                 Cerrar
               </button>
@@ -475,21 +475,21 @@ export const Transfers = () => {
 
             <form onSubmit={handleReversalSubmit} className='mt-6 space-y-4'>
               <div>
-                <p className='text-sm font-medium text-slate-700'>ID de transacción</p>
-                <p className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-100 px-4 py-3 font-mono text-sm text-slate-500'>
+                <p className='text-sm font-medium text-[#1E293B]'>ID de transacción</p>
+                <p className='mt-2 w-full rounded-3xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 font-mono text-sm text-[#64748B]'>
                   {reversalForm.transactionId}
                 </p>
-                <p className='mt-1 text-xs text-gray-400'>El ID se completó automáticamente.</p>
+                <p className='mt-1 text-xs text-[#64748B]'>El ID se completó automáticamente.</p>
               </div>
 
               <label className='block'>
-                <span className='text-sm font-medium text-slate-700'>
-                  Motivo <span className='text-red-500'>*</span>
+                <span className='text-sm font-medium text-[#1E293B]'>
+                  Motivo <span className='text-[#EF4444]'>*</span>
                 </span>
                 <select
                   value={reversalForm.reason}
                   onChange={(event) => setReversalForm((current) => ({ ...current, reason: event.target.value }))}
-                  className='mt-2 w-full rounded-3xl border border-gray-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-main-blue focus:outline-none'
+                  className='mt-2 w-full rounded-3xl border border-[#E2E8F0] bg-[rgba(248,250,252,0.8)] px-4 py-3 text-sm text-[#1E293B] focus:border-[#2563EB] focus:outline-none'
                   required
                 >
                   <option value=''>Selecciona un motivo...</option>
@@ -505,14 +505,14 @@ export const Transfers = () => {
                 <button
                   type='button'
                   onClick={() => setReversalModalOpen(false)}
-                  className='rounded-full border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-100'
+                  className='rounded-full border border-[#E2E8F0] bg-white px-5 py-3 text-sm font-semibold text-[#1E293B] transition hover:bg-[rgba(248,250,252,0.8)]'
                 >
                   Cancelar
                 </button>
                 <button
                   type='submit'
                   disabled={reversalLoading}
-                  className='rounded-full bg-amber-600 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
+                  className='rounded-full bg-[#F59E0B] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
                 >
                   {reversalLoading ? 'Enviando...' : 'Enviar solicitud'}
                 </button>

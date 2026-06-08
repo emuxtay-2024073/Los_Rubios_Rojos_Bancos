@@ -10,12 +10,18 @@ import {
 } from '../services/adminApi.js';
 import { Spinner } from '../features/auth/components/Spinner.jsx';
 import { formatDateTime, formatMoney, toTitleCase } from '../shared/utils/banking.js';
+import { StatCard } from '../shared/components/ui/StatCard.jsx';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../shared/components/ui/Card.jsx';
+import { Badge } from '../shared/components/ui/Badge.jsx';
 import {
   ArrowDownTrayIcon,
   ArrowUpTrayIcon,
   ArrowsRightLeftIcon,
   ArrowUturnLeftIcon,
   CurrencyDollarIcon,
+  BanknotesIcon,
+  UsersIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline';
 
 export const Dashboard = () => {
@@ -89,136 +95,164 @@ export const Dashboard = () => {
     <div className='space-y-8 animate-fadeIn'>
       <div className='space-y-4'>
         <div>
-          <p className='subtitle'>Panel de administración bancaria</p>
-          <h1 className='text-4xl font-bold text-[var(--navy)]'>Resumen general</h1>
+          <p className='text-sm font-medium text-[#64748B]'>Panel de administración bancaria</p>
+          <h1 className='text-4xl font-bold text-[#1E293B]'>Resumen general</h1>
         </div>
 
         <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
-          <article className='card'>
-            <p className='text-sm font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)]'>Cuentas activas</p>
-            <p className='mt-5 text-4xl font-bold text-[var(--navy)]'>{accounts.length}</p>
-          </article>
-          <article className='card'>
-            <p className='text-sm font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)]'>Transferencias</p>
-            <p className='mt-5 text-4xl font-bold text-[var(--navy)]'>{transactions.length}</p>
-          </article>
-          <article className='card'>
-            <p className='text-sm font-semibold uppercase tracking-[0.16em] text-[var(--text-secondary)]'>Beneficiarios</p>
-            <p className='mt-5 text-4xl font-bold text-[var(--navy)]'>{beneficiaries.length}</p>
-          </article>
+          <StatCard
+            title='Cuentas activas'
+            value={accounts.length}
+            change='+12%'
+            changeType='positive'
+            icon={BanknotesIcon}
+          />
+          <StatCard
+            title='Transferencias'
+            value={transactions.length}
+            change='+8%'
+            changeType='positive'
+            icon={ArrowsRightLeftIcon}
+          />
+          <StatCard
+            title='Beneficiarios'
+            value={beneficiaries.length}
+            change='+5%'
+            changeType='positive'
+            icon={UsersIcon}
+          />
+          <StatCard
+            title='Usuarios'
+            value={users.length}
+            change='+3%'
+            changeType='positive'
+            icon={ChartBarIcon}
+          />
         </div>
       </div>
 
       <div className='grid gap-6 xl:grid-cols-2'>
-        <section className='card p-6'>
-          <div className='flex items-center justify-between gap-4'>
-            <div>
-              <h2 className='text-xl font-semibold text-[var(--navy)]'>Cuentas recientes</h2>
-              <p className='subtitle'>Últimas aperturas y su estado</p>
+        <Card>
+          <CardHeader>
+            <div className='flex items-center justify-between gap-4'>
+              <div>
+                <CardTitle>Cuentas recientes</CardTitle>
+                <CardDescription>Últimas aperturas y su estado</CardDescription>
+              </div>
+              <Badge variant='info'>{accounts.length} cuentas</Badge>
             </div>
-            <span className='text-sm text-[var(--text-secondary)]'>{accounts.length} cuentas</span>
-          </div>
-          <div className='mt-6 space-y-4'>
-            {recentAccounts.map((account) => (
-              <article key={account._id ?? account.accountNumber} className='card border border-slate-100 p-4'>
-                <div className='flex items-center justify-between gap-3'>
-                  <div>
-                    <h3 className='font-semibold text-[var(--navy)]'>{account.accountNumber}</h3>
-                    <p className='text-sm text-[var(--text-secondary)]'>{toTitleCase(account.type)}</p>
-                  </div>
-                  <span className='rounded-2xl bg-[var(--soft-gold)]/12 px-3 py-1 text-sm font-semibold text-[var(--soft-gold)]'>
-                    {formatMoney(account.balance)}
-                  </span>
-                </div>
-                <p className='mt-4 text-sm text-[var(--text-secondary)]'>Creada {formatDateTime(account.createdAt)}</p>
-              </article>
-            ))}
-            {recentAccounts.length === 0 && <p className='text-sm text-[var(--text-secondary)]'>No hay cuentas disponibles.</p>}
-          </div>
-        </section>
-
-        <section className='card p-6'>
-          <div className='flex items-center justify-between gap-4'>
-            <div>
-              <h2 className='text-xl font-semibold text-[var(--navy)]'>Movimientos recientes</h2>
-              <p className='subtitle'>Historial de transferencias bajo un formato más moderno.</p>
-            </div>
-            <span className='text-sm text-[var(--text-secondary)]'>Últimos registros</span>
-          </div>
-          <div className='mt-6 space-y-4'>
-            {recentTransactions.map((transaction) => {
-              const Icon = getTransactionIcon(transaction.type);
-              return (
-                <article
-                  key={transaction._id ?? `${transaction.date}-${transaction.amount}`}
-                  className='card border border-slate-100 p-5 hover:bg-[#fcf9f5]'
-                >
-                  <div className='flex items-center justify-between gap-4'>
-                    <div className='inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--soft-gold)]/15 text-[var(--soft-gold)]'>
-                      <Icon className='h-6 w-6' />
+          </CardHeader>
+          <CardContent>
+            <div className='space-y-4'>
+              {recentAccounts.map((account) => (
+                <article key={account._id ?? account.accountNumber} className='rounded-xl border border-[rgba(226,232,240,0.6)] p-4 hover:bg-[rgba(37,99,235,0.02)] transition-colors'>
+                  <div className='flex items-center justify-between gap-3'>
+                    <div>
+                      <h3 className='font-semibold text-[#1E293B]'>{account.accountNumber}</h3>
+                      <p className='text-sm text-[#64748B]'>{toTitleCase(account.type)}</p>
                     </div>
-                    <span className='rounded-full bg-[var(--soft-gold)]/12 px-3 py-1 text-xs font-semibold text-[var(--soft-gold)]'>
-                      {formatMoney(transaction.amount)}
-                    </span>
+                    <Badge variant='accent'>{formatMoney(account.balance)}</Badge>
                   </div>
-
-                  <div className='mt-4'>
-                    <h3 className='text-lg font-semibold text-[var(--navy)]'>{transaction.type}</h3>
-                    <p className='mt-2 text-sm text-[var(--text-secondary)]'>
-                      {transaction.originAccount?.accountNumber ?? '—'} → {transaction.destinationAccount?.accountNumber ?? '—'}
-                    </p>
-                  </div>
-                  <p className='mt-3 text-sm text-[var(--text-secondary)]'>{formatDateTime(transaction.date)}</p>
+                  <p className='mt-4 text-sm text-[#64748B]'>Creada {formatDateTime(account.createdAt)}</p>
                 </article>
-              );
-            })}
-            {recentTransactions.length === 0 && <p className='text-sm text-[var(--text-secondary)]'>No hay transferencias registradas.</p>}
-          </div>
-        </section>
+              ))}
+              {recentAccounts.length === 0 && <p className='text-sm text-[#64748B]'>No hay cuentas disponibles.</p>}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className='flex items-center justify-between gap-4'>
+              <div>
+                <CardTitle>Movimientos recientes</CardTitle>
+                <CardDescription>Historial de transferencias</CardDescription>
+              </div>
+              <Badge variant='info'>Últimos registros</Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className='space-y-4'>
+              {recentTransactions.map((transaction) => {
+                const Icon = getTransactionIcon(transaction.type);
+                return (
+                  <article
+                    key={transaction._id ?? `${transaction.date}-${transaction.amount}`}
+                    className='rounded-xl border border-[rgba(226,232,240,0.6)] p-5 hover:bg-[rgba(37,99,235,0.02)] transition-colors'
+                  >
+                    <div className='flex items-center justify-between gap-4'>
+                      <div className='inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[rgba(37,99,235,0.1)] text-[#2563EB]'>
+                        <Icon className='h-6 w-6' />
+                      </div>
+                      <Badge variant='accent'>{formatMoney(transaction.amount)}</Badge>
+                    </div>
+
+                    <div className='mt-4'>
+                      <h3 className='text-lg font-semibold text-[#1E293B]'>{transaction.type}</h3>
+                      <p className='mt-2 text-sm text-[#64748B]'>
+                        {transaction.originAccount?.accountNumber ?? '—'} → {transaction.destinationAccount?.accountNumber ?? '—'}
+                      </p>
+                    </div>
+                    <p className='mt-3 text-sm text-[#64748B]'>{formatDateTime(transaction.date)}</p>
+                  </article>
+                );
+              })}
+              {recentTransactions.length === 0 && <p className='text-sm text-[#64748B]'>No hay transferencias registradas.</p>}
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className='grid gap-6 xl:grid-cols-2'>
-        <section className='card p-6'>
-          <div className='flex items-center justify-between gap-4'>
-            <div>
-              <h2 className='text-xl font-semibold text-[var(--navy)]'>Límites vigentes</h2>
-              <p className='subtitle'>Reglas de transacción activas</p>
+        <Card>
+          <CardHeader>
+            <div className='flex items-center justify-between gap-4'>
+              <div>
+                <CardTitle>Límites vigentes</CardTitle>
+                <CardDescription>Reglas de transacción activas</CardDescription>
+              </div>
+              <Badge variant='info'>{limits.length} reglas</Badge>
             </div>
-            <span className='text-sm text-[var(--text-secondary)]'>{limits.length} reglas</span>
-          </div>
-          <div className='mt-6 space-y-4'>
-            {limits.slice(0, 4).map((limit) => (
-              <article key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='rounded-3xl border border-slate-100 p-4'>
-                <p className='font-semibold text-[var(--navy)]'>
-                  {toTitleCase(limit.accountType || 'General')} · {limit.transactionType || 'General'}
-                </p>
-                <p className='mt-2 text-sm text-[var(--text-secondary)]'>Máximo por transacción: {formatMoney(limit.maxPerTransaction)}</p>
-                <p className='text-sm text-[var(--text-secondary)]'>Máximo diario: {formatMoney(limit.maxDailyTotal)}</p>
-              </article>
-            ))}
-            {limits.length === 0 && <p className='text-sm text-[var(--text-secondary)]'>No hay límites configurados.</p>}
-          </div>
-        </section>
+          </CardHeader>
+          <CardContent>
+            <div className='space-y-4'>
+              {limits.slice(0, 4).map((limit) => (
+                <article key={limit._id ?? `${limit.accountType}-${limit.transactionType}`} className='rounded-xl border border-[rgba(226,232,240,0.6)] p-4 hover:bg-[rgba(37,99,235,0.02)] transition-colors'>
+                  <p className='font-semibold text-[#1E293B]'>
+                    {toTitleCase(limit.accountType || 'General')} · {limit.transactionType || 'General'}
+                  </p>
+                  <p className='mt-2 text-sm text-[#64748B]'>Máximo por transacción: {formatMoney(limit.maxPerTransaction)}</p>
+                  <p className='text-sm text-[#64748B]'>Máximo diario: {formatMoney(limit.maxDailyTotal)}</p>
+                </article>
+              ))}
+              {limits.length === 0 && <p className='text-sm text-[#64748B]'>No hay límites configurados.</p>}
+            </div>
+          </CardContent>
+        </Card>
 
-        <section className='card p-6'>
-          <div className='flex items-center justify-between gap-4'>
-            <div>
-              <h2 className='text-xl font-semibold text-[var(--navy)]'>Reversiones pendientes</h2>
-              <p className='subtitle'>Solicitudes por revisar</p>
+        <Card>
+          <CardHeader>
+            <div className='flex items-center justify-between gap-4'>
+              <div>
+                <CardTitle>Reversiones pendientes</CardTitle>
+                <CardDescription>Solicitudes por revisar</CardDescription>
+              </div>
+              <Badge variant='warning'>Pendientes</Badge>
             </div>
-            <span className='text-sm text-[var(--text-secondary)]'>Pendientes</span>
-          </div>
-          <div className='mt-6 space-y-4'>
-            {recentReversals.map((reversal) => (
-              <article key={reversal._id ?? reversal.transactionId} className='rounded-3xl border border-slate-100 p-4'>
-                <p className='font-semibold text-[var(--navy)]'>{reversal.reason}</p>
-                <p className='mt-1 text-sm text-[var(--text-secondary)]'>Transacción #{String(reversal.transactionId?._id ?? reversal.transactionId).slice(-6)}</p>
-                <p className='mt-2 text-sm font-semibold text-[var(--navy)]'>{formatMoney(reversal.amount)}</p>
-              </article>
-            ))}
-            {recentReversals.length === 0 && <p className='text-sm text-[var(--text-secondary)]'>No hay reversiones pendientes.</p>}
-          </div>
-        </section>
+          </CardHeader>
+          <CardContent>
+            <div className='space-y-4'>
+              {recentReversals.map((reversal) => (
+                <article key={reversal._id ?? reversal.transactionId} className='rounded-xl border border-[rgba(226,232,240,0.6)] p-4 hover:bg-[rgba(37,99,235,0.02)] transition-colors'>
+                  <p className='font-semibold text-[#1E293B]'>{reversal.reason}</p>
+                  <p className='mt-1 text-sm text-[#64748B]'>Transacción #{String(reversal.transactionId?._id ?? reversal.transactionId).slice(-6)}</p>
+                  <p className='mt-2 text-sm font-semibold text-[#1E293B]'>{formatMoney(reversal.amount)}</p>
+                </article>
+              ))}
+              {recentReversals.length === 0 && <p className='text-sm text-[#64748B]'>No hay reversiones pendientes.</p>}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
