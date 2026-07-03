@@ -4,201 +4,201 @@ import { normalizeList } from '../shared/utils/banking.js';
 const withFormData = (payload) => (payload instanceof FormData ? { headers: { 'Content-Type': undefined } } : {});
 
 export const getAccounts = async () => {
-  const { data } = await axiosAdmin.get('/accounts');
+  const { data } = await axiosAdmin.get('/api/accounts');
   return normalizeList(data, ['accounts']);
 };
 
 export const getAccountByNumber = async (accountNumber) => {
-  const { data } = await axiosAdmin.get('/accounts', { params: { accountNumber } });
+  const { data } = await axiosAdmin.get('/api/accounts', { params: { accountNumber } });
   return normalizeList(data, ['accounts']);
 };
 
 export const createAccount = async (payload) => {
-  const { data } = await axiosAdmin.post('/accounts/create', payload, withFormData(payload));
+  const { data } = await axiosAdmin.post('/api/accounts/create', payload, withFormData(payload));
   return data;
 };
 
 export const updateAccountType = async (accountId, newType) => {
-  const { data } = await axiosAdmin.put(`/accounts/${accountId}/update-type`, { newType });
+  const { data } = await axiosAdmin.put(`/api/accounts/${accountId}/update-type`, { newType });
   return data;
 };
 
 export const depositToAccount = async (payload) => {
-  const { data } = await axiosAdmin.post('/accounts/deposit', payload);
+  const { data } = await axiosAdmin.post('/api/accounts/deposit', payload);
   return data;
 };
 
 export const withdrawFromAccount = async (payload) => {
-  const { data } = await axiosAdmin.post('/accounts/withdraw', payload);
+  const { data } = await axiosAdmin.post('/api/accounts/withdraw', payload);
   return data;
 };
 
 export const getBeneficiaries = async () => {
-  const { data } = await axiosAdmin.get('/beneficiaries');
+  const { data } = await axiosAdmin.get('/api/beneficiaries');
   return normalizeList(data, ['beneficiaries']);
 };
 
 export const createBeneficiary = async (payload) => {
-  const { data } = await axiosAdmin.post('/beneficiaries', payload);
+  const { data } = await axiosAdmin.post('/api/beneficiaries', payload);
   return data;
 };
 
 export const updateBeneficiary = async (id, payload) => {
-  const { data } = await axiosAdmin.put(`/beneficiaries/${id}`, payload);
+  const { data } = await axiosAdmin.put(`/api/beneficiaries/${id}`, payload);
   return data;
 };
 
 export const deleteBeneficiary = async (id) => {
-  const { data } = await axiosAdmin.delete(`/beneficiaries/${id}`);
+  const { data } = await axiosAdmin.delete(`/api/beneficiaries/${id}`);
   return data;
 };
 
 export const toggleBeneficiaryFavorite = async (id) => {
-  const { data } = await axiosAdmin.patch(`/beneficiaries/${id}/favorite`);
+  const { data } = await axiosAdmin.patch(`/api/beneficiaries/${id}/favorite`);
   return data;
 };
 
 export const getTransactions = async () => {
-  const { data } = await axiosAdmin.get('/transactions');
+  const { data } = await axiosAdmin.get('/api/transactions');
   return normalizeList(data, ['transactions']);
 };
 
 export const transferMoney = async (payload) => {
-  const { data } = await axiosAdmin.post('/transactions/transfer', payload);
+  const { data } = await axiosAdmin.post('/api/transactions/transfer', payload);
   return data;
 };
 
 export const getAccountHistory = async (accountId, params = {}) => {
-  const { data } = await axiosAdmin.get(`/accounts/${accountId}/history`, { params });
+  const { data } = await axiosAdmin.get(`/api/accounts/${accountId}/history`, { params });
   return normalizeList(data, ['transactions']);
 };
 
 export const requestAccountDisable = async (accountId, payload) => {
-  const { data } = await axiosAdmin.post(`/accounts/${accountId}/disable-request`, payload);
+  const { data } = await axiosAdmin.post(`/api/accounts/${accountId}/disable-request`, payload);
   return data;
 };
 
 export const requestAccountReactivation = async (accountId, payload) => {
-  const { data } = await axiosAdmin.post(`/accounts/${accountId}/reactivate-request`, payload);
+  const { data } = await axiosAdmin.post(`/api/accounts/${accountId}/reactivate-request`, payload);
   return data;
 };
 
 export const getDisableAccountRequests = async (status) => {
-  const { data } = await axiosAdmin.get('/accounts/disable-requests', {
+  const { data } = await axiosAdmin.get('/api/accounts/disable-requests', {
     params: status ? { status } : undefined,
   });
   return normalizeList(data, ['requests']);
 };
 
 export const approveDisableAccountRequest = async (requestId, payload = {}) => {
-  const { data } = await axiosAdmin.post(`/accounts/disable-requests/${requestId}/approve`, payload);
+  const { data } = await axiosAdmin.post(`/api/accounts/disable-requests/${requestId}/approve`, payload);
   return data;
 };
 
 export const rejectDisableAccountRequest = async (requestId, payload = {}) => {
-  const { data } = await axiosAdmin.post(`/accounts/disable-requests/${requestId}/reject`, payload);
+  const { data } = await axiosAdmin.post(`/api/accounts/disable-requests/${requestId}/reject`, payload);
   return data;
 };
 
 export const getCurrentLimits = async () => {
-  const { data } = await axiosAdmin.get('/limits/all');
+  const { data } = await axiosAdmin.get('/api/limits/all');
   return normalizeList(data, ['limits']);
 };
 
 export const getAllLimits = async () => {
-  const { data } = await axiosAdmin.get('/limits/all');
+  const { data } = await axiosAdmin.get('/api/limits/all');
   return normalizeList(data, ['limits']);
 };
 
 export const createUserLimit = async (payload) => {
-  const { data } = await axiosAdmin.post('/limits/user', payload);
+  const { data } = await axiosAdmin.post('/api/limits/user', payload);
   return data;
 };
 
 export const createDefaultLimit = async (payload) => {
-  const { data } = await axiosAdmin.post('/limits/default', payload);
+  const { data } = await axiosAdmin.post('/api/limits/default', payload);
   return data;
 };
 
 export const deleteLimit = async (limitId) => {
-  const { data } = await axiosAdmin.delete(`/limits/${limitId}`);
+  const { data } = await axiosAdmin.delete(`/api/limits/${limitId}`);
   return data;
 };
 
 export const getReversals = async () => {
-  const { data } = await axiosAdmin.get('/reversals');
+  const { data } = await axiosAdmin.get('/api/reversals');
   return normalizeList(data, ['reversals']);
 };
 
 export const getReactivateAccountRequests = async (status) => {
-  const { data } = await axiosAdmin.get('/accounts/reactivate-requests', { params: status && status !== 'ALL' ? { status } : undefined });
+  const { data } = await axiosAdmin.get('/api/accounts/reactivate-requests', { params: status && status !== 'ALL' ? { status } : undefined });
   return normalizeList(data, ['requests']);
 };
 
 export const approveReactivateAccountRequest = async (requestId, payload = {}) => {
-  const { data } = await axiosAdmin.post(`/accounts/reactivate-requests/${requestId}/approve`, payload);
+  const { data } = await axiosAdmin.post(`/api/accounts/reactivate-requests/${requestId}/approve`, payload);
   return data;
 };
 
 export const rejectReactivateAccountRequest = async (requestId, payload = {}) => {
-  const { data } = await axiosAdmin.post(`/accounts/reactivate-requests/${requestId}/reject`, payload);
+  const { data } = await axiosAdmin.post(`/api/accounts/reactivate-requests/${requestId}/reject`, payload);
   return data;
 };
 
 export const getPendingReversals = async () => {
-  const { data } = await axiosAdmin.get('/reversals/pending');
+  const { data } = await axiosAdmin.get('/api/reversals/pending');
   return normalizeList(data, ['reversals']);
 };
 
 export const requestReversal = async (payload) => {
-  const { data } = await axiosAdmin.post('/reversals/request', payload);
+  const { data } = await axiosAdmin.post('/api/reversals/request', payload);
   return data;
 };
 
 export const approveReversal = async (reversalId) => {
-  const { data } = await axiosAdmin.post(`/reversals/${reversalId}/approve`);
+  const { data } = await axiosAdmin.post(`/api/reversals/${reversalId}/approve`);
   return data;
 };
 
 export const rejectReversal = async (reversalId, payload) => {
-  const { data } = await axiosAdmin.post(`/reversals/${reversalId}/reject`, payload);
+  const { data } = await axiosAdmin.post(`/api/reversals/${reversalId}/reject`, payload);
   return data;
 };
 
 export const cancelReversal = async (reversalId) => {
-  const { data } = await axiosAdmin.delete(`/reversals/${reversalId}/cancel`);
+  const { data } = await axiosAdmin.delete(`/api/reversals/${reversalId}/cancel`);
   return data;
 };
 
 export const getExchangeRate = async (fromCurrency, toCurrency) => {
-  const { data } = await axiosAdmin.get('/currency/rate', {
+  const { data } = await axiosAdmin.get('/api/currency/rate', {
     params: { fromCurrency, toCurrency },
   });
   return data;
 };
 
 export const convertCurrency = async (payload) => {
-  const { data } = await axiosAdmin.post('/currency/convert', payload);
+  const { data } = await axiosAdmin.post('/api/currency/convert', payload);
   return data;
 };
 
 export const getExchangeRates = async () => {
-  const { data } = await axiosAdmin.get('/currency/rates');
+  const { data } = await axiosAdmin.get('/api/currency/rates');
   return normalizeList(data, ['exchangeRates', 'rates']);
 };
 
 export const addExchangeRate = async (payload) => {
-  const { data } = await axiosAdmin.post('/currency/rates', payload);
+  const { data } = await axiosAdmin.post('/api/currency/rates', payload);
   return data;
 };
 
 export const deleteExchangeRate = async (rateId) => {
-  const { data } = await axiosAdmin.delete(`/currency/rates/${rateId}`);
+  const { data } = await axiosAdmin.delete(`/api/currency/rates/${rateId}`);
   return data;
 };
 
 export const getConversionHistory = async () => {
-  const { data } = await axiosAdmin.get('/currency/history');
+  const { data } = await axiosAdmin.get('/api/currency/history');
   return normalizeList(data, ['history', 'conversions']);
 };
 
@@ -214,7 +214,7 @@ export const getUsers = async () => {
   };
 
   try {
-    const { data } = await axiosAdmin.get('/users/admin/all');
+    const { data } = await axiosAdmin.get('/api/users/admin/all');
     adminUsers.push(...extractUsers(data));
   } catch (error) {
     adminError = error;
@@ -267,16 +267,16 @@ export const getUsers = async () => {
 };
 
 export const updateUserRole = async (userId, newRole) => {
-  const { data } = await axiosAdmin.put(`/users/${userId}/role`, { newRole });
+  const { data } = await axiosAdmin.put(`/api/users/${userId}/role`, { newRole });
   return data;
 };
 
 export const deactivateUser = async (userId) => {
-  const { data } = await axiosAdmin.put(`/users/${userId}/deactivate`);
+  const { data } = await axiosAdmin.put(`/api/users/${userId}/deactivate`);
   return data;
 };
 
 export const reactivateUser = async (userId) => {
-  const { data } = await axiosAdmin.put(`/users/${userId}/reactivate`);
+  const { data } = await axiosAdmin.put(`/api/users/${userId}/reactivate`);
   return data;
 };

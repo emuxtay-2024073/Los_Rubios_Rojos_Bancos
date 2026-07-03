@@ -351,7 +351,7 @@ export const Transfers = () => {
             <form onSubmit={handleSubmit} className='mt-6 grid gap-4 sm:grid-cols-2'>
               <label className='block'>
                 <span className='text-sm font-medium text-[#1E293B]'>
-                  Cuenta origen <span className='text-[#EF4444]'>*</span>
+                  Cuenta origen <span className='text-[#1E3A8A]'>*</span>
                 </span>
                 <input
                   type='text'
@@ -365,16 +365,16 @@ export const Transfers = () => {
                     setValidationErrors({ ...validationErrors, fromAccountNumber: '' });
                   }}
                   className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none ${
-                    validationErrors.fromAccountNumber ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
+                    validationErrors.fromAccountNumber ? 'border-[#1E3A8A]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 {validationErrors.fromAccountNumber && (
-                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.fromAccountNumber}</p>
+                  <p className='mt-1 text-xs text-[#1E3A8A]'>{validationErrors.fromAccountNumber}</p>
                 )}
               </label>
               <label className='block'>
                 <span className='text-sm font-medium text-[#1E293B]'>
-                  Cuenta destino <span className='text-[#EF4444]'>*</span>
+                  Cuenta destino <span className='text-[#1E3A8A]'>*</span>
                 </span>
                 <input
                   type='text'
@@ -385,16 +385,16 @@ export const Transfers = () => {
                     setValidationErrors({ ...validationErrors, toAccountNumber: '' });
                   }}
                   className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none ${
-                    validationErrors.toAccountNumber ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
+                    validationErrors.toAccountNumber ? 'border-[#1E3A8A]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 {validationErrors.toAccountNumber && (
-                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.toAccountNumber}</p>
+                  <p className='mt-1 text-xs text-[#1E3A8A]'>{validationErrors.toAccountNumber}</p>
                 )}
               </label>
               <label className='block sm:col-span-2'>
                 <span className='text-sm font-medium text-[#1E293B]'>
-                  Monto <span className='text-[#EF4444]'>*</span>
+                  Monto <span className='text-[#1E3A8A]'>*</span>
                 </span>
                 <input
                   type='number'
@@ -407,11 +407,11 @@ export const Transfers = () => {
                     setValidationErrors({ ...validationErrors, amount: '' });
                   }}
                   className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none ${
-                    validationErrors.amount ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
+                    validationErrors.amount ? 'border-[#1E3A8A]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 {validationErrors.amount && (
-                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.amount}</p>
+                  <p className='mt-1 text-xs text-[#1E3A8A]'>{validationErrors.amount}</p>
                 )}
               </label>
               <label className='block sm:col-span-2'>
@@ -428,14 +428,14 @@ export const Transfers = () => {
                   maxLength={200}
                   rows={3}
                   className={`mt-2 w-full rounded-3xl border px-4 py-3 text-sm text-[#1E293B] bg-[rgba(248,250,252,0.8)] focus:border-[#2563EB] focus:outline-none resize-none ${
-                    validationErrors.description ? 'border-[#EF4444]' : 'border-[#E2E8F0]'
+                    validationErrors.description ? 'border-[#1E3A8A]' : 'border-[#E2E8F0]'
                   }`}
                 />
                 <p className='mt-1 text-xs text-[#64748B]'>
                   {form.description.length}/200
                 </p>
                 {validationErrors.description && (
-                  <p className='mt-1 text-xs text-[#EF4444]'>{validationErrors.description}</p>
+                  <p className='mt-1 text-xs text-[#1E3A8A]'>{validationErrors.description}</p>
                 )}
               </label>
               <div className='sm:col-span-2 flex justify-end gap-3 pt-2'>
@@ -484,7 +484,7 @@ export const Transfers = () => {
 
               <label className='block'>
                 <span className='text-sm font-medium text-[#1E293B]'>
-                  Motivo <span className='text-[#EF4444]'>*</span>
+                  Motivo <span className='text-[#1E3A8A]'>*</span>
                 </span>
                 <select
                   value={reversalForm.reason}

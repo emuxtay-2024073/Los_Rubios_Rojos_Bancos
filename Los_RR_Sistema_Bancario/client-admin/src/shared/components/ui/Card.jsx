@@ -7,7 +7,7 @@ export const Card = ({
   ...props 
 }) => {
   const baseStyles = 'bg-white border border-[rgba(214,169,74,0.24)] rounded-2xl p-6 shadow-[0_10px_28px_rgba(74,0,17,0.06)]';
-  const hoverStyles = hover ? 'hover:-translate-y-1 hover:border-[rgba(122,0,25,0.28)] hover:shadow-[0_16px_42px_rgba(74,0,17,0.12)] transition-all duration-250' : '';
+  const hoverStyles = hover ? 'hover:-translate-y-1 hover:border-[rgba(10,36,114,0.28)] hover:shadow-[0_16px_42px_rgba(10,36,114,0.12)] transition-all duration-250' : '';
   
   return (
     <div 

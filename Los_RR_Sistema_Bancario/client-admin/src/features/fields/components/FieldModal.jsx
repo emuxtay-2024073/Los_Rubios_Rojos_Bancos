@@ -78,7 +78,7 @@ export const FieldModal = ({ isOpen, onClose, field }) => {
         <div
           className='p-5 sm:p-6 text-white sticky top-0 z-10'
           style={{
-            background: 'linear-gradient(90deg, #7A0019 0%, #A0001C 100%)',
+            background: 'linear-gradient(90deg, #0A2472 0%, #1E40AF 100%)',
           }}
         >
           <h2 className='text-xl sm:text-2xl font-bold'>

@@ -50,7 +50,7 @@ export const Sidebar = () => {
   };
 
   return (
-    <aside className='sticky top-24 flex w-72 h-[calc(100vh-96px)] flex-col rounded-[24px] bg-[linear-gradient(180deg,#7A0019_0%,#520011_100%)] p-6 shadow-[0_18px_45px_rgba(74,0,17,0.24)] overflow-y-auto animate-slideIn'>
+    <aside className='sticky top-24 flex w-72 h-[calc(100vh-96px)] flex-col rounded-[24px] bg-[linear-gradient(180deg,#0A2472_0%,#1E40AF_100%)] p-6 shadow-[0_18px_45px_rgba(10,36,114,0.24)] overflow-y-auto animate-slideIn'>
       <div className='mb-8 flex items-center gap-3'>
         <img src={imgLogo} alt='Rubios Rojos' className='h-14 w-14 rounded-2xl border border-white/15 bg-white/95 p-1 shadow-lg' />
         <div>

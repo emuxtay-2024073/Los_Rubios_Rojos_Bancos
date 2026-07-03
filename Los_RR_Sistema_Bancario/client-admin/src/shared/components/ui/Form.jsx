@@ -20,7 +20,7 @@ export const FormGroup = ({ children, className = '' }) => (
 export const FormLabel = ({ children, required = false, className = '' }) => (
   <label className={`text-sm font-medium text-[#1E293B] ${className}`}>
     {children}
-    {required && <span className='text-[#EF4444] ml-1'>*</span>}
+    {required && <span className='text-[#1E3A8A] ml-1'>*</span>}
   </label>
 );
 
@@ -28,7 +28,7 @@ export const FormField = ({ label, error, children, required = false, className 
   <div className={`space-y-2 ${className}`}>
     {label && <FormLabel required={required}>{label}</FormLabel>}
     {children}
-    {error && <span className='text-xs text-[#EF4444]'>{error}</span>}
+    {error && <span className='text-xs text-[#1E3A8A]'>{error}</span>
   </div>
 );
 

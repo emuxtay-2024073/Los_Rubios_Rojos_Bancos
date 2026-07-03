@@ -22,6 +22,17 @@ app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// Log incoming requests for debugging
+app.use((req, res, next) => {
+  console.log(`\n=== Incoming Request ===`);
+  console.log(`Method: ${req.method}`);
+  console.log(`URL: ${req.url}`);
+  console.log(`Content-Type: ${req.get('Content-Type')}`);
+  console.log(`Body:`, req.body);
+  console.log(`=====================\n`);
+  next();
+});
+
 // Configuración de Swagger
 const swaggerOptions = {
   definition: {
@@ -79,13 +90,13 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
-app.use("/accounts", accountRoutes);
-app.use("/transactions", transactionRoutes);
-app.use("/beneficiaries", beneficiaryRoutes);
-app.use("/limits", transactionLimitRoutes);
-app.use("/reversals", reversalRoutes);
-app.use("/currency", currencyRoutes);
-app.use("/users", userRoutes);
+app.use("/api/accounts", accountRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/beneficiaries", beneficiaryRoutes);
+app.use("/api/limits", transactionLimitRoutes);
+app.use("/api/reversals", reversalRoutes);
+app.use("/api/currency", currencyRoutes);
+app.use("/api/users", userRoutes);
 
 app.use((req, res) => {
     res.status(404).json({ message: "Ruta no encontrada" });

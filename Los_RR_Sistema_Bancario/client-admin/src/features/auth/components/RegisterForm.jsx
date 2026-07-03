@@ -28,7 +28,6 @@ export const RegisterForm = ({ onLogin }) => {
       phoneNumber: data.phoneNumber,
       dpi: data.dpi,
       password: data.password,
-      role: 'USER',
       accountType: data.accountType || 'ahorro',
     };
 
@@ -112,7 +111,7 @@ export const RegisterForm = ({ onLogin }) => {
 
         <div className='auth-field-group'>
           <label htmlFor='phoneNumber' className='auth-field-label'>
-            Teléfono
+            Teléfono (opcional)
           </label>
           <div className='auth-input-shell auth-input-shell--plain'>
             <input
@@ -122,7 +121,6 @@ export const RegisterForm = ({ onLogin }) => {
               placeholder='+502 7000 0000'
               className='auth-input'
               {...register('phoneNumber', {
-                required: 'Teléfono obligatorio',
                 pattern: {
                   value: /^[+]?([0-9]{1,3})?[\s.-]?[(]?[0-9]{3}[)]?[\s.-]?[0-9]{3,4}[\s.-]?[0-9]{4}$/,
                   message: 'Ingresa un número de teléfono válido (ej: +502 7000 0000)',
@@ -135,7 +133,7 @@ export const RegisterForm = ({ onLogin }) => {
 
         <div className='auth-field-group'>
           <label htmlFor='dpi' className='auth-field-label'>
-            DPI
+            DPI (opcional)
           </label>
           <div className='auth-input-shell auth-input-shell--plain'>
             <input
@@ -144,7 +142,6 @@ export const RegisterForm = ({ onLogin }) => {
               placeholder='1234567890101'
               className='auth-input'
               {...register('dpi', {
-                required: 'DPI obligatorio',
                 pattern: {
                   value: /^[0-9]{13,15}$/,
                   message: 'DPI inválido (debe contener 13-15 dígitos)',
@@ -169,12 +166,8 @@ export const RegisterForm = ({ onLogin }) => {
               {...register('password', {
                 required: 'Contraseña obligatoria',
                 minLength: {
-                  value: 8,
-                  message: 'Mínimo 8 caracteres',
-                },
-                pattern: {
-                  value: /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-                  message: 'Debe incluir mayúscula, número y símbolo (!@#$%^&*)',
+                  value: 6,
+                  message: 'Mínimo 6 caracteres',
                 },
               })}
             />

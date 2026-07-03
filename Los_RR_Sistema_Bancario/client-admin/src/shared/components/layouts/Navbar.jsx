@@ -24,7 +24,7 @@ export const Navbar = () => {
             className='h-11 md:h-13 w-auto rounded-2xl object-contain shadow-sm'
           />
           <div className='min-w-0'>
-            <Typography variant='h5' className='header-title text-[#7A0019]'>
+            <Typography variant='h5' className='header-title text-[#0A2472]'>
               Rubios Rojos Bank Virtual
             </Typography>
             <div className='mt-2 flex flex-wrap items-center gap-5 text-sm text-[#64748B]'>

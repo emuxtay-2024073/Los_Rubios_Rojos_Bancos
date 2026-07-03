@@ -175,7 +175,7 @@ export const ClientDashboard = () => {
                 <div className='flex items-center gap-4'>
                   <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${
                     transaction.type === 'Depósito' ? 'bg-[rgba(16,185,129,0.1)] text-[#10B981]' :
-                    transaction.type === 'Retiro' ? 'bg-[rgba(239,68,68,0.1)] text-[#EF4444]' :
+                    transaction.type === 'Retiro' ? 'bg-[rgba(30,58,138,0.1)] text-[#1E3A8A]' :
                     'bg-[rgba(37,99,235,0.1)] text-[#2563EB]'
                   }`}>
                     {transaction.type === 'Depósito' && <ArrowDownTrayIcon className='h-5 w-5' />}
@@ -190,7 +190,7 @@ export const ClientDashboard = () => {
                 <div className='text-right'>
                   <p className={`font-semibold ${
                     transaction.type === 'Depósito' ? 'text-[#10B981]' :
-                    transaction.type === 'Retiro' ? 'text-[#EF4444]' :
+                    transaction.type === 'Retiro' ? 'text-[#1E3A8A]' :
                     'text-[#1E293B]'
                   }`}>
                     {transaction.type === 'Depósito' ? '+' : transaction.type === 'Retiro' ? '-' : ''}{formatMoney(transaction.amount)}

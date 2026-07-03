@@ -28,12 +28,12 @@ export const showError = (message) =>
   toast.error(message, {
     style: {
       ...baseStyle,
-      background: 'linear-gradient(90deg, #ef4444 0%, #b91c1c 100%)',
+      background: 'linear-gradient(90deg, #1E3A8A 0%, #0A2472 100%)',
       color: '#fff',
-      border: '2px solid #ef4444',
+      border: '2px solid #1E3A8A',
     },
     iconTheme: {
-      primary: '#ef4444',
+      primary: '#1E3A8A',
       secondary: '#fff',
     },
   });

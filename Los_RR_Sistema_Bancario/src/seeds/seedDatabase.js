@@ -26,6 +26,7 @@ export const seedDatabase = async () => {
         await existingSuperAdmin.save();
         console.log(`SUPER_ADMIN existente ${existingSuperAdmin.email} marcado como verificado.`);
       }
+      console.log("Seed ya ejecutado anteriormente. No se crearán nuevos usuarios.");
       return;
     }
  

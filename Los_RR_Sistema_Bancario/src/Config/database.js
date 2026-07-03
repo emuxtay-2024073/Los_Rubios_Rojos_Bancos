@@ -15,6 +15,14 @@ export const connectDB = async () => {
 
         console.log("¡Base de datos conectada!");
 
+        // Limpiar colecciones para evitar conflictos en desarrollo
+        console.log("Limpiando colecciones MongoDB para evitar conflictos...");
+        const collections = mongoose.connection.collections;
+        for (const key in collections) {
+            await collections[key].deleteMany({});
+        }
+        console.log("Colecciones MongoDB limpiadas.");
+
         const roles = ["USER", "ADMIN", "SUPER_ADMIN"];
         for (const roleName of roles) {
             await Role.updateOne(
