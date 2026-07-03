@@ -44,7 +44,7 @@ const signRefreshToken = (userId) => {
 // =====================================================
 export const register = async (req, res) => {
     try {
-        const { username, email, password, accountType } = req.body;
+        const { username, email, password, accountType, phoneNumber, dpi } = req.body;
         const normalizedEmail = normalizeEmail(email);
  
         if (!username || !email || !password) {
@@ -52,6 +52,26 @@ export const register = async (req, res) => {
                 success: false,
                 message: "Faltan campos obligatorios: username, email y password son requeridos",
             });
+        }
+
+        if (phoneNumber) {
+            const phoneRegex = /^[+]?([0-9]{1,3})?[\s.-]?[(]?[0-9]{3}[)]?[\s.-]?[0-9]{3,4}[\s.-]?[0-9]{4}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "El número de teléfono no tiene un formato válido",
+                });
+            }
+        }
+
+        if (dpi) {
+            const dpiRegex = /^[0-9]{13,15}$/;
+            if (!dpiRegex.test(dpi)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "El DPI debe contener entre 13 y 15 dígitos",
+                });
+            }
         }
  
         if (typeof username !== 'string' || username.trim().length < 3 || username.trim().length > 30) {
@@ -92,6 +112,8 @@ export const register = async (req, res) => {
         const user = await User.create({
             username: username.trim(),
             email: normalizedEmail,
+            phoneNumber,
+            dpi,
             password,
             role: finalRole,
             emailVerified: false,
@@ -121,12 +143,18 @@ export const register = async (req, res) => {
         });
  
         const emailResult = await sendVerificationEmail(user, verificationToken);
- 
+
+        console.log('Email service result:', emailResult);
+
         res.status(201).json({
             success: true,
             emailVerificationRequired: true,
             verificationUrl: emailResult?.skipped ? emailResult.devLink : undefined,
-            message: "Usuario registrado correctamente. Revisa tu correo electrónico para verificar tu cuenta antes de iniciar sesión.",
+            emailSkipped: emailResult?.skipped,
+            emailError: emailResult?.error,
+            message: emailResult?.skipped 
+                ? "Usuario registrado correctamente. El servicio de correo no está configurado. Usa el link de desarrollo para verificar tu cuenta."
+                : "Usuario registrado correctamente. Revisa tu correo electrónico para verificar tu cuenta antes de iniciar sesión.",
             user: {
                 id: user.id,
                 username: user.username,

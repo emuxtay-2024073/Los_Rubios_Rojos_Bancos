@@ -479,7 +479,7 @@ export const Accounts = () => {
                 <button
                   type='submit'
                   disabled={disableProcessing}
-                  className='rounded-full bg-[#EF4444] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
+                  className='rounded-full bg-[#1E3A8A] px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90 disabled:opacity-50'
                 >
                   {disableProcessing ? 'Enviando...' : 'Enviar solicitud'}
                 </button>

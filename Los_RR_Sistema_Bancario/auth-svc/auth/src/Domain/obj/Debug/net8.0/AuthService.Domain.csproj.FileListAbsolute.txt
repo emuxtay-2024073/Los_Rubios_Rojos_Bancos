@@ -1,0 +1,248 @@
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Angelo Garcia\Desktop\say\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Angelo Garcia\Desktop\git\Los-Rezagados-Sistema-Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\bANCO R\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\Documentacionsiu\Los-Rezagados-Sistema-Bancario-One-Coin\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\Rubios_Bancos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Downloads\BANCOS RR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Documents\BANCORR\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Desktop\RESBB\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Documents\sip1\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Desktop\sip2\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Desktop\holasiu\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\SIUU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\Presentacion-pre\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\Presentación\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Juare\OneDrive\Desktop\repos\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+c:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Desktop\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.sourcelink.json
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\muxta\Downloads\TERCERNOU\Los_Rubios_Rojos_Bancos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_Rubios_Rojos_Bancos-main\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\Informatica\Documents\IN6AM\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.deps.json
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\bin\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfoInputs.cache
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.AssemblyInfo.cs
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.csproj.CoreCompileInputs.cache
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\refint\AuthService.Domain.dll
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\AuthService.Domain.pdb
+C:\Users\CompuFire\Documents\Rubios Rojos\Los_RR_Sistema_Bancario\authentication-service\auth-service\src\AuthService.Domain\obj\Debug\net8.0\ref\AuthService.Domain.dll

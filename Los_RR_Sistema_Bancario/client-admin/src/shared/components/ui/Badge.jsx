@@ -11,9 +11,9 @@ export const Badge = ({
   const variants = {
     success: 'bg-[rgba(16,185,129,0.1)] text-[#10B981]',
     warning: 'bg-[rgba(245,158,11,0.1)] text-[#F59E0B]',
-    danger: 'bg-[rgba(239,68,68,0.1)] text-[#EF4444]',
-    info: 'bg-[rgba(122,0,25,0.1)] text-[#7A0019]',
-    accent: 'bg-[rgba(214,169,74,0.18)] text-[#7A0019]',
+    danger: 'bg-[rgba(30,58,138,0.1)] text-[#1E3A8A]',
+    info: 'bg-[rgba(10,36,114,0.1)] text-[#0A2472]',
+    accent: 'bg-[rgba(251,191,36,0.18)] text-[#FBBF24]',
   };
   
   return (

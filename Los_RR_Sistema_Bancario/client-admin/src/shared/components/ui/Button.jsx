@@ -14,9 +14,9 @@ export const Button = ({
     primary: 'btn-primary',
     secondary: 'btn-secondary',
     accent: 'btn-accent',
-    outline: 'border-2 border-[#7A0019] text-[#7A0019] hover:bg-[#7A0019] hover:text-white',
+    outline: 'border-2 border-[#0A2472] text-[#0A2472] hover:bg-[#0A2472] hover:text-white',
     ghost: 'text-[#1E293B] hover:bg-[#F8FAFC]',
-    danger: 'bg-[#EF4444] text-white hover:bg-[#dc2626] hover:-translate-y-0.5',
+    danger: 'bg-[#1E3A8A] text-white hover:bg-[#0A2472] hover:-translate-y-0.5',
   };
   
   const sizes = {

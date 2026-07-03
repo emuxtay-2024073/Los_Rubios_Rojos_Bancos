@@ -88,7 +88,7 @@ export const DataTable = ({
                     key={column.key}
                     value={filters[column.key] || ''}
                     onChange={(e) => setFilters({ ...filters, [column.key]: e.target.value })}
-                    className='h-10 rounded-xl border border-[#E5E0D8] px-4 text-sm focus:outline-none focus:border-[#7A0019] bg-white'
+                    className='h-10 rounded-xl border border-[#E5E0D8] px-4 text-sm focus:outline-none focus:border-[#0A2472] bg-white'
                   >
                     <option value=''>{column.label}</option>
                     {getUniqueValues(column.key).map((value) => (
@@ -108,7 +108,7 @@ export const DataTable = ({
       <div className='overflow-x-auto rounded-2xl border border-[rgba(214,169,74,0.24)] shadow-[0_8px_24px_rgba(74,0,17,0.06)]'>
         <table className='w-full border-collapse bg-white'>
           <thead>
-            <tr className='bg-[#7A0019] text-white'>
+            <tr className='bg-[#0A2472] text-white'>
               {columns.map((column) => (
                 <th
                   key={column.key}
@@ -141,7 +141,7 @@ export const DataTable = ({
             {sortedData.map((row, rowIndex) => (
               <tr
                 key={rowIndex}
-                className='border-b border-[rgba(229,224,216,0.8)] hover:bg-[rgba(122,0,25,0.04)] transition-colors'
+                className='border-b border-[rgba(229,224,216,0.8)] hover:bg-[rgba(10,36,114,0.04)] transition-colors'
               >
                 {columns.map((column) => (
                   <td key={column.key} className='px-5 py-4 text-sm text-[#1E293B]'>

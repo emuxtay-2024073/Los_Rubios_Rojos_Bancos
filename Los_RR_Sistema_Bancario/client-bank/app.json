@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "client-bank",
+    "slug": "client-bank",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.clientbank.app"
+    },
+    "android": {
+      "package": "com.clientbank.app"
+    }
+  }
+}

@@ -22,7 +22,7 @@ export const StatCard = ({
             </p>
             {change && (
               <div className={`flex items-center gap-1 mt-2 text-sm font-semibold ${
-                changeType === 'positive' ? 'text-[#10B981]' : 'text-[#EF4444]'
+                changeType === 'positive' ? 'text-[#10B981]' : 'text-[#1E3A8A]'
               }`}>
                 <span>{changeType === 'positive' ? '↑' : '↓'}</span>
                 <span>{change}</span>
@@ -30,8 +30,8 @@ export const StatCard = ({
             )}
           </div>
           {Icon && (
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(122,0,25,0.1)]">
-              <Icon className="h-7 w-7 text-[#7A0019]" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[rgba(10,36,114,0.1)]">
+              <Icon className="h-7 w-7 text-[#0A2472]" />
             </div>
           )}
         </div>
