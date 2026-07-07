@@ -2,15 +2,16 @@
 
 export const COLORS = {
   primary: "#002D62",
-  secondary: "#005691",
-  background: "#F5EEDA",
-  surface: "#ffffff",
+  secondary: "#004080",
+  background: "#FFFFFF",
+  surface: "#FFFFFF",
   text: "#002D62",
-  textLight: "#005691",
-  error: "#dc2626",
-  success: "#16a34a",
-  warning: "#C9A063",
-  border: "#C2B7A3",
+  textLight: "#004080",
+  error: "#002D62",
+  success: "#002D62",
+  warning: "#FFD700",
+  border: "#002D62",
+  white: "#FFFFFF",
 };
 
 export const SPACING = {

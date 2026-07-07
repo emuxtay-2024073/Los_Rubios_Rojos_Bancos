@@ -31,4 +31,7 @@ public class RegisterDto
 
     /// <summary>Tipo de cuenta bancaria inicial: ahorro, monetaria o corriente.</summary>
     public string AccountType { get; set; } = "ahorro";
+
+    /// <summary>Tipo de cliente: 'web' o 'mobile' para enviar el link de verificación correcto.</summary>
+    public string ClientType { get; set; } = "web";
 }

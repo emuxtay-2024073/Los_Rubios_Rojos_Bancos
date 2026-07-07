@@ -40,8 +40,9 @@ export const useAuth = () => {
     setError(null);
     try {
       console.log("Sending register request to:", "/register");
-      console.log("Register data:", userData);
-      const response = await authClient.post("/register", userData);
+      const registerData = { ...userData, clientType: "mobile" };
+      console.log("Register data:", registerData);
+      const response = await authClient.post("/register", registerData);
       console.log("Register response:", response.data);
       return { success: true, data: response.data };
     } catch (err) {
