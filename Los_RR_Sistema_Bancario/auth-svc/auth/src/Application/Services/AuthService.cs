@@ -165,7 +165,10 @@ public class AuthService : IAuthService
         try
         {
             var frontendUrl = _configuration["FrontendUrl"] ?? "http://localhost:5173";
-            var verificationLink = $"{frontendUrl}/verify-email?token={verificationToken}";
+            var isMobileClient = dto.ClientType?.ToLower() == "mobile";
+            var verificationLink = isMobileClient
+                ? $"losrubiosrojos://verify-email?token={verificationToken}"
+                : $"{frontendUrl}/verify-email?token={verificationToken}";
 
             var emailBody = BuildVerificationTextBody(newUser.Username, verificationLink);
             var emailHtml = BuildVerificationHtmlBody(newUser.Username, verificationLink);

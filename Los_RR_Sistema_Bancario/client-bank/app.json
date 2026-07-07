@@ -8,6 +8,7 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "scheme": "losrubiosrojos",
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.clientbank.app"
