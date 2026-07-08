@@ -95,8 +95,8 @@ export const seedDatabase = async () => {
     const transaction1 = await Transaction.create({
       type: "TRANSFERENCIA",
       amount: 500.00,
-      originAccount: account1.accountNumber,
-      destinationAccount: account2.accountNumber,
+      originAccount: account1._id,
+      destinationAccount: account2._id,
       description: "Transferencia de prueba inicial",
       currency: "GTQ",
       exchangeRate: 1.00,
@@ -106,8 +106,8 @@ export const seedDatabase = async () => {
     const transaction2 = await Transaction.create({
       type: "TRANSFERENCIA",
       amount: 250.00,
-      originAccount: account2.accountNumber,
-      destinationAccount: account1.accountNumber,
+      originAccount: account2._id,
+      destinationAccount: account1._id,
       description: "Transferencia de retorno",
       currency: "GTQ",
       exchangeRate: 1.00,

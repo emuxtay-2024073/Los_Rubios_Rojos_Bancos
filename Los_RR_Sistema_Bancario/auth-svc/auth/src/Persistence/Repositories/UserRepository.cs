@@ -36,6 +36,8 @@ namespace AuthService.Persistence.Repositories
 
         public async Task<bool> ExistsByDpiAsync(string dpi)
         {
+            if (string.IsNullOrWhiteSpace(dpi))
+                return false;
             return await _context.User.AnyAsync(u => u.Dpi == dpi);
         }
 
