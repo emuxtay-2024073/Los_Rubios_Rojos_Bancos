@@ -871,8 +871,8 @@
     },
     "AuthService.Domain/1.0.0": {
       "type": "project",
-      "path": "../AuthService.Domain/AuthService.Domain.csproj",
-      "msbuildProject": "../AuthService.Domain/AuthService.Domain.csproj"
+      "path": "../Domain/AuthService.Domain.csproj",
+      "msbuildProject": "../Domain/AuthService.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -891,11 +891,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+      "projectUniqueName": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Application\\AuthService.Application.csproj",
       "projectName": "AuthService.Application",
-      "projectPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+      "projectPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Application\\AuthService.Application.csproj",
       "packagesPath": "C:\\Users\\CompuFire\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\obj\\",
+      "outputPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\CompuFire\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -910,8 +910,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj": {
-              "projectPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj"
+            "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Domain\\AuthService.Domain.csproj": {
+              "projectPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Domain\\AuthService.Domain.csproj"
             }
           }
         }

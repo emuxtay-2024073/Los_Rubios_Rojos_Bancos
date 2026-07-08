@@ -32,7 +32,7 @@ namespace AuthService.Persistence.Data
             {
                 entity.HasIndex(u => u.Email).IsUnique();
                 entity.HasIndex(u => u.Username).IsUnique();
-                entity.HasIndex(u => u.Dpi).IsUnique();
+                entity.HasIndex(u => u.Dpi).IsUnique().HasFilter("Dpi IS NOT NULL");
             });
 
             modelBuilder.Entity<UserRole>(entity =>

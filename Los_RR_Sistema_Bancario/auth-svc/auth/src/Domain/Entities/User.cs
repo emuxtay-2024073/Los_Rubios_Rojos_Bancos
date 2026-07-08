@@ -9,8 +9,8 @@ namespace AuthService.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Email { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
-        public string Dpi { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } = string.Empty;
+        public string? Dpi { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
 
         public bool IsActive { get; set; } = true;

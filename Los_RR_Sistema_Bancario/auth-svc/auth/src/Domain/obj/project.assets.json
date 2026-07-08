@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Domain\\AuthService.Domain.csproj",
       "projectName": "AuthService.Domain",
-      "projectPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\AuthService.Domain.csproj",
+      "projectPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Domain\\AuthService.Domain.csproj",
       "packagesPath": "C:\\Users\\CompuFire\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Domain\\obj\\",
+      "outputPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\CompuFire\\AppData\\Roaming\\NuGet\\NuGet.Config"

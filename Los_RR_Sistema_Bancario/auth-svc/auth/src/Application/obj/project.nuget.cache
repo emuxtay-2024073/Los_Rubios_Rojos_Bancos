@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iFEm9cBb50E=",
+  "dgSpecHash": "vEP3SQwVUWQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj",
+  "projectFilePath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Application\\AuthService.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\CompuFire\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\CompuFire\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",

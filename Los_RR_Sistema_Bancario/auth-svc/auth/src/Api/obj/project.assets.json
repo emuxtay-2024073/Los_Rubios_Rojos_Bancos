@@ -5275,18 +5275,18 @@
     },
     "AuthService.Application/1.0.0": {
       "type": "project",
-      "path": "../AuthService.Application/AuthService.Application.csproj",
-      "msbuildProject": "../AuthService.Application/AuthService.Application.csproj"
+      "path": "../Application/AuthService.Application.csproj",
+      "msbuildProject": "../Application/AuthService.Application.csproj"
     },
     "AuthService.Domain/1.0.0": {
       "type": "project",
-      "path": "../AuthService.Domain/AuthService.Domain.csproj",
-      "msbuildProject": "../AuthService.Domain/AuthService.Domain.csproj"
+      "path": "../Domain/AuthService.Domain.csproj",
+      "msbuildProject": "../Domain/AuthService.Domain.csproj"
     },
     "AuthService.Persistence/1.0.0": {
       "type": "project",
-      "path": "../AuthService.Persistence/AuthService.Persistence.csproj",
-      "msbuildProject": "../AuthService.Persistence/AuthService.Persistence.csproj"
+      "path": "../Persistence/AuthService.Persistence.csproj",
+      "msbuildProject": "../Persistence/AuthService.Persistence.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5310,11 +5310,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
+      "projectUniqueName": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Api\\AuthService.Api.csproj",
       "projectName": "AuthService.Api",
-      "projectPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\AuthService.Api.csproj",
+      "projectPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Api\\AuthService.Api.csproj",
       "packagesPath": "C:\\Users\\CompuFire\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Api\\obj\\",
+      "outputPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\CompuFire\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5329,11 +5329,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj": {
-              "projectPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Application\\AuthService.Application.csproj"
+            "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Application\\AuthService.Application.csproj": {
+              "projectPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Application\\AuthService.Application.csproj"
             },
-            "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj": {
-              "projectPath": "C:\\Users\\CompuFire\\Documents\\Rubios Rojos\\Los_RR_Sistema_Bancario\\authentication-service\\auth-service\\src\\AuthService.Persistence\\AuthService.Persistence.csproj"
+            "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Persistence\\AuthService.Persistence.csproj": {
+              "projectPath": "C:\\Users\\CompuFire\\Documents\\BANCOS-RR\\Los_Rubios_Rojos_Bancos\\Los_RR_Sistema_Bancario\\auth-svc\\auth\\src\\Persistence\\AuthService.Persistence.csproj"
             }
           }
         }
