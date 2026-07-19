@@ -38,7 +38,10 @@ const AppNavigator = () => {
   console.log("Showing navigation:", isAuthenticated ? "MainTabs" : "AuthStack");
   return (
     <NavigationContainer linking={linking}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+        initialRouteName={isAuthenticated ? "MainTabs" : "AuthStack"}
+      >
         <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
         {isAuthenticated ? (
           <Stack.Screen name="MainTabs" component={MainTabs} />

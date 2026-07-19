@@ -1,0 +1,23 @@
+# Dependencias
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+
+# Logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+pnpm-debug.*
+
+# Editor / OS
+.DS_Store
+.vscode/
+*.log

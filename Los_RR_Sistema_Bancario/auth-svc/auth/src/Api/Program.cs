@@ -22,7 +22,15 @@ using Npgsql;
 // y [Authorize(Roles = "ADMIN")] nunca coincide.
 System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
- 
+
+// Fix: la tabla "User" es compartida con el backend Node, que la crea con columnas
+// TIMESTAMP (sin zona horaria) vía SQL crudo. Npgsql 6+ por defecto rechaza escribir
+// DateTime con Kind=Unspecified en columnas timestamptz ("Cannot write DateTime with
+// Kind=Unspecified..."). Este switch restaura el comportamiento legado y evita el 500
+// en login/registro. Debe ir ANTES de cualquier uso de Npgsql (por eso está aquí, antes
+// del builder).
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
