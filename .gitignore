@@ -1,0 +1,30 @@
+# Variables de entorno (NUNCA subir secretos reales)
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Dependencias
+node_modules/
+**/node_modules/
+
+# .NET
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Builds de frontend
+dist/
+dist-ssr/
+web-build/
+build/
+
+# Expo
+.expo/
+
+# Editor / OS
+.vscode/
+.DS_Store
+*.log
