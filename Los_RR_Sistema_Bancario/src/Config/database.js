@@ -39,13 +39,20 @@ export const connectDB = async () => {
 
         console.log("¡Base de datos conectada!");
 
-        // Limpiar colecciones para evitar conflictos en desarrollo
-        console.log("Limpiando colecciones MongoDB para evitar conflictos...");
-        const collections = mongoose.connection.collections;
-        for (const key in collections) {
-            await collections[key].deleteMany({});
+        // Limpiar colecciones SOLO en desarrollo, o si se fuerza explícitamente con RESET_DB=true.
+        // En producción esto NUNCA debe correr por defecto: borraría todos los datos reales en cada
+        // arranque/redeploy.
+        const shouldResetDb = process.env.NODE_ENV !== "production" || process.env.RESET_DB === "true";
+        if (shouldResetDb) {
+            console.log("Limpiando colecciones MongoDB para evitar conflictos...");
+            const collections = mongoose.connection.collections;
+            for (const key in collections) {
+                await collections[key].deleteMany({});
+            }
+            console.log("Colecciones MongoDB limpiadas.");
+        } else {
+            console.log("NODE_ENV=production: se omite la limpieza de colecciones MongoDB.");
         }
-        console.log("Colecciones MongoDB limpiadas.");
 
         const roles = ["USER", "ADMIN", "SUPER_ADMIN"];
         for (const roleName of roles) {

@@ -49,18 +49,25 @@ export const connectPostgres = async () => {
   try {
     await sequelize.authenticate();
     console.log('✓ Conectado a PostgreSQL exitosamente');
-    
-    // Recrear tabla User completamente para eliminar restricciones antiguas
-    try {
-      await sequelize.query(`DROP TABLE IF EXISTS "User" CASCADE;`);
-      console.log('✓ Tabla User eliminada para recrear sin restricciones antiguas');
-    } catch (error) {
-      console.log('Nota: No se pudo eliminar tabla (puede que no exista)');
+
+    // Solo se elimina/recrea la tabla "User" en desarrollo, o si se fuerza explícitamente con
+    // RESET_DB=true. En producción NUNCA debe borrarse por defecto: esto destruiría a todos los
+    // usuarios reales en cada arranque/redeploy.
+    const shouldResetDb = process.env.NODE_ENV !== 'production' || process.env.RESET_DB === 'true';
+    if (shouldResetDb) {
+      try {
+        await sequelize.query(`DROP TABLE IF EXISTS "User" CASCADE;`);
+        console.log('✓ Tabla User eliminada para recrear sin restricciones antiguas');
+      } catch (error) {
+        console.log('Nota: No se pudo eliminar tabla (puede que no exista)');
+      }
+    } else {
+      console.log('NODE_ENV=production: se omite el DROP de la tabla User.');
     }
 
-    // Crear tabla manualmente
+    // Crear tabla solo si no existe (seguro para producción: no destruye datos existentes)
     await sequelize.query(`
-      CREATE TABLE "User" (
+      CREATE TABLE IF NOT EXISTS "User" (
         "Id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         "Username" VARCHAR(30) NOT NULL UNIQUE,
         "Email" VARCHAR NOT NULL UNIQUE,

@@ -55,6 +55,12 @@ if (!jwtSettings.Exists())
 }
 var securitySettings = configuration.GetSection("Security");
 
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrWhiteSpace(port) && string.IsNullOrWhiteSpace(builder.Configuration["ASPNETCORE_URLS"]))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+
 static bool TryParseBoolEnv(string? value, out bool result)
 {
     if (bool.TryParse(value, out result)) return true;
@@ -151,7 +157,9 @@ MapEnv("SMTP_PORT", "SmtpSettings:Port");
 MapEnv("SMTP_USER", "SmtpSettings:Username");
 MapEnv("SMTP_PASS", "SmtpSettings:Password");
 MapEnv("SMTP_FROM", "SmtpSettings:FromEmail");
+MapEnv("EMAIL_FROM", "SmtpSettings:FromEmail");
 MapEnv("SMTP_FROM_NAME", "SmtpSettings:FromName");
+MapEnv("EMAIL_FROM_NAME", "SmtpSettings:FromName");
 MapEnv("SMTP_TIMEOUT", "SmtpSettings:Timeout");
 MapEnv("SMTP_IGNORE_CERTIFICATE_ERRORS", "SmtpSettings:IgnoreCertificateErrors");
 MapEnv("SMTP_USE_FALLBACK", "SmtpSettings:UseFallback");
@@ -275,13 +283,41 @@ builder.Services.AddAuthenticationServices();
 // ============================================
 builder.Services.AddCors(options =>
 {
+    var configuredOrigins = configuration
+        .GetSection("Security:AllowedOrigins")
+        .Get<string[]>()
+        ?? configuration
+            .GetSection("Cors:AllowedOrigins")
+            .Get<string[]>()
+        ?? Array.Empty<string>();
+
+    var envOrigins = Environment.GetEnvironmentVariable("CORS_ALLOWED_ORIGINS")
+        ?? Environment.GetEnvironmentVariable("ALLOWED_ORIGINS")
+        ?? Environment.GetEnvironmentVariable("CORS_ORIGINS")
+        ?? Environment.GetEnvironmentVariable("FRONTEND_URL")
+        ?? Environment.GetEnvironmentVariable("CLIENT_URL");
+
+    if (!string.IsNullOrWhiteSpace(envOrigins))
+    {
+        configuredOrigins = envOrigins
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .ToArray();
+    }
+
+    if (configuredOrigins.Length == 0)
+    {
+        configuredOrigins = new[]
+        {
+            "http://localhost:5173",
+            "http://localhost:5174",
+            "http://127.0.0.1:5173",
+            "http://127.0.0.1:5174"
+        };
+    }
+
     options.AddPolicy("CorsPolicy", policy =>
     {
-        var allowedOrigins = configuration
-            .GetSection("Security:AllowedOrigins")
-            .Get<string[]>() ?? new[] { "http://localhost:4200", "http://localhost:3000" };
-
-        policy.WithOrigins(allowedOrigins)
+        policy.WithOrigins(configuredOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -291,12 +327,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins(
-                    "http://localhost:5173",
-                    "http://localhost:5174",
-                    "http://127.0.0.1:5173",
-                    "http://127.0.0.1:5174"
-                )
+                .WithOrigins(configuredOrigins)
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
@@ -346,9 +377,13 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
-app.UseCors("AllowFrontend");
+app.UseCors("CorsPolicy");
 
-if (app.Environment.IsDevelopment())
+// Swagger se activa en Development automáticamente. En producción solo se activa si
+// ENABLE_SWAGGER=true está definido explícitamente (por ejemplo, mientras se hace la entrega/demo).
+// Quita esa variable cuando el sistema pase a operación real, para no exponer el mapa de la API.
+var enableSwaggerInProd = TryParseBoolEnv(GetEnv("ENABLE_SWAGGER"), out var swaggerFlag) && swaggerFlag;
+if (app.Environment.IsDevelopment() || enableSwaggerInProd)
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
@@ -373,7 +408,7 @@ app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseMiddleware<RateLimitingMiddleware>();
 
 // CORS
-app.UseCors("AllowFrontend");
+app.UseCors("CorsPolicy");
 
 // Autenticación y Autorización
 app.UseAuthentication();

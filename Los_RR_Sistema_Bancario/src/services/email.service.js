@@ -6,7 +6,7 @@ export const sendVerificationEmail = async (user, token) => {
   const smtpPort = process.env.SMTP_PORT;
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  const emailFrom = process.env.EMAIL_FROM || `no-reply@${process.env.APP_DOMAIN || 'localhost'}`;
+  const emailFrom = process.env.SMTP_FROM || process.env.EMAIL_FROM || `no-reply@${process.env.APP_DOMAIN || 'localhost'}`;
 
   console.log('=== Email Service Debug ===');
   console.log('SMTP Host:', smtpHost ? 'CONFIGURED' : 'NOT CONFIGURED');
