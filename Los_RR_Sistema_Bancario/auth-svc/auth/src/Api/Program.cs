@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -14,6 +15,7 @@ using AuthService.Persistence.Data;
 using AuthService.Persistence.Repositories;
 using AuthService.Domain.Constants;
 using AuthService.Domain.Entities;
+using Npgsql;
 
 // Deshabilitar el remapeo automático de claims de JWT al formato largo de Microsoft.
 // Sin esto, el claim "role" se convierte a "http://schemas.microsoft.com/.../role"
@@ -32,14 +34,17 @@ builder.Logging.AddFilter("Program", LogLevel.Information);
 builder.Logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning);
 builder.Logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Warning);
 
+var dataProtectionKeysPath = Path.Combine(builder.Environment.ContentRootPath, "keys");
+Directory.CreateDirectory(dataProtectionKeysPath);
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(dataProtectionKeysPath))
+    .SetApplicationName("SistemaBancarioAuth");
+
 
 // ============================================
 // CONFIGURACIÓN DE BASE DE DATOS
 // ============================================
 // Configuración para PostgreSQL
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 // ============================================
 // CONFIGURACIÓN DE JWT
 // ============================================
@@ -92,9 +97,39 @@ static void LoadDotEnvFile(string filePath)
         if (separatorIndex <= 0) continue;
         var key = line[..separatorIndex].Trim();
         var value = line[(separatorIndex + 1)..].Trim();
+        if (value.Length >= 2 &&
+            ((value.StartsWith('"') && value.EndsWith('"')) ||
+             (value.StartsWith('\'') && value.EndsWith('\''))))
+        {
+            value = value[1..^1];
+        }
         if (string.IsNullOrWhiteSpace(key)) continue;
         Environment.SetEnvironmentVariable(key, value);
     }
+}
+
+static string NormalizePostgresConnectionString(string connectionString)
+{
+    var trimmed = connectionString.Trim();
+    if (trimmed.StartsWith("postgres://", StringComparison.OrdinalIgnoreCase) ||
+        trimmed.StartsWith("postgresql://", StringComparison.OrdinalIgnoreCase))
+    {
+        var uri = new Uri(trimmed);
+        var userInfo = uri.UserInfo.Split(':', 2);
+        var builder = new NpgsqlConnectionStringBuilder
+        {
+            Host = uri.Host,
+            Port = uri.Port > 0 ? uri.Port : 5432,
+            Database = uri.AbsolutePath.TrimStart('/'),
+            Username = Uri.UnescapeDataString(userInfo.ElementAtOrDefault(0) ?? string.Empty),
+            Password = Uri.UnescapeDataString(userInfo.ElementAtOrDefault(1) ?? string.Empty),
+            SslMode = SslMode.Require
+        };
+
+        return builder.ConnectionString;
+    }
+
+    return trimmed;
 }
 
 var dotEnvFile = FindDotEnvFile(builder.Environment.ContentRootPath) ?? FindDotEnvFile(Directory.GetCurrentDirectory());
@@ -121,6 +156,44 @@ MapEnv("SMTP_TIMEOUT", "SmtpSettings:Timeout");
 MapEnv("SMTP_IGNORE_CERTIFICATE_ERRORS", "SmtpSettings:IgnoreCertificateErrors");
 MapEnv("SMTP_USE_FALLBACK", "SmtpSettings:UseFallback");
 MapEnv("FRONTEND_URL", "FrontendUrl");
+MapEnv("DATABASE_URL", "ConnectionStrings:DefaultConnection");
+MapEnv("SUPABASE_DB_CONNECTION", "ConnectionStrings:DefaultConnection");
+
+var dbHost = GetEnv("DB_HOST");
+if (!string.IsNullOrWhiteSpace(dbHost) &&
+    string.IsNullOrWhiteSpace(GetEnv("DATABASE_URL")) &&
+    string.IsNullOrWhiteSpace(GetEnv("SUPABASE_DB_CONNECTION")))
+{
+    var pgConnection = new NpgsqlConnectionStringBuilder
+    {
+        Host = dbHost,
+        Database = GetEnv("DB_NAME") ?? "postgres",
+        Username = GetEnv("DB_USER") ?? "postgres",
+        Password = GetEnv("DB_PASSWORD") ?? string.Empty
+    };
+
+    if (int.TryParse(GetEnv("DB_PORT"), out var dbPort))
+    {
+        pgConnection.Port = dbPort;
+    }
+
+    if (Enum.TryParse<SslMode>(GetEnv("DB_SSL_MODE"), ignoreCase: true, out var sslMode))
+    {
+        pgConnection.SslMode = sslMode;
+    }
+
+    builder.Configuration["ConnectionStrings:DefaultConnection"] = pgConnection.ConnectionString;
+}
+
+var configuredConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (!string.IsNullOrWhiteSpace(configuredConnectionString))
+{
+    builder.Configuration["ConnectionStrings:DefaultConnection"] =
+        NormalizePostgresConnectionString(configuredConnectionString);
+}
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var smtpEnabledValue = GetEnv("SMTP_ENABLED");
 if (!string.IsNullOrWhiteSpace(smtpEnabledValue) && TryParseBoolEnv(smtpEnabledValue, out var smtpEnabled))
