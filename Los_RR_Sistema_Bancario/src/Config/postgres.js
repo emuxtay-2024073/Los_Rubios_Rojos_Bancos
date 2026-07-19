@@ -3,23 +3,44 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME || 'bancos_db',
-  process.env.DB_USER || 'RUBIOSR',
-  process.env.DB_PASSWORD || 'Bancos123!',
-  {
-    host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || 5436,
-    dialect: 'postgres',
-    logging: console.log, // Habilitar logging para ver queries
-    pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000,
-    },
-  }
-);
+const databaseUrl = process.env.DATABASE_URL || process.env.SUPABASE_DB_CONNECTION;
+const dbHost = process.env.DB_HOST || 'localhost';
+const shouldUseSsl =
+  dbHost.includes('supabase.com') ||
+  databaseUrl?.includes('supabase.com') ||
+  ['require', 'true', '1'].includes((process.env.DB_SSL_MODE || '').toLowerCase());
+
+const sequelizeOptions = {
+  dialect: 'postgres',
+  logging: console.log, // Habilitar logging para ver queries
+  dialectOptions: shouldUseSsl
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      }
+    : undefined,
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
+};
+
+const sequelize = databaseUrl
+  ? new Sequelize(databaseUrl, sequelizeOptions)
+  : new Sequelize(
+      process.env.DB_NAME || 'bancos_db',
+      process.env.DB_USER || 'RUBIOSR',
+      process.env.DB_PASSWORD || 'Bancos123!',
+      {
+        ...sequelizeOptions,
+        host: dbHost,
+        port: process.env.DB_PORT || 5436,
+      }
+    );
 
 // Importar modelos para asegurar que se registren con Sequelize
 import User from '../Models/user.model.postgres.js';
