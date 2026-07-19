@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { User } from "../Models/user.model.js";
 import PostgresUser from "../Models/user.model.postgres.js";
 import bcrypt from "bcryptjs";
-import { createAuditLog } from "../Services/log.service.js";
+import { createAuditLog } from "../services/log.service.js";
 
 const normalizeRole = (r) => String(r || '').toUpperCase().replace(/[-_\s]/g, '');
 
