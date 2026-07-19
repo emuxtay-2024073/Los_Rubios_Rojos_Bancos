@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import { isEmailValid, isValidPassword, normalizeEmail } from '../Helpers/validators.js';
-import { createAuditLog } from '../Services/log.service.js';
-import { sendVerificationEmail } from '../Services/email.service.js';
+import { createAuditLog } from '../services/log.service.js';
+import { sendVerificationEmail } from '../services/email.service.js';
  
 // =====================================================
 // HELPERS
