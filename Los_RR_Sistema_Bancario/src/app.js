@@ -18,7 +18,41 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+const buildCorsOrigins = () => {
+  const rawOrigins = [
+    process.env.CORS_ORIGINS,
+    process.env.ALLOWED_ORIGINS,
+    process.env.FRONTEND_URL,
+    process.env.CLIENT_URL,
+  ]
+    .filter(Boolean)
+    .join(",")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  const defaultOrigins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
+  ];
+
+  return rawOrigins.length > 0 ? [...new Set([...rawOrigins, ...defaultOrigins])] : defaultOrigins;
+};
+
+const corsOrigins = buildCorsOrigins();
+
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (corsOrigins.includes(origin)) return callback(null, true);
+    return callback(null, false);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
