@@ -28,14 +28,10 @@ const linking = {
 const AppNavigator = () => {
   const { isAuthenticated, _hasHydrated } = useAuthStore();
 
-  console.log("AppNavigator - isAuthenticated:", isAuthenticated, "_hasHydrated:", _hasHydrated);
-
   if (!_hasHydrated) {
-    console.log("Showing LoadingSpinner...");
     return <LoadingSpinner />;
   }
 
-  console.log("Showing navigation:", isAuthenticated ? "MainTabs" : "AuthStack");
   return (
     <NavigationContainer linking={linking}>
       <Stack.Navigator
@@ -43,11 +39,8 @@ const AppNavigator = () => {
         initialRouteName={isAuthenticated ? "MainTabs" : "AuthStack"}
       >
         <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
-        {isAuthenticated ? (
-          <Stack.Screen name="MainTabs" component={MainTabs} />
-        ) : (
-          <Stack.Screen name="AuthStack" component={AuthStack} />
-        )}
+        <Stack.Screen name="AuthStack" component={AuthStack} />
+        <Stack.Screen name="MainTabs" component={MainTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );

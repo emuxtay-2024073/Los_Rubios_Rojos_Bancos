@@ -46,6 +46,12 @@ const useAuthStore = create(
           });
         } catch (error) {
           console.error("Error al eliminar refreshToken:", error);
+          // Aún limpiar el estado local aunque falle el borrado seguro
+          set({
+            token: null,
+            user: null,
+            isAuthenticated: false,
+          });
         }
       },
 
@@ -61,9 +67,7 @@ const useAuthStore = create(
       name: "auth-storage",
       storage: createJSONStorage(() => AsyncStorage),
       onRehydrateStorage: () => (state) => {
-        console.log("AuthStore rehydrating, state:", state);
         state && (state._hasHydrated = true);
-        console.log("AuthStore hydrated, _hasHydrated:", state?._hasHydrated);
       },
       partialize: (state) => ({
         token: state.token,

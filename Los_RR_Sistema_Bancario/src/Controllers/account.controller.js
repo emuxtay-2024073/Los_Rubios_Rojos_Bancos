@@ -213,7 +213,7 @@ export const getAccounts = async (req, res) => {
             accounts = [newAccount];
         }
  
-        res.json({ success: true, total: accounts.length, accounts });
+        res.json({ success: true, total: accounts.length, data: accounts });
     } catch (error) {
         console.error("Error al obtener cuentas:", error);
         res.status(500).json({ message: "Error al obtener cuentas" });

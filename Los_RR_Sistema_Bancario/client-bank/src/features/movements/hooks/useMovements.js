@@ -1,7 +1,7 @@
 // client-bank/src/features/movements/hooks/useMovements.js
 
 import { useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import userClient from "../../../../api/userClient.js";
 import { ENDPOINTS } from "../../../shared/constants/endpoints.js";
 import useAuthStore from "../../../../store/authStore.js";
 
@@ -15,11 +15,13 @@ export const useMovements = () => {
     setError(null);
     try {
       const token = useAuthStore.getState().token;
-      const response = await axios.get(`${ENDPOINTS.TRANSACTIONS}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      if (!token) {
+        setError("No hay token de autenticación");
+        return;
+      }
+      console.log("Fetching movements from:", ENDPOINTS.TRANSACTIONS);
+      const response = await userClient.get(ENDPOINTS.TRANSACTIONS);
+      console.log("Movements response:", response.data);
       const data = response.data.data || response.data;
       const mappedMovements = data.map((movement) => ({
         id: movement.id || movement._id,
@@ -31,7 +33,9 @@ export const useMovements = () => {
       }));
       setMovements(mappedMovements);
     } catch (err) {
-      setError(err.response?.data?.message || "Error al cargar movimientos");
+      console.error("Error fetching movements:", err);
+      const errorMessage = err.response?.data?.message || err.message || "Error al cargar movimientos";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

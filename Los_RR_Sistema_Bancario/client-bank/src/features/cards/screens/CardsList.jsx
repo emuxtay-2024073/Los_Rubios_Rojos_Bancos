@@ -61,7 +61,7 @@ const CardsList = ({ navigation }) => {
                 </View>
               </View>
               <View style={styles.cardNumber}>
-                <Text style={styles.cardNumberText}>**** **** **** {card.cardNumber.slice(-4)}</Text>
+                <Text style={styles.cardNumberText}>**** **** **** {card.cardNumber && card.cardNumber.length >= 4 ? card.cardNumber.slice(-4) : '****'}</Text>
               </View>
               <View style={styles.cardFooter}>
                 <Text style={styles.expirationLabel}>Expira:</Text>

@@ -5,5 +5,5 @@ export const ENDPOINTS = {
   USER: process.env.EXPO_PUBLIC_USER_URL || "http://localhost:3000/api/users",
   ACCOUNTS: process.env.EXPO_PUBLIC_ACCOUNTS_URL || "http://localhost:3000/api/accounts",
   TRANSACTIONS: process.env.EXPO_PUBLIC_TRANSACTIONS_URL || "http://localhost:3000/api/transactions",
-  CARDS: process.env.EXPO_PUBLIC_CARDS_URL || "http://localhost:3000/api/accounts",
+  CARDS: process.env.EXPO_PUBLIC_CARDS_URL || "http://localhost:3000/api/cards",
 };

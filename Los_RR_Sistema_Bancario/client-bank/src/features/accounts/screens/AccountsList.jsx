@@ -54,7 +54,7 @@ const AccountsList = ({ navigation }) => {
                 <MaterialIcons name="account-balance" size={32} color={COLORS.primary} />
                 <View style={styles.accountInfo}>
                   <Text style={styles.accountType}>{account.accountType}</Text>
-                  <Text style={styles.accountNumber}>**** {account.accountNumber.slice(-4)}</Text>
+                  <Text style={styles.accountNumber}>**** {account.accountNumber && account.accountNumber.length >= 4 ? account.accountNumber.slice(-4) : '****'}</Text>
                 </View>
               </View>
               <View style={styles.accountBalance}>

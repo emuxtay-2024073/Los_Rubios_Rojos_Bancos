@@ -70,12 +70,16 @@ const TransferDetail = ({ route }) => {
 
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Cuenta origen</Text>
-            <Text style={styles.infoValue}>{transaction.originAccountNumber}</Text>
+            <Text style={styles.infoValue}>
+              {transaction.originAccount?.accountNumber || transaction.originAccountNumber || 'N/A'}
+            </Text>
           </View>
 
           <View style={styles.infoRow}>
             <Text style={styles.infoLabel}>Cuenta destino</Text>
-            <Text style={styles.infoValue}>{transaction.destinationAccountNumber}</Text>
+            <Text style={styles.infoValue}>
+              {transaction.destinationAccount?.accountNumber || transaction.destinationAccountNumber || 'N/A'}
+            </Text>
           </View>
 
           <View style={styles.infoRow}>
