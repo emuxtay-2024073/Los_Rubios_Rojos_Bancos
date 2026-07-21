@@ -11,7 +11,7 @@ import { Card, LoadingSpinner } from "../../../../components/common/Common.jsx";
 import Button from "../../../../components/common/Button.jsx";
 import Input from "../../../../components/common/Input.jsx";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const { profile, loading, updateProfile } = useProfile();
   const { logout } = useAuthStore();
   const [isEditing, setIsEditing] = useState(false);
@@ -56,6 +56,10 @@ const ProfileScreen = () => {
           style: "destructive",
           onPress: async () => {
             await logout();
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "AuthStack" }],
+            });
           },
         },
       ]

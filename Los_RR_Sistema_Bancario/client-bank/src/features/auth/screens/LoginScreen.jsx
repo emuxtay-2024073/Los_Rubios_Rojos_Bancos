@@ -22,7 +22,13 @@ const LoginScreen = ({ navigation }) => {
 
   const onSubmit = async (data) => {
     const result = await handleLogin(data.email, data.password);
-    if (!result.success) {
+    if (result.success) {
+      // Navegar manualmente a MainTabs después del login exitoso
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "MainTabs" }],
+      });
+    } else {
       Alert.alert("Error", result.error);
     }
   };

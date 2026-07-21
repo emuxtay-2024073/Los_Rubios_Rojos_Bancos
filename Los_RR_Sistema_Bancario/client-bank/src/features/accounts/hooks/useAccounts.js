@@ -1,7 +1,7 @@
 // client-bank/src/features/accounts/hooks/useAccounts.js
 
 import { useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import userClient from "../../../../api/userClient.js";
 import { ENDPOINTS } from "../../../shared/constants/endpoints.js";
 import useAuthStore from "../../../../store/authStore.js";
 
@@ -15,11 +15,13 @@ export const useAccounts = () => {
     setError(null);
     try {
       const token = useAuthStore.getState().token;
-      const response = await axios.get(`${ENDPOINTS.ACCOUNTS}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      if (!token) {
+        setError("No hay token de autenticación");
+        return;
+      }
+      console.log("Fetching accounts from:", ENDPOINTS.ACCOUNTS);
+      const response = await userClient.get(ENDPOINTS.ACCOUNTS);
+      console.log("Accounts response:", response.data);
       const data = response.data.data || response.data;
       const mappedAccounts = data.map((account) => ({
         id: account.id || account._id,
@@ -31,7 +33,9 @@ export const useAccounts = () => {
       }));
       setAccounts(mappedAccounts);
     } catch (err) {
-      setError(err.response?.data?.message || "Error al cargar cuentas");
+      console.error("Error fetching accounts:", err);
+      const errorMessage = err.response?.data?.message || err.message || "Error al cargar cuentas";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

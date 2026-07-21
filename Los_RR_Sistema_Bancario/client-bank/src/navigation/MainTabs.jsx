@@ -8,6 +8,8 @@ import AccountsStack from "../features/accounts/AccountsStack.jsx";
 import TransactionsStack from "../features/transactions/TransactionsStack.jsx";
 import MovementsStack from "../features/movements/MovementsStack.jsx";
 import ProfileScreen from "../features/profile/screens/ProfileScreen.jsx";
+// CardsStack deshabilitado temporalmente - pendiente implementación de backend
+// import CardsStack from "../features/cards/CardsStack.jsx";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +46,8 @@ const MainTabs = () => {
       <Tab.Screen name="Cuentas" component={AccountsStack} />
       <Tab.Screen name="Transferencias" component={TransactionsStack} />
       <Tab.Screen name="Movimientos" component={MovementsStack} />
+      {/* CardsStack deshabilitado temporalmente - pendiente implementación de backend */}
+      {/* <Tab.Screen name="Tarjetas" component={CardsStack} /> */}
       <Tab.Screen 
         name="Perfil" 
         component={ProfileScreen}

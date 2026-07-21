@@ -75,7 +75,7 @@ const CardDetail = ({ route }) => {
     );
   }
 
-  const maskedNumber = `**** **** **** ${card.cardNumber.slice(-4)}`;
+  const maskedNumber = `**** **** **** ${card.cardNumber && card.cardNumber.length >= 4 ? card.cardNumber.slice(-4) : '****'}`;
 
   return (
     <ScrollView style={styles.container}>

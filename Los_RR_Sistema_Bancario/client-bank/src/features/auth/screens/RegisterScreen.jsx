@@ -143,6 +143,39 @@ const RegisterScreen = ({ navigation }) => {
 
         <Controller
           control={control}
+          name="accountType"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Tipo de cuenta</Text>
+              <View style={styles.pickerContainer}>
+                <Text 
+                  style={[styles.pickerOption, value === 'ahorro' && styles.pickerOptionSelected]}
+                  onPress={() => onChange('ahorro')}
+                >
+                  {value === 'ahorro' ? '✓ ' : ''}Ahorro
+                </Text>
+                <Text 
+                  style={[styles.pickerOption, value === 'monetaria' && styles.pickerOptionSelected]}
+                  onPress={() => onChange('monetaria')}
+                >
+                  {value === 'monetaria' ? '✓ ' : ''}Monetaria
+                </Text>
+                <Text 
+                  style={[styles.pickerOption, value === 'corriente' && styles.pickerOptionSelected]}
+                  onPress={() => onChange('corriente')}
+                >
+                  {value === 'corriente' ? '✓ ' : ''}Corriente
+                </Text>
+              </View>
+            </View>
+          )}
+          rules={{
+            required: "El tipo de cuenta es requerido",
+          }}
+        />
+
+        <Controller
+          control={control}
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <Input
@@ -221,6 +254,37 @@ const styles = StyleSheet.create({
   loginTextBold: {
     fontWeight: "600",
     color: COLORS.primary,
+  },
+  inputContainer: {
+    marginBottom: SPACING.md,
+  },
+  label: {
+    fontSize: FONT_SIZE.sm,
+    fontWeight: "600",
+    color: COLORS.text,
+    marginBottom: SPACING.xs,
+  },
+  pickerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: COLORS.surface,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    padding: SPACING.sm,
+  },
+  pickerOption: {
+    flex: 1,
+    textAlign: "center",
+    padding: SPACING.sm,
+    color: COLORS.textLight,
+    fontSize: FONT_SIZE.sm,
+  },
+  pickerOptionSelected: {
+    color: COLORS.primary,
+    fontWeight: "700",
+    backgroundColor: COLORS.background,
+    borderRadius: 6,
   },
 });
 

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { User } from "../Models/user.model.js";
 import PostgresUser from "../Models/user.model.postgres.js";
+import sequelize from "../Config/postgres.js";
 import bcrypt from "bcryptjs";
 import { createAuditLog } from "../services/log.service.js";
 
@@ -30,7 +30,9 @@ export const getMyProfile = async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const user = await User.findById(userId).select("-password -__v");
+    const user = await PostgresUser.findByPk(userId, {
+      attributes: { exclude: ['password', 'PasswordHash'] }
+    });
 
     if (!user) {
       return res.status(404).json({
@@ -40,8 +42,8 @@ export const getMyProfile = async (req, res) => {
 
     res.json({
       success: true,
-      user: {
-        id: user._id,
+      data: {
+        id: user.id,
         username: user.username,
         email: user.email,
         role: user.role,
@@ -75,7 +77,7 @@ export const updateProfile = async (req, res) => {
     const userId = req.user.id;
     const { username, email } = req.body;
 
-    const user = await User.findById(userId);
+    const user = await PostgresUser.findByPk(userId);
 
     if (!user) {
       return res.status(404).json({
@@ -98,9 +100,11 @@ export const updateProfile = async (req, res) => {
       const emailLower = email.toLowerCase();
       
       // Verificar unicidad
-      const existingUser = await User.findOne({
-        email: emailLower,
-        _id: { $ne: userId },
+      const existingUser = await PostgresUser.findOne({
+        where: {
+          email: emailLower,
+          id: { [sequelize.Op.ne]: userId },
+        },
       });
 
       if (existingUser) {
@@ -125,8 +129,8 @@ export const updateProfile = async (req, res) => {
     res.json({
       success: true,
       message: "Perfil actualizado exitosamente",
-      user: {
-        id: user._id,
+      data: {
+        id: user.id,
         username: user.username,
         email: user.email,
         role: user.role,
@@ -179,7 +183,7 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    const user = await User.findById(userId).select('+password');
+    const user = await PostgresUser.findByPk(userId);
 
     if (!user) {
       return res.status(404).json({
@@ -207,7 +211,7 @@ export const changePassword = async (req, res) => {
       });
     }
 
-    // Actualizar contraseña (se hashea automáticamente en el pre-save hook)
+    // Actualizar contraseña (se hashea automáticamente en el beforeUpdate hook)
     user.password = newPassword;
     await user.save();
 
@@ -232,7 +236,7 @@ export const changePassword = async (req, res) => {
  */
 export const getUserById = async (req, res) => {
   try {
-    const allowed = req.user.roles.some(role => isAdminRole(role));
+    const allowed = req.user.roles?.some(role => isAdminRole(role)) || isAdminRole(req.user.role);
     if (!allowed) {
       return res.status(403).json({
         message: "Solo administradores pueden ver datos de otros usuarios",
@@ -241,7 +245,9 @@ export const getUserById = async (req, res) => {
 
     const { id } = req.params;
 
-    const user = await User.findById(id).select("-password -__v");
+    const user = await PostgresUser.findByPk(id, {
+      attributes: { exclude: ['password', 'PasswordHash'] }
+    });
 
     if (!user) {
       return res.status(404).json({
@@ -251,7 +257,7 @@ export const getUserById = async (req, res) => {
 
     res.json({
       success: true,
-      user,
+      data: user,
     });
   } catch (error) {
     console.error("Error al obtener usuario:", error);
@@ -270,7 +276,7 @@ export const getUserById = async (req, res) => {
  */
 export const getAllUsers = async (req, res) => {
   try {
-    const allowed = req.user.roles.some(role => isAdminRole(role));
+    const allowed = req.user.roles?.some(role => isAdminRole(role)) || isAdminRole(req.user.role);
     if (!allowed) {
       return res.status(403).json({
         message: "Solo administradores pueden listar usuarios",
@@ -279,32 +285,34 @@ export const getAllUsers = async (req, res) => {
 
     const { role, isActive, search, limit = 20, skip = 0 } = req.query;
 
-    let query = {};
+    let where = {};
 
-    if (role) query.role = role;
-    if (isActive !== undefined) query.isActive = isActive === "true";
+    if (role) where.role = role;
+    if (isActive !== undefined) where.isActive = isActive === "true";
 
     if (search) {
-      query.$or = [
-        { username: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
+      where[sequelize.Op.or] = [
+        { username: { [sequelize.Op.iLike]: `%${search}%` } },
+        { email: { [sequelize.Op.iLike]: `%${search}%` } },
       ];
     }
 
-    const users = await User.find(query)
-      .select("-password -__v")
-      .limit(parseInt(limit))
-      .skip(parseInt(skip))
-      .sort({ createdAt: -1 });
+    const users = await PostgresUser.findAll({
+      where,
+      attributes: { exclude: ['password', 'PasswordHash'] },
+      limit: parseInt(limit),
+      offset: parseInt(skip),
+      order: [['createdAt', 'DESC']],
+    });
 
-    const total = await User.countDocuments(query);
+    const total = await PostgresUser.count({ where });
 
     res.json({
       success: true,
       total,
       limit: parseInt(limit),
       skip: parseInt(skip),
-      users,
+      data: users,
     });
   } catch (error) {
     console.error("Error al listar usuarios:", error);
@@ -327,7 +335,7 @@ export const getAllUsers = async (req, res) => {
 export const changeUserRole = async (req, res) => {
   try {
     // Solo SUPER_ADMIN puede cambiar roles
-    const isSuper = req.user.roles.some(role => isSuperAdminRole(role));
+    const isSuper = req.user.roles?.some(role => isSuperAdminRole(role)) || isSuperAdminRole(req.user.role);
     if (!isSuper) {
       return res.status(403).json({
         message: "Solo SUPER_ADMIN puede cambiar roles",
@@ -337,10 +345,7 @@ export const changeUserRole = async (req, res) => {
     const { id } = req.params;
     const { newRole } = req.body;
 
-    const isMongoUser = mongoose.Types.ObjectId.isValid(id);
-    const isPostgresUser = typeof id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
-
-    if (!id || (!isMongoUser && !isPostgresUser)) {
+    if (!id) {
       return res.status(400).json({ message: "ID de usuario inválido" });
     }
 
@@ -358,75 +363,39 @@ export const changeUserRole = async (req, res) => {
       return res.status(400).json({ message: "Rol inválido. Valores permitidos: USER, ADMIN, SUPER_ADMIN" });
     }
 
-    let targetUser;
-    let returned;
+    const targetUser = await PostgresUser.findByPk(id);
+    if (!targetUser) return res.status(404).json({ message: 'Usuario no encontrado' });
 
-    if (isMongoUser) {
-      targetUser = await User.findById(id).select('+role');
-      if (!targetUser) return res.status(404).json({ message: 'Usuario no encontrado' });
-
-      const targetIsSuper = isSuperAdminRole(targetUser.role);
-      const demotingSuper = targetIsSuper && canonicalNewRole !== 'SUPER_ADMIN';
-      if (demotingSuper) {
-        const superCount = await User.countDocuments({ role: { $regex: /^super[_\s-]?admin$/i } });
-        if (superCount <= 1) {
-          return res.status(400).json({ message: 'No se puede remover el último SUPER_ADMIN del sistema' });
-        }
+    const targetIsSuper = isSuperAdminRole(targetUser.role);
+    const demotingSuper = targetIsSuper && canonicalNewRole !== 'SUPER_ADMIN';
+    if (demotingSuper) {
+      const superCount = await PostgresUser.count({ where: { role: 'SUPER_ADMIN' } });
+      if (superCount <= 1) {
+        return res.status(400).json({ message: 'No se puede remover el último SUPER_ADMIN del sistema' });
       }
-
-      targetUser.role = canonicalNewRole;
-      await targetUser.save();
-
-      await createAuditLog({
-        userId: req.user.id,
-        username: req.user.email || null,
-        email: req.user.email || null,
-        action: 'user.changeRole',
-        entityType: 'User',
-        entityId: targetUser._id.toString(),
-        ip: req.ip,
-        meta: {
-          newRole: canonicalNewRole,
-          changedBy: req.user.id,
-        },
-      });
-
-      returned = await User.findById(targetUser._id).select('-password -__v');
-    } else {
-      targetUser = await PostgresUser.findByPk(id);
-      if (!targetUser) return res.status(404).json({ message: 'Usuario no encontrado' });
-
-      const targetIsSuper = isSuperAdminRole(targetUser.role);
-      const demotingSuper = targetIsSuper && canonicalNewRole !== 'SUPER_ADMIN';
-      if (demotingSuper) {
-        const superCount = await PostgresUser.count({ where: { role: 'SUPER_ADMIN' } });
-        if (superCount <= 1) {
-          return res.status(400).json({ message: 'No se puede remover el último SUPER_ADMIN del sistema' });
-        }
-      }
-
-      targetUser.role = canonicalNewRole;
-      await targetUser.save();
-
-      await createAuditLog({
-        userId: req.user.id,
-        username: req.user.email || null,
-        email: req.user.email || null,
-        action: 'user.changeRole',
-        entityType: 'User',
-        entityId: targetUser.id,
-        ip: req.ip,
-        meta: {
-          newRole: canonicalNewRole,
-          changedBy: req.user.id,
-        },
-      });
-
-      returned = targetUser.toJSON();
-      delete returned.password;
     }
 
-    res.json({ success: true, message: 'Rol actualizado exitosamente', user: returned });
+    targetUser.role = canonicalNewRole;
+    await targetUser.save();
+
+    await createAuditLog({
+      userId: req.user.id,
+      username: req.user.email || null,
+      email: req.user.email || null,
+      action: 'user.changeRole',
+      entityType: 'User',
+      entityId: targetUser.id,
+      ip: req.ip,
+      meta: {
+        newRole: canonicalNewRole,
+        changedBy: req.user.id,
+      },
+    });
+
+    const returned = targetUser.toJSON();
+    delete returned.password;
+
+    res.json({ success: true, message: 'Rol actualizado exitosamente', data: returned });
   } catch (error) {
     console.error("Error al cambiar rol:", error);
     res.status(500).json({
@@ -469,7 +438,7 @@ export const deactivateAccount = async (req, res) => {
     }
 
     // Obtener el usuario con su contraseña
-    const user = await User.findById(id).select('+password');
+    const user = await PostgresUser.findByPk(id);
 
     if (!user) {
       return res.status(404).json({
@@ -478,7 +447,7 @@ export const deactivateAccount = async (req, res) => {
     }
 
     // Validar la contraseña
-    const isPasswordValid = await user.comparePassword(password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({
         message: "Contraseña incorrecta",
@@ -486,11 +455,9 @@ export const deactivateAccount = async (req, res) => {
     }
 
     // Desactivar la cuenta
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
-      { isActive: false, deactivatedAt: new Date() },
-      { returnDocument: 'after' }
-    ).select("-password");
+    user.isActive = false;
+    user.disabledAt = new Date();
+    await user.save();
 
     await createAuditLog({
       userId: req.user.id,
@@ -498,7 +465,7 @@ export const deactivateAccount = async (req, res) => {
       email: req.user.email || null,
       action: 'user.deactivate',
       entityType: 'User',
-      entityId: updatedUser._id.toString(),
+      entityId: user.id,
       ip: req.ip,
       meta: {
         targetUserId: id,
@@ -509,11 +476,11 @@ export const deactivateAccount = async (req, res) => {
     res.json({
       success: true,
       message: "Cuenta desactivada exitosamente",
-      user: {
-        id: updatedUser._id,
-        username: updatedUser.username,
-        email: updatedUser.email,
-        isActive: updatedUser.isActive,
+      data: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        isActive: user.isActive,
       },
     });
   } catch (error) {
@@ -541,11 +508,7 @@ export const reactivateAccount = async (req, res) => {
 
     const { id } = req.params;
 
-    const user = await User.findByIdAndUpdate(
-      id,
-      { isActive: true, deactivatedAt: null },
-      { returnDocument: 'after' }
-    ).select("-password");
+    const user = await PostgresUser.findByPk(id);
 
     if (!user) {
       return res.status(404).json({
@@ -553,13 +516,17 @@ export const reactivateAccount = async (req, res) => {
       });
     }
 
+    user.isActive = true;
+    user.disabledAt = null;
+    await user.save();
+
     await createAuditLog({
       userId: req.user.id,
       username: req.user.email || null,
       email: req.user.email || null,
       action: 'user.reactivate',
       entityType: 'User',
-      entityId: user._id.toString(),
+      entityId: user.id,
       ip: req.ip,
       meta: {
         targetUserId: id,
@@ -567,10 +534,13 @@ export const reactivateAccount = async (req, res) => {
       },
     });
 
+    const userData = user.toJSON();
+    delete userData.password;
+
     res.json({
       success: true,
       message: "Cuenta reactivada exitosamente",
-      user,
+      data: userData,
     });
   } catch (error) {
     console.error("Error al reactivar cuenta:", error);

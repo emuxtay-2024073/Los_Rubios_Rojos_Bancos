@@ -8,9 +8,11 @@ Implementa una arquitectura basada en microservicios independientes, aplicando b
 
 ## Descripción General
 
-El **Sistema Bancario** es una aplicación backend basada en una arquitectura de microservicios, diseñada para administrar usuarios, autenticación segura, cuentas bancarias, transacciones y operaciones financieras.
+El **Sistema Bancario** es una aplicación completa que incluye:
+- **Backend** basado en una arquitectura de microservicios para administrar usuarios, autenticación segura, cuentas bancarias, transacciones y operaciones financieras
+- **App Móvil** (React Native + Expo) para que los clientes puedan gestionar sus cuentas desde sus dispositivos móviles
 
-El sistema combina tecnologías modernas como **ASP.NET Core (.NET 8)** para el servicio de autenticación y **Node.js** para los servicios de negocio bancario, permitiendo una solución escalable, mantenible y con una clara separación de responsabilidades.
+El sistema combina tecnologías modernas como **ASP.NET Core (.NET 8)** para el servicio de autenticación, **Node.js** para los servicios de negocio bancario, y **React Native/Expo** para la aplicación móvil, permitiendo una solución escalable, mantenible y con una clara separación de responsabilidades.
 
 ---
 
@@ -35,6 +37,15 @@ El sistema está dividido en microservicios independientes, cada uno responsable
 - Historial de transacciones
 - Conversión de divisas (según implementación)
 
+### Mobile App (React Native + Expo)
+- Registro de usuarios
+- Inicio de sesión con autenticación JWT
+- Visualización de cuentas bancarias
+- Realización de transferencias
+- Historial de movimientos
+- Gestión de perfil de usuario
+- Refresco automático de tokens
+
 ---
 
 ## Tecnologías Utilizadas
@@ -48,6 +59,15 @@ El sistema está dividido en microservicios independientes, cada uno responsable
 - Entity Framework Core
 - JWT (JSON Web Token)
 - BCrypt (encriptación de contraseñas)
+
+### Mobile App
+- React Native
+- Expo SDK 54
+- React Navigation
+- Zustand (state management)
+- Axios (HTTP client)
+- React Hook Form (form validation)
+- Expo Secure Store (secure storage)
 
 ### Herramientas de Desarrollo
 - Git
@@ -106,6 +126,37 @@ Nota: en Swagger de .NET solo quedan visibles `POST /api/auth/login` y el CRUD d
    ```bash
    http://localhost:5000/swagger
    ```
+
+### Mobile App (React Native + Expo)
+1. Navegar al directorio de la app móvil:
+   ```bash
+   cd client-bank
+   ```
+2. Instalar dependencias:
+   ```bash
+   pnpm install
+   ```
+3. Configurar variables de entorno (opcional, usa localhost por defecto):
+   ```bash
+   EXPO_PUBLIC_AUTH_URL=http://localhost:3000/api/auth
+   EXPO_PUBLIC_USER_URL=http://localhost:3000/api/users
+   EXPO_PUBLIC_ACCOUNTS_URL=http://localhost:3000/api/accounts
+   EXPO_PUBLIC_TRANSACTIONS_URL=http://localhost:3000/api/transactions
+   EXPO_PUBLIC_CARDS_URL=http://localhost:3000/api/cards
+   ```
+4. Iniciar el servidor de desarrollo:
+   ```bash
+   pnpm start
+   ```
+5. Escanear el código QR con Expo Go en tu dispositivo móvil o abrir en el emulador
+
+### Usuarios de Prueba
+El sistema incluye usuarios predeterminados para pruebas:
+- **Super Admin:** `superadmin@banco.com` / `SuperAdmin123!`
+- **Cliente:** `cliente@banco.com` / `Client123!`
+- **Admin:** `admin@banco.com` / `Admin123!`
+
+Estas credenciales pueden sobrescribirse mediante variables de entorno en el backend.
 
 ---
 

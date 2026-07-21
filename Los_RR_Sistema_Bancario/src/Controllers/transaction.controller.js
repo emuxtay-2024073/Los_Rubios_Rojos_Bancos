@@ -132,7 +132,7 @@ export const getTransactions = async (req, res) => {
  
     let transactions;
  
-    if (isAdmin) {
+    if (userIsAdmin) {
       if (accountId) {
         query.$or = [
           { originAccount: accountId },
@@ -207,15 +207,52 @@ export const getTransactions = async (req, res) => {
           return { accountNumber: accountNumberMap.get(accountId) || accountId };
         };
  
+        // Determinar dirección del movimiento respecto al usuario
+        const originId = typeof normalizedTransaction.originAccount === 'object' 
+          ? String(normalizedTransaction.originAccount._id || normalizedTransaction.originAccount)
+          : String(normalizedTransaction.originAccount);
+        const destId = typeof normalizedTransaction.destinationAccount === 'object'
+          ? String(normalizedTransaction.destinationAccount._id || normalizedTransaction.destinationAccount)
+          : String(normalizedTransaction.destinationAccount);
+
+        let direction = 'debit'; // Por defecto egreso
+        if (normalizedTransaction.type === 'DEPOSITO') {
+          direction = 'credit'; // Depósito es ingreso
+        } else if (normalizedTransaction.type === 'RETIRO') {
+          direction = 'debit'; // Retiro es egreso
+        } else if (normalizedTransaction.type === 'TRANSFERENCIA') {
+          // Para transferencias, depende de si es origen o destino
+          if (userAccountIds.includes(destId) && !userAccountIds.includes(originId)) {
+            direction = 'credit'; // Recibida
+          } else if (userAccountIds.includes(originId) && !userAccountIds.includes(destId)) {
+            direction = 'debit'; // Enviada
+          } else {
+            direction = 'debit'; // Por defecto egreso
+          }
+        }
+
+        // Mapear estado al formato del móvil
+        const statusMap = {
+          'PENDING': 'pending',
+          'COMPLETADO': 'completed',
+          'REVERTIDA': 'reverted',
+          'CANCELADO': 'cancelled'
+        };
+        const mappedStatus = statusMap[normalizedTransaction.status] || 'pending';
+
         return {
           ...normalizedTransaction,
           originAccount: normalizeAccount(normalizedTransaction.originAccount),
           destinationAccount: normalizeAccount(normalizedTransaction.destinationAccount),
+          // Campos adicionales para compatibilidad con el móvil
+          direction,
+          type: direction, // Para compatibilidad con el móvil que espera debit/credit
+          status: mappedStatus,
         };
       });
     }
  
-    res.json({ success: true, total: transactions.length, transactions });
+    res.json({ success: true, total: transactions.length, data: transactions });
  
   } catch (error) {
     console.error("Error al obtener transacciones:", error);
